@@ -5,19 +5,19 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About ChessCoin</source>
-        <translation>About ChessCoin</translation>
+        <source>About ChessCoin 0.32%</source>
+        <translation>About ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;ChessCoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;ChessCoin&lt;/b&gt; version</translation>
+        <source>&lt;b&gt;ChessCoin 0.32%&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;ChessCoin 0.32%&lt;/b&gt; version</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The ChessCoin developers</source>
+Copyright © 2014 The ChessCoin 0.32% developers</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -65,8 +65,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your ChessCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>These are your ChessCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
+        <source>These are your ChessCoin 0.32% addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>These are your ChessCoin 0.32% addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -80,8 +80,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a ChessCoin address</source>
-        <translation>Sign a message to prove you own a ChessCoin address</translation>
+        <source>Sign a message to prove you own a ChessCoin 0.32% address</source>
+        <translation>Sign a message to prove you own a ChessCoin 0.32% address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -95,8 +95,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified ChessCoin address</source>
-        <translation>Verify a message to ensure it was signed with a specified ChessCoin address</translation>
+        <source>Verify a message to ensure it was signed with a specified ChessCoin 0.32% address</source>
+        <translation>Verify a message to ensure it was signed with a specified ChessCoin 0.32% address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -263,8 +263,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-58"/>
-        <source>ChessCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>ChessCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</translation>
+        <source>ChessCoin 0.32% will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>ChessCoin 0.32% will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -377,8 +377,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about ChessCoin</source>
-        <translation>Show information about ChessCoin</translation>
+        <source>Show information about ChessCoin 0.32%</source>
+        <translation>Show information about ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -430,13 +430,13 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-62"/>
-        <source>Send coins to a ChessCoin address</source>
-        <translation>Send coins to a ChessCoin address</translation>
+        <source>Send coins to a ChessCoin 0.32% address</source>
+        <translation>Send coins to a ChessCoin 0.32% address</translation>
     </message>
     <message>
         <location line="+45"/>
-        <source>Modify configuration options for ChessCoin</source>
-        <translation>Modify configuration options for ChessCoin</translation>
+        <source>Modify configuration options for ChessCoin 0.32%</source>
+        <translation>Modify configuration options for ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -475,8 +475,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="-200"/>
-        <source>ChessCoin</source>
-        <translation>ChessCoin</translation>
+        <source>ChessCoin 0.32%</source>
+        <translation>ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -485,8 +485,8 @@ This product includes software developed by the OpenSSL Project for use in the O
     </message>
     <message>
         <location line="+178"/>
-        <source>&amp;About ChessCoin</source>
-        <translation>&amp;About ChessCoin</translation>
+        <source>&amp;About ChessCoin 0.32%</source>
+        <translation>&amp;About ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -542,15 +542,15 @@ This product includes software developed by the OpenSSL Project for use in the O
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>ChessCoin client</source>
-        <translation>ChessCoin client</translation>
+        <source>ChessCoin 0.32% client</source>
+        <translation>ChessCoin 0.32% client</translation>
     </message>
     <message numerus="yes">
         <location line="+70"/>
-        <source>%n active connection(s) to ChessCoin network</source>
+        <source>%n active connection(s) to ChessCoin 0.32% network</source>
         <translation>
-            <numerusform>%n active connection to ChessCoin network</numerusform>
-            <numerusform>%n active connections to ChessCoin network</numerusform>
+            <numerusform>%n active connection to ChessCoin 0.32% network</numerusform>
+            <numerusform>%n active connections to ChessCoin 0.32% network</numerusform>
         </translation>
     </message>
     <message>
@@ -677,8 +677,8 @@ Address: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid ChessCoin address or malformed URI parameters.</source>
-        <translation>URI can not be parsed! This can be caused by an invalid ChessCoin address or malformed URI parameters.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid ChessCoin 0.32% address or malformed URI parameters.</source>
+        <translation>URI can not be parsed! This can be caused by an invalid ChessCoin 0.32% address or malformed URI parameters.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -749,8 +749,8 @@ Address: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. ChessCoin can no longer continue safely and will quit.</source>
-        <translation>A fatal error occurred. ChessCoin can no longer continue safely and will quit.</translation>
+        <source>A fatal error occurred. ChessCoin 0.32% can no longer continue safely and will quit.</source>
+        <translation>A fatal error occurred. ChessCoin 0.32% can no longer continue safely and will quit.</translation>
     </message>
 </context>
 <context>
@@ -1069,8 +1069,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid ChessCoin address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid ChessCoin address.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid ChessCoin 0.32% address.</source>
+        <translation>The entered address &quot;%1&quot; is not a valid ChessCoin 0.32% address.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1088,8 +1088,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../guiutil.cpp" line="+424"/>
         <location line="+12"/>
-        <source>ChessCoin-Qt</source>
-        <translation>ChessCoin-Qt</translation>
+        <source>ChessCoin 0.32%-Qt</source>
+        <translation>ChessCoin 0.32%-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1161,13 +1161,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start ChessCoin after logging in to the system.</source>
-        <translation>Automatically start ChessCoin after logging in to the system.</translation>
+        <source>Automatically start ChessCoin 0.32% after logging in to the system.</source>
+        <translation>Automatically start ChessCoin 0.32% after logging in to the system.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start ChessCoin on system login</source>
-        <translation>&amp;Start ChessCoin on system login</translation>
+        <source>&amp;Start ChessCoin 0.32% on system login</source>
+        <translation>&amp;Start ChessCoin 0.32% on system login</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1186,8 +1186,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the ChessCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the ChessCoin client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1196,8 +1196,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the ChessCoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Connect to the ChessCoin network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
+        <source>Connect to the ChessCoin 0.32% network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Connect to the ChessCoin 0.32% network through a SOCKS proxy (e.g. when connecting through Tor).</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1271,8 +1271,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting ChessCoin.</source>
-        <translation>The user interface language can be set here. This setting will take effect after restarting ChessCoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting ChessCoin 0.32%.</source>
+        <translation>The user interface language can be set here. This setting will take effect after restarting ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1286,8 +1286,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show ChessCoin addresses in the transaction list or not.</source>
-        <translation>Whether to show ChessCoin addresses in the transaction list or not.</translation>
+        <source>Whether to show ChessCoin 0.32% addresses in the transaction list or not.</source>
+        <translation>Whether to show ChessCoin 0.32% addresses in the transaction list or not.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1333,8 +1333,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting ChessCoin.</source>
-        <translation>This setting will take effect after restarting ChessCoin.</translation>
+        <source>This setting will take effect after restarting ChessCoin 0.32%.</source>
+        <translation>This setting will take effect after restarting ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1352,8 +1352,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location line="+33"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin 0.32% network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin 0.32% network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-160"/>
@@ -1568,8 +1568,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the ChessCoin-Qt help message to get a list with possible ChessCoin command-line options.</source>
-        <translation>Show the ChessCoin-Qt help message to get a list with possible ChessCoin command-line options.</translation>
+        <source>Show the ChessCoin 0.32%-Qt help message to get a list with possible ChessCoin 0.32% command-line options.</source>
+        <translation>Show the ChessCoin 0.32%-Qt help message to get a list with possible ChessCoin 0.32% command-line options.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1588,13 +1588,13 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="-104"/>
-        <source>ChessCoin - Debug window</source>
-        <translation>ChessCoin - Debug window</translation>
+        <source>ChessCoin 0.32% - Debug window</source>
+        <translation>ChessCoin 0.32% - Debug window</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>ChessCoin Core</source>
-        <translation>ChessCoin Core</translation>
+        <source>ChessCoin 0.32% Core</source>
+        <translation>ChessCoin 0.32% Core</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1603,8 +1603,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the ChessCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open the ChessCoin debug log file from the current data directory. This can take a few seconds for large log files.</translation>
+        <source>Open the ChessCoin 0.32% debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Open the ChessCoin 0.32% debug log file from the current data directory. This can take a few seconds for large log files.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1613,8 +1613,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the ChessCoin RPC console.</source>
-        <translation>Welcome to the ChessCoin RPC console.</translation>
+        <source>Welcome to the ChessCoin 0.32% RPC console.</source>
+        <translation>Welcome to the ChessCoin 0.32% RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1772,8 +1772,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1872,7 +1872,7 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+251"/>
-        <source>WARNING: Invalid ChessCoin address</source>
+        <source>WARNING: Invalid ChessCoin 0.32% address</source>
         <translation></translation>
     </message>
     <message>
@@ -1946,8 +1946,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
 </context>
 <context>
@@ -2007,8 +2007,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this ChessCoin address</source>
-        <translation>Sign the message to prove you own this ChessCoin address</translation>
+        <source>Sign the message to prove you own this ChessCoin 0.32% address</source>
+        <translation>Sign the message to prove you own this ChessCoin 0.32% address</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2039,8 +2039,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified ChessCoin address</source>
-        <translation>Verify the message to ensure it was signed with the specified ChessCoin address</translation>
+        <source>Verify the message to ensure it was signed with the specified ChessCoin 0.32% address</source>
+        <translation>Verify the message to ensure it was signed with the specified ChessCoin 0.32% address</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2050,8 +2050,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2060,8 +2060,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter ChessCoin signature</source>
-        <translation>Enter ChessCoin signature</translation>
+        <source>Enter ChessCoin 0.32% signature</source>
+        <translation>Enter ChessCoin 0.32% signature</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2643,8 +2643,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
-        <source>ChessCoin version</source>
-        <translation>ChessCoin version</translation>
+        <source>ChessCoin 0.32% version</source>
+        <translation>ChessCoin 0.32% version</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2828,8 +2828,8 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
     </message>
     <message>
         <location line="+61"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin will not work properly.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin 0.32% will not work properly.</source>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin 0.32% will not work properly.</translation>
     </message>
     <message>
         <location line="-31"/>
@@ -3023,7 +3023,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;ChessCoin 0.32% Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"></translation>
     </message>
@@ -3149,13 +3149,13 @@ for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  ChessCoin is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s.  ChessCoin is probably already running.</translation>
+        <source>Cannot obtain a lock on data directory %s.  ChessCoin 0.32% is probably already running.</source>
+        <translation>Cannot obtain a lock on data directory %s.  ChessCoin 0.32% is probably already running.</translation>
     </message>
     <message>
         <location line="-98"/>
-        <source>ChessCoin</source>
-        <translation>ChessCoin</translation>
+        <source>ChessCoin 0.32%</source>
+        <translation>ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3189,13 +3189,13 @@ for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+4"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of ChessCoin</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of ChessCoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of ChessCoin 0.32%</source>
+        <translation>Error loading wallet.dat: Wallet requires newer version of ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart ChessCoin to complete</source>
-        <translation>Wallet needed to be rewritten: restart ChessCoin to complete</translation>
+        <source>Wallet needed to be rewritten: restart ChessCoin 0.32% to complete</source>
+        <translation>Wallet needed to be rewritten: restart ChessCoin 0.32% to complete</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3264,8 +3264,8 @@ for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+122"/>
-        <source>Unable to bind to %s on this computer. ChessCoin is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. ChessCoin is probably already running.</translation>
+        <source>Unable to bind to %s on this computer. ChessCoin 0.32% is probably already running.</source>
+        <translation>Unable to bind to %s on this computer. ChessCoin 0.32% is probably already running.</translation>
     </message>
     <message>
         <location line="-97"/>

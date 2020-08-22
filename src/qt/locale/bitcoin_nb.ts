@@ -3,19 +3,19 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About ChessCoin</source>
-        <translation>Om ChessCoin</translation>
+        <source>About ChessCoin 0.32%</source>
+        <translation>Om ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;ChessCoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;ChessCoin&lt;/b&gt; versjon</translation>
+        <source>&lt;b&gt;ChessCoin 0.32%&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;ChessCoin 0.32%&lt;/b&gt; versjon</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The ChessCoin developers</source>
+Copyright © 2014 The ChessCoin 0.32% developers</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -63,7 +63,7 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your ChessCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <source>These are your ChessCoin 0.32% addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
         <translation>Dette er adressene for å motta betalinger. Du ønsker kanskje å gi ulike adresser til hver avsender så du lettere kan holde øye med hvem som betaler deg.</translation>
     </message>
     <message>
@@ -78,8 +78,8 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a ChessCoin address</source>
-        <translation>Signer en melding for å bevise din egen ChessCoin adresse.</translation>
+        <source>Sign a message to prove you own a ChessCoin 0.32% address</source>
+        <translation>Signer en melding for å bevise din egen ChessCoin 0.32% adresse.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -93,8 +93,8 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified ChessCoin address</source>
-        <translation>Verifiser en melding får å forsikre deg om at den er signert med en spesifikk ChessCoin adresse</translation>
+        <source>Verify a message to ensure it was signed with a specified ChessCoin 0.32% address</source>
+        <translation>Verifiser en melding får å forsikre deg om at den er signert med en spesifikk ChessCoin 0.32% adresse</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -261,7 +261,7 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     </message>
     <message>
         <location line="-58"/>
-        <source>ChessCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <source>ChessCoin 0.32% will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -375,8 +375,8 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about ChessCoin</source>
-        <translation>Vis info om ChessCoin</translation>
+        <source>Show information about ChessCoin 0.32%</source>
+        <translation>Vis info om ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -425,13 +425,13 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     </message>
     <message>
         <location line="-62"/>
-        <source>Send coins to a ChessCoin address</source>
-        <translation>Send coins til en ChessCoin adresse</translation>
+        <source>Send coins to a ChessCoin 0.32% address</source>
+        <translation>Send coins til en ChessCoin 0.32% adresse</translation>
     </message>
     <message>
         <location line="+45"/>
-        <source>Modify configuration options for ChessCoin</source>
-        <translation>Endre innstillingene til ChessCoin</translation>
+        <source>Modify configuration options for ChessCoin 0.32%</source>
+        <translation>Endre innstillingene til ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -470,8 +470,8 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     </message>
     <message>
         <location line="-200"/>
-        <source>ChessCoin</source>
-        <translation>ChessCoin</translation>
+        <source>ChessCoin 0.32%</source>
+        <translation>ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -480,8 +480,8 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     </message>
     <message>
         <location line="+178"/>
-        <source>&amp;About ChessCoin</source>
-        <translation>&amp;Om ChessCoin</translation>
+        <source>&amp;About ChessCoin 0.32%</source>
+        <translation>&amp;Om ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -537,13 +537,13 @@ Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>ChessCoin client</source>
-        <translation>ChessCoin klient</translation>
+        <source>ChessCoin 0.32% client</source>
+        <translation>ChessCoin 0.32% klient</translation>
     </message>
     <message numerus="yes">
         <location line="+70"/>
-        <source>%n active connection(s) to ChessCoin network</source>
-        <translation><numerusform>%n aktiv tilkobling til ChessCoin nettverket</numerusform><numerusform>%n aktive tilkoblinger til ChessCoin nettverket</numerusform></translation>
+        <source>%n active connection(s) to ChessCoin 0.32% network</source>
+        <translation><numerusform>%n aktiv tilkobling til ChessCoin 0.32% nettverket</numerusform><numerusform>%n aktive tilkoblinger til ChessCoin 0.32% nettverket</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -657,7 +657,7 @@ Adresse: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid ChessCoin address or malformed URI parameters.</source>
+        <source>URI can not be parsed! This can be caused by an invalid ChessCoin 0.32% address or malformed URI parameters.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -717,7 +717,7 @@ Adresse: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. ChessCoin can no longer continue safely and will quit.</source>
+        <source>A fatal error occurred. ChessCoin 0.32% can no longer continue safely and will quit.</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1039,8 +1039,8 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid ChessCoin address.</source>
-        <translation>Den angitte adressen &quot;%1&quot; er ikke en gyldig ChessCoin adresse.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid ChessCoin 0.32% address.</source>
+        <translation>Den angitte adressen &quot;%1&quot; er ikke en gyldig ChessCoin 0.32% adresse.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1058,8 +1058,8 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     <message>
         <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>ChessCoin-Qt</source>
-        <translation>ChessCoin-Qt</translation>
+        <source>ChessCoin 0.32%-Qt</source>
+        <translation>ChessCoin 0.32%-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1131,13 +1131,13 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start ChessCoin after logging in to the system.</source>
+        <source>Automatically start ChessCoin 0.32% after logging in to the system.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start ChessCoin on system login</source>
-        <translation>&amp;Start ChessCoin ved innlogging</translation>
+        <source>&amp;Start ChessCoin 0.32% on system login</source>
+        <translation>&amp;Start ChessCoin 0.32% ved innlogging</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1156,7 +1156,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the ChessCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1166,7 +1166,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the ChessCoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <source>Connect to the ChessCoin 0.32% network through a SOCKS proxy (e.g. when connecting through Tor).</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1241,7 +1241,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting ChessCoin.</source>
+        <source>The user interface language can be set here. This setting will take effect after restarting ChessCoin 0.32%.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1256,7 +1256,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show ChessCoin addresses in the transaction list or not.</source>
+        <source>Whether to show ChessCoin 0.32% addresses in the transaction list or not.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1303,7 +1303,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting ChessCoin.</source>
+        <source>This setting will take effect after restarting ChessCoin 0.32%.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1322,7 +1322,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     <message>
         <location line="+33"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin network after a connection is established, but this process has not completed yet.</source>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin 0.32% network after a connection is established, but this process has not completed yet.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1538,7 +1538,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the ChessCoin-Qt help message to get a list with possible ChessCoin command-line options.</source>
+        <source>Show the ChessCoin 0.32%-Qt help message to get a list with possible ChessCoin 0.32% command-line options.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1558,12 +1558,12 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>ChessCoin - Debug window</source>
+        <source>ChessCoin 0.32% - Debug window</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+25"/>
-        <source>ChessCoin Core</source>
+        <source>ChessCoin 0.32% Core</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1573,7 +1573,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the ChessCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <source>Open the ChessCoin 0.32% debug log file from the current data directory. This can take a few seconds for large log files.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1583,7 +1583,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the ChessCoin RPC console.</source>
+        <source>Welcome to the ChessCoin 0.32% RPC console.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1742,7 +1742,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -1842,8 +1842,8 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+251"/>
-        <source>WARNING: Invalid ChessCoin address</source>
-        <translation>ADVARSEL: Ugyldig ChessCoin adresse</translation>
+        <source>WARNING: Invalid ChessCoin 0.32% address</source>
+        <translation>ADVARSEL: Ugyldig ChessCoin 0.32% adresse</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1916,7 +1916,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
         <translation type="unfinished"/>
     </message>
 </context>
@@ -1977,7 +1977,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this ChessCoin address</source>
+        <source>Sign the message to prove you own this ChessCoin 0.32% address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2009,7 +2009,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified ChessCoin address</source>
+        <source>Verify the message to ensure it was signed with the specified ChessCoin 0.32% address</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2020,7 +2020,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2030,7 +2030,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter ChessCoin signature</source>
+        <source>Enter ChessCoin 0.32% signature</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2601,8 +2601,8 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
-        <source>ChessCoin version</source>
-        <translation>ChessCoin versjon</translation>
+        <source>ChessCoin 0.32% version</source>
+        <translation>ChessCoin 0.32% versjon</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2786,7 +2786,7 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
     </message>
     <message>
         <location line="+61"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin will not work properly.</source>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin 0.32% will not work properly.</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -2981,7 +2981,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;ChessCoin 0.32% Alert&quot; admin@foo.com
 </source>
         <translation type="unfinished"/>
     </message>
@@ -3107,13 +3107,13 @@ for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  ChessCoin is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s.  ChessCoin 0.32% is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="-98"/>
-        <source>ChessCoin</source>
-        <translation>ChessCoin</translation>
+        <source>ChessCoin 0.32%</source>
+        <translation>ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3147,12 +3147,12 @@ for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+4"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of ChessCoin</source>
+        <source>Error loading wallet.dat: Wallet requires newer version of ChessCoin 0.32%</source>
         <translation type="unfinished"/>
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart ChessCoin to complete</source>
+        <source>Wallet needed to be rewritten: restart ChessCoin 0.32% to complete</source>
         <translation type="unfinished"/>
     </message>
     <message>
@@ -3222,7 +3222,7 @@ for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+122"/>
-        <source>Unable to bind to %s on this computer. ChessCoin is probably already running.</source>
+        <source>Unable to bind to %s on this computer. ChessCoin 0.32% is probably already running.</source>
         <translation type="unfinished"/>
     </message>
     <message>

@@ -1,7 +1,7 @@
 
-ChessCoin development tree
+ChessCoin 0.32% development tree
 
-ChessCoin is a PoS-based cryptocurrency.
+ChessCoin 0.32% is a PoS-based cryptocurrency.
 
 Development process
 ===========================
@@ -16,7 +16,7 @@ or are controversial.
 
 The master branch is regularly built and tested, but is not guaranteed
 to be completely stable. Tags are regularly created to indicate new
-stable release versions of ChessCoin.
+stable release versions of ChessCoin 0.32%.
 
 Feature branches are created when there are major new features being
 worked on by several people.

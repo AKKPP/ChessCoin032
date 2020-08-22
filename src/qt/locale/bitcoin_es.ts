@@ -3,22 +3,22 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About ChessCoin</source>
-        <translation>Acerca de ChessCoin</translation>
+        <source>About ChessCoin 0.32%</source>
+        <translation>Acerca de ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;ChessCoin&lt;/b&gt; version</source>
-        <translation>&lt;b&gt;ChessCoin&lt;/b&gt; versión</translation>
+        <source>&lt;b&gt;ChessCoin 0.32%&lt;/b&gt; version</source>
+        <translation>&lt;b&gt;ChessCoin 0.32%&lt;/b&gt; versión</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The ChessCoin developers</source>
+Copyright © 2014 The ChessCoin 0.32% developers</source>
         <translation>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The ChessCoin developers</translation>
+Copyright © 2014 The ChessCoin 0.32% developers</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -68,8 +68,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your ChessCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Estas son las direcciones de ChessCoin para recibir pagos. Es posible que desee dar una diferente a cada remitente para que pueda realizar un seguimiento de quien te está pagando.</translation>
+        <source>These are your ChessCoin 0.32% addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Estas son las direcciones de ChessCoin 0.32% para recibir pagos. Es posible que desee dar una diferente a cada remitente para que pueda realizar un seguimiento de quien te está pagando.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -83,8 +83,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a ChessCoin address</source>
-        <translation>Firmar un mensaje para demostrar que es dueño de su dirección de ChessCoin</translation>
+        <source>Sign a message to prove you own a ChessCoin 0.32% address</source>
+        <translation>Firmar un mensaje para demostrar que es dueño de su dirección de ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -98,8 +98,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified ChessCoin address</source>
-        <translation>Verifique el mensaje para asegurarse que fue firmado por una dirección específica de ChessCoin</translation>
+        <source>Verify a message to ensure it was signed with a specified ChessCoin 0.32% address</source>
+        <translation>Verifique el mensaje para asegurarse que fue firmado por una dirección específica de ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -266,8 +266,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="-58"/>
-        <source>ChessCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>ChessCoin cerrará para terminar el proceso de encriptación. Recuerde que la encriptación de su monedero no puede proteger completamente que sus monedas sean robadas por malware infectando su computadora.</translation>
+        <source>ChessCoin 0.32% will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>ChessCoin 0.32% cerrará para terminar el proceso de encriptación. Recuerde que la encriptación de su monedero no puede proteger completamente que sus monedas sean robadas por malware infectando su computadora.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -380,8 +380,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about ChessCoin</source>
-        <translation>Mostrar información sobre ChessCoin</translation>
+        <source>Show information about ChessCoin 0.32%</source>
+        <translation>Mostrar información sobre ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -430,13 +430,13 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="-62"/>
-        <source>Send coins to a ChessCoin address</source>
-        <translation>Enviar monedas a una dirección de ChessCoin</translation>
+        <source>Send coins to a ChessCoin 0.32% address</source>
+        <translation>Enviar monedas a una dirección de ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+45"/>
-        <source>Modify configuration options for ChessCoin</source>
-        <translation>Modificar las opciones de configuración para ChessCoin</translation>
+        <source>Modify configuration options for ChessCoin 0.32%</source>
+        <translation>Modificar las opciones de configuración para ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -475,8 +475,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="-200"/>
-        <source>ChessCoin</source>
-        <translation>ChessCoin</translation>
+        <source>ChessCoin 0.32%</source>
+        <translation>ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -485,8 +485,8 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     </message>
     <message>
         <location line="+178"/>
-        <source>&amp;About ChessCoin</source>
-        <translation>Acerca de ChessCoin</translation>
+        <source>&amp;About ChessCoin 0.32%</source>
+        <translation>Acerca de ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -542,13 +542,13 @@ Eric Young (eay@cryptsoft.com) y el software UPnP escrito por Thomas Bernard.</t
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>ChessCoin client</source>
-        <translation>Cliente ChessCoin</translation>
+        <source>ChessCoin 0.32% client</source>
+        <translation>Cliente ChessCoin 0.32%</translation>
     </message>
     <message numerus="yes">
         <location line="+70"/>
-        <source>%n active connection(s) to ChessCoin network</source>
-        <translation><numerusform>%n conexión activa a la red ChessCoin</numerusform><numerusform>%n conexiones activas a la red ChessCoin</numerusform></translation>
+        <source>%n active connection(s) to ChessCoin 0.32% network</source>
+        <translation><numerusform>%n conexión activa a la red ChessCoin 0.32%</numerusform><numerusform>%n conexiones activas a la red ChessCoin 0.32%</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -662,8 +662,8 @@ Dirección: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid ChessCoin address or malformed URI parameters.</source>
-        <translation>URI no se puede analizar! Esto puede ser causado por una dirección de ChessCoin no válida o parámetros de URI malformados.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid ChessCoin 0.32% address or malformed URI parameters.</source>
+        <translation>URI no se puede analizar! Esto puede ser causado por una dirección de ChessCoin 0.32% no válida o parámetros de URI malformados.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -722,8 +722,8 @@ Dirección: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. ChessCoin can no longer continue safely and will quit.</source>
-        <translation>Se ha producido un error fatal. ChessCoin ya no puede continuar de forma segura y cerrará.</translation>
+        <source>A fatal error occurred. ChessCoin 0.32% can no longer continue safely and will quit.</source>
+        <translation>Se ha producido un error fatal. ChessCoin 0.32% ya no puede continuar de forma segura y cerrará.</translation>
     </message>
 </context>
 <context>
@@ -1056,8 +1056,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid ChessCoin address.</source>
-        <translation>La dirección introducida &quot;%1&quot; no es una dirección válida de ChessCoin.</translation>
+        <source>The entered address &quot;%1&quot; is not a valid ChessCoin 0.32% address.</source>
+        <translation>La dirección introducida &quot;%1&quot; no es una dirección válida de ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1075,8 +1075,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     <message>
         <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>ChessCoin-Qt</source>
-        <translation>ChessCoin-Qt</translation>
+        <source>ChessCoin 0.32%-Qt</source>
+        <translation>ChessCoin 0.32%-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1148,13 +1148,13 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start ChessCoin after logging in to the system.</source>
-        <translation>Iniciar ChessCoin automáticamente después de entrar en el sistema.</translation>
+        <source>Automatically start ChessCoin 0.32% after logging in to the system.</source>
+        <translation>Iniciar ChessCoin 0.32% automáticamente después de entrar en el sistema.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start ChessCoin on system login</source>
-        <translation>&amp;Iniciar ChessCoin al inicio del sistema</translation>
+        <source>&amp;Start ChessCoin 0.32% on system login</source>
+        <translation>&amp;Iniciar ChessCoin 0.32% al inicio del sistema</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1173,8 +1173,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the ChessCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Abrir automáticamente el puerto de cliente ChessCoin en el router. Esto sólo funciona cuando el router es compatible con UPnP y está habilitado.</translation>
+        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Abrir automáticamente el puerto de cliente ChessCoin 0.32% en el router. Esto sólo funciona cuando el router es compatible con UPnP y está habilitado.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1183,8 +1183,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the ChessCoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Conéctese a la red de ChessCoin a través de un SOCKS proxy (e.g. cuando se conecta a través de Tor)</translation>
+        <source>Connect to the ChessCoin 0.32% network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Conéctese a la red de ChessCoin 0.32% a través de un SOCKS proxy (e.g. cuando se conecta a través de Tor)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1258,8 +1258,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting ChessCoin.</source>
-        <translation>El idioma del interfaz de usuario se puede configurar aquí. Esta configuración se aplicará después de reiniciar ChessCoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting ChessCoin 0.32%.</source>
+        <translation>El idioma del interfaz de usuario se puede configurar aquí. Esta configuración se aplicará después de reiniciar ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1273,8 +1273,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show ChessCoin addresses in the transaction list or not.</source>
-        <translation>Tanto para mostrar direcciones de ChessCoin en la lista de transacciones o no.</translation>
+        <source>Whether to show ChessCoin 0.32% addresses in the transaction list or not.</source>
+        <translation>Tanto para mostrar direcciones de ChessCoin 0.32% en la lista de transacciones o no.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1320,8 +1320,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting ChessCoin.</source>
-        <translation>Esta configuración se aplicará después de reiniciar ChessCoin.</translation>
+        <source>This setting will take effect after restarting ChessCoin 0.32%.</source>
+        <translation>Esta configuración se aplicará después de reiniciar ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1339,8 +1339,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     <message>
         <location line="+33"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>La información mostrada puede estar fuera de fecha. Su monedera se sincroniza automáticamente con la red ChessCoin después de que se establece una conexión, pero este proceso no se ha completado todavía.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin 0.32% network after a connection is established, but this process has not completed yet.</source>
+        <translation>La información mostrada puede estar fuera de fecha. Su monedera se sincroniza automáticamente con la red ChessCoin 0.32% después de que se establece una conexión, pero este proceso no se ha completado todavía.</translation>
     </message>
     <message>
         <location line="-160"/>
@@ -1555,8 +1555,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the ChessCoin-Qt help message to get a list with possible ChessCoin command-line options.</source>
-        <translation>Mostrar el mensaje de ayuda de ChessCoin-Qt para obtener una lista con las posibles opciones de línea de comandos para ChessCoin.</translation>
+        <source>Show the ChessCoin 0.32%-Qt help message to get a list with possible ChessCoin 0.32% command-line options.</source>
+        <translation>Mostrar el mensaje de ayuda de ChessCoin 0.32%-Qt para obtener una lista con las posibles opciones de línea de comandos para ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1575,13 +1575,13 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>ChessCoin - Debug window</source>
-        <translation>ChessCoin - Ventana de depuración</translation>
+        <source>ChessCoin 0.32% - Debug window</source>
+        <translation>ChessCoin 0.32% - Ventana de depuración</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>ChessCoin Core</source>
-        <translation>Núcleo ChessCoin</translation>
+        <source>ChessCoin 0.32% Core</source>
+        <translation>Núcleo ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1590,8 +1590,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the ChessCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Abre el archivo de registro de ChessCoin del directorio de datos actual. Esto puede tardar algunos segundos para archivos grandes.</translation>
+        <source>Open the ChessCoin 0.32% debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Abre el archivo de registro de ChessCoin 0.32% del directorio de datos actual. Esto puede tardar algunos segundos para archivos grandes.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1600,8 +1600,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the ChessCoin RPC console.</source>
-        <translation>Bienvenido a la consola RPC de ChessCoin</translation>
+        <source>Welcome to the ChessCoin 0.32% RPC console.</source>
+        <translation>Bienvenido a la consola RPC de ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1759,8 +1759,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Introduce una dirección ChessCoin (p.ej. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Introduce una dirección ChessCoin 0.32% (p.ej. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1859,8 +1859,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+251"/>
-        <source>WARNING: Invalid ChessCoin address</source>
-        <translation>ADVERTENCIA: Dirección ChessCoin inválida</translation>
+        <source>WARNING: Invalid ChessCoin 0.32% address</source>
+        <translation>ADVERTENCIA: Dirección ChessCoin 0.32% inválida</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1933,8 +1933,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Introduce una dirección ChessCoin (p.ej. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Introduce una dirección ChessCoin 0.32% (p.ej. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
 </context>
 <context>
@@ -1994,8 +1994,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this ChessCoin address</source>
-        <translation>Firma el mensaje para demostrar que posees esta dirección ChessCoin.</translation>
+        <source>Sign the message to prove you own this ChessCoin 0.32% address</source>
+        <translation>Firma el mensaje para demostrar que posees esta dirección ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2026,8 +2026,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified ChessCoin address</source>
-        <translation>Verifique el mensaje para asegurarse de que se firmó con la dirección ChessCoin especificada.</translation>
+        <source>Verify the message to ensure it was signed with the specified ChessCoin 0.32% address</source>
+        <translation>Verifique el mensaje para asegurarse de que se firmó con la dirección ChessCoin 0.32% especificada.</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2037,8 +2037,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Introduce una dirección ChessCoin (p.ej B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Introduce una dirección ChessCoin 0.32% (p.ej B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2047,8 +2047,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter ChessCoin signature</source>
-        <translation>Introduce la firma ChessCoin</translation>
+        <source>Enter ChessCoin 0.32% signature</source>
+        <translation>Introduce la firma ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2618,8 +2618,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
-        <source>ChessCoin version</source>
-        <translation>versión ChessCoin</translation>
+        <source>ChessCoin 0.32% version</source>
+        <translation>versión ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2809,8 +2809,8 @@ Esto significa que se requiere una cuota de al menos %2.</translation>
     </message>
     <message>
         <location line="+61"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin will not work properly.</source>
-        <translation>Advertencia: Verifique que la fecha y hora del equipo sean correctas! Si su reloj es erróneo ChessCoin no funcionará correctamente.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin 0.32% will not work properly.</source>
+        <translation>Advertencia: Verifique que la fecha y hora del equipo sean correctas! Si su reloj es erróneo ChessCoin 0.32% no funcionará correctamente.</translation>
     </message>
     <message>
         <location line="-31"/>
@@ -3006,7 +3006,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;ChessCoin 0.32% Alert&quot; admin@foo.com
 </source>
         <translation>%s, debe establecer un rpcpassword en el fichero de configuración:
 %s
@@ -3017,7 +3017,7 @@ rpcpassword=%s
 El nombre de usuario y contraseña no debe ser el mismo.
 Si no existe el archivo, créelo con permisos de sólo lectura para el dueño.
 También se recomienda establecer alertnotify para ser notificado de los problemas;
-por ejemplo: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo.com
+por ejemplo: alertnotify=echo %%s | mail -s &quot;ChessCoin 0.32% Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -3149,13 +3149,13 @@ por ejemplo: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  ChessCoin is probably already running.</source>
-        <translation>No se puede obtener un bloqueo en el directorio de datos %s. ChessCoin probablemente ya esté en funcionamiento.</translation>
+        <source>Cannot obtain a lock on data directory %s.  ChessCoin 0.32% is probably already running.</source>
+        <translation>No se puede obtener un bloqueo en el directorio de datos %s. ChessCoin 0.32% probablemente ya esté en funcionamiento.</translation>
     </message>
     <message>
         <location line="-98"/>
-        <source>ChessCoin</source>
-        <translation>ChessCoin</translation>
+        <source>ChessCoin 0.32%</source>
+        <translation>ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3189,13 +3189,13 @@ por ejemplo: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+4"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of ChessCoin</source>
-        <translation>Error cargando wallet.dat: El monedero requiere una nueva versión de ChessCoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of ChessCoin 0.32%</source>
+        <translation>Error cargando wallet.dat: El monedero requiere una nueva versión de ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart ChessCoin to complete</source>
-        <translation>El monedero necesita ser reescrito: reinicie ChessCoin para completar</translation>
+        <source>Wallet needed to be rewritten: restart ChessCoin 0.32% to complete</source>
+        <translation>El monedero necesita ser reescrito: reinicie ChessCoin 0.32% para completar</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3264,8 +3264,8 @@ por ejemplo: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@fo
     </message>
     <message>
         <location line="+122"/>
-        <source>Unable to bind to %s on this computer. ChessCoin is probably already running.</source>
-        <translation>No se puede enlazar a %s en este equipo. ChessCoin probablemente ya esté en funcionamiento.</translation>
+        <source>Unable to bind to %s on this computer. ChessCoin 0.32% is probably already running.</source>
+        <translation>No se puede enlazar a %s en este equipo. ChessCoin 0.32% probablemente ya esté en funcionamiento.</translation>
     </message>
     <message>
         <location line="-97"/>

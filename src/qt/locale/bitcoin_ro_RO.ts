@@ -3,22 +3,22 @@
     <name>AboutDialog</name>
     <message>
         <location filename="../forms/aboutdialog.ui" line="+14"/>
-        <source>About ChessCoin</source>
-        <translation>Despre ChessCoin</translation>
+        <source>About ChessCoin 0.32%</source>
+        <translation>Despre ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+39"/>
-        <source>&lt;b&gt;ChessCoin&lt;/b&gt; version</source>
-        <translation>Versiune &lt;b&gt;ChessCoin&lt;/b&gt;</translation>
+        <source>&lt;b&gt;ChessCoin 0.32%&lt;/b&gt; version</source>
+        <translation>Versiune &lt;b&gt;ChessCoin 0.32%&lt;/b&gt;</translation>
     </message>
     <message>
         <location line="+41"/>
         <source>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The ChessCoin developers</source>
+Copyright © 2014 The ChessCoin 0.32% developers</source>
         <translation>Copyright © 2009-2014 The Bitcoin developers
 Copyright © 2012-2014 The NovaCoin developers
-Copyright © 2014 The ChessCoin developers</translation>
+Copyright © 2014 The ChessCoin 0.32% developers</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -65,8 +65,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="-46"/>
-        <source>These are your ChessCoin addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
-        <translation>Acestea sunt adresele ChessCoin pentru a primi plăți. Poate doriți sa dați o adresa noua fiecarui expeditor pentru a putea ține evidența la cine efectuează plăti.</translation>
+        <source>These are your ChessCoin 0.32% addresses for receiving payments. You may want to give a different one to each sender so you can keep track of who is paying you.</source>
+        <translation>Acestea sunt adresele ChessCoin 0.32% pentru a primi plăți. Poate doriți sa dați o adresa noua fiecarui expeditor pentru a putea ține evidența la cine efectuează plăti.</translation>
     </message>
     <message>
         <location line="+60"/>
@@ -80,8 +80,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="+11"/>
-        <source>Sign a message to prove you own a ChessCoin address</source>
-        <translation>Semnează un mesaj pentru a dovedi că dețineti o adresă ChessCoin</translation>
+        <source>Sign a message to prove you own a ChessCoin 0.32% address</source>
+        <translation>Semnează un mesaj pentru a dovedi că dețineti o adresă ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -95,8 +95,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="-14"/>
-        <source>Verify a message to ensure it was signed with a specified ChessCoin address</source>
-        <translation>Verifică un mesaj pentru a vă asigura că a fost semnat cu o anumită adresă ChessCoin</translation>
+        <source>Verify a message to ensure it was signed with a specified ChessCoin 0.32% address</source>
+        <translation>Verifică un mesaj pentru a vă asigura că a fost semnat cu o anumită adresă ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -263,8 +263,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="-58"/>
-        <source>ChessCoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
-        <translation>ChessCoin se va inchide pentru a termina procesul de encriptie. Amintiți-vă, criptarea portofelul dumneavoastră nu poate proteja pe deplin monedele dvs. de a fi furate de  infectarea cu malware a computerului.</translation>
+        <source>ChessCoin 0.32% will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your coins from being stolen by malware infecting your computer.</source>
+        <translation>ChessCoin 0.32% se va inchide pentru a termina procesul de encriptie. Amintiți-vă, criptarea portofelul dumneavoastră nu poate proteja pe deplin monedele dvs. de a fi furate de  infectarea cu malware a computerului.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -377,8 +377,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="+4"/>
-        <source>Show information about ChessCoin</source>
-        <translation>Arată informații despre ChessCoin</translation>
+        <source>Show information about ChessCoin 0.32%</source>
+        <translation>Arată informații despre ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -427,13 +427,13 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="-62"/>
-        <source>Send coins to a ChessCoin address</source>
-        <translation>Trimite monede către o adresă ChessCoin</translation>
+        <source>Send coins to a ChessCoin 0.32% address</source>
+        <translation>Trimite monede către o adresă ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+45"/>
-        <source>Modify configuration options for ChessCoin</source>
-        <translation>Modifică opțiuni de configurare pentru ChessCoin</translation>
+        <source>Modify configuration options for ChessCoin 0.32%</source>
+        <translation>Modifică opțiuni de configurare pentru ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -472,8 +472,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="-200"/>
-        <source>ChessCoin</source>
-        <translation>ChessCoin</translation>
+        <source>ChessCoin 0.32%</source>
+        <translation>ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -482,8 +482,8 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     </message>
     <message>
         <location line="+178"/>
-        <source>&amp;About ChessCoin</source>
-        <translation>Despre ChessCoin</translation>
+        <source>&amp;About ChessCoin 0.32%</source>
+        <translation>Despre ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -539,13 +539,13 @@ Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi f
     <message>
         <location line="+0"/>
         <location line="+60"/>
-        <source>ChessCoin client</source>
-        <translation>Clientul ChessCoin</translation>
+        <source>ChessCoin 0.32% client</source>
+        <translation>Clientul ChessCoin 0.32%</translation>
     </message>
     <message numerus="yes">
         <location line="+70"/>
-        <source>%n active connection(s) to ChessCoin network</source>
-        <translation><numerusform>%n conexiune activă la reteaua ChessCoin</numerusform><numerusform>%n conexiuni active la reteaua ChessCoin</numerusform><numerusform>%n conexiuni active la reteaua ChessCoin</numerusform></translation>
+        <source>%n active connection(s) to ChessCoin 0.32% network</source>
+        <translation><numerusform>%n conexiune activă la reteaua ChessCoin 0.32%</numerusform><numerusform>%n conexiuni active la reteaua ChessCoin 0.32%</numerusform><numerusform>%n conexiuni active la reteaua ChessCoin 0.32%</numerusform></translation>
     </message>
     <message>
         <location line="+40"/>
@@ -659,8 +659,8 @@ Adresa: %4
     <message>
         <location line="-15"/>
         <location line="+15"/>
-        <source>URI can not be parsed! This can be caused by an invalid ChessCoin address or malformed URI parameters.</source>
-        <translation>URI nu poate fi parsatt! Cauza poate fi o adresa ChessCoin invalidă sau parametrii URI malformați.</translation>
+        <source>URI can not be parsed! This can be caused by an invalid ChessCoin 0.32% address or malformed URI parameters.</source>
+        <translation>URI nu poate fi parsatt! Cauza poate fi o adresa ChessCoin 0.32% invalidă sau parametrii URI malformați.</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -719,8 +719,8 @@ Adresa: %4
     </message>
     <message>
         <location filename="../bitcoin.cpp" line="+109"/>
-        <source>A fatal error occurred. ChessCoin can no longer continue safely and will quit.</source>
-        <translation>A apărut o eroare fatală. ChessCoin nu mai poate continua în condiții de siguranță și va iesi.</translation>
+        <source>A fatal error occurred. ChessCoin 0.32% can no longer continue safely and will quit.</source>
+        <translation>A apărut o eroare fatală. ChessCoin 0.32% nu mai poate continua în condiții de siguranță și va iesi.</translation>
     </message>
 </context>
 <context>
@@ -1053,8 +1053,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="-5"/>
-        <source>The entered address &quot;%1&quot; is not a valid ChessCoin address.</source>
-        <translation>Adresa introdusă &quot;%1&quot; nu este o adresă ChessCoin validă</translation>
+        <source>The entered address &quot;%1&quot; is not a valid ChessCoin 0.32% address.</source>
+        <translation>Adresa introdusă &quot;%1&quot; nu este o adresă ChessCoin 0.32% validă</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1072,8 +1072,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     <message>
         <location filename="../guiutil.cpp" line="+420"/>
         <location line="+12"/>
-        <source>ChessCoin-Qt</source>
-        <translation>ChessCoin-Qt</translation>
+        <source>ChessCoin 0.32%-Qt</source>
+        <translation>ChessCoin 0.32%-Qt</translation>
     </message>
     <message>
         <location line="-12"/>
@@ -1145,13 +1145,13 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+31"/>
-        <source>Automatically start ChessCoin after logging in to the system.</source>
-        <translation>Pornește ChessCoin imdiat după logarea în sistem</translation>
+        <source>Automatically start ChessCoin 0.32% after logging in to the system.</source>
+        <translation>Pornește ChessCoin 0.32% imdiat după logarea în sistem</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>&amp;Start ChessCoin on system login</source>
-        <translation>$Pornește ChessCoin la logarea în sistem</translation>
+        <source>&amp;Start ChessCoin 0.32% on system login</source>
+        <translation>$Pornește ChessCoin 0.32% la logarea în sistem</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -1170,8 +1170,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+6"/>
-        <source>Automatically open the ChessCoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Deschide automat portul pentru cientul ChessCoin pe router. Aces lucru este posibil doara daca routerul suporta UPnP si este activat</translation>
+        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
+        <translation>Deschide automat portul pentru cientul ChessCoin 0.32% pe router. Aces lucru este posibil doara daca routerul suporta UPnP si este activat</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1180,8 +1180,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the ChessCoin network through a SOCKS proxy (e.g. when connecting through Tor).</source>
-        <translation>Conecteaza la reteaua ChessCoin prinr-un proxy SOCKS(ex. cand te conectezi prin Tor)</translation>
+        <source>Connect to the ChessCoin 0.32% network through a SOCKS proxy (e.g. when connecting through Tor).</source>
+        <translation>Conecteaza la reteaua ChessCoin 0.32% prinr-un proxy SOCKS(ex. cand te conectezi prin Tor)</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1255,8 +1255,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+13"/>
-        <source>The user interface language can be set here. This setting will take effect after restarting ChessCoin.</source>
-        <translation>Limba interfeței utilizator poate fi setat aici. Această setare va avea efect după repornirea ChessCoin.</translation>
+        <source>The user interface language can be set here. This setting will take effect after restarting ChessCoin 0.32%.</source>
+        <translation>Limba interfeței utilizator poate fi setat aici. Această setare va avea efect după repornirea ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1270,8 +1270,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+9"/>
-        <source>Whether to show ChessCoin addresses in the transaction list or not.</source>
-        <translation>Dacă să arate adrese ChessCoin din lista de tranzacție sau nu.</translation>
+        <source>Whether to show ChessCoin 0.32% addresses in the transaction list or not.</source>
+        <translation>Dacă să arate adrese ChessCoin 0.32% din lista de tranzacție sau nu.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1317,8 +1317,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     <message>
         <location line="-9"/>
         <location line="+9"/>
-        <source>This setting will take effect after restarting ChessCoin.</source>
-        <translation>Aceasta setare va avea efect dupa repornirea ChessCoin.</translation>
+        <source>This setting will take effect after restarting ChessCoin 0.32%.</source>
+        <translation>Aceasta setare va avea efect dupa repornirea ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+29"/>
@@ -1336,8 +1336,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     <message>
         <location line="+33"/>
         <location line="+231"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>Informatia afisata poate fi depasita.  Portofel se sincronizează automat cu rețeaua ChessCoin după ce se stabilește o conexiune, dar acest proces nu s-a finalizat încă.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the ChessCoin 0.32% network after a connection is established, but this process has not completed yet.</source>
+        <translation>Informatia afisata poate fi depasita.  Portofel se sincronizează automat cu rețeaua ChessCoin 0.32% după ce se stabilește o conexiune, dar acest proces nu s-a finalizat încă.</translation>
     </message>
     <message>
         <location line="-160"/>
@@ -1552,8 +1552,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Show the ChessCoin-Qt help message to get a list with possible ChessCoin command-line options.</source>
-        <translation>Afișa mesajul de ajutor ChessCoin-Qt pentru a obține o listă cu posibile opțiuni de linie de comandă ChessCoin.</translation>
+        <source>Show the ChessCoin 0.32%-Qt help message to get a list with possible ChessCoin 0.32% command-line options.</source>
+        <translation>Afișa mesajul de ajutor ChessCoin 0.32%-Qt pentru a obține o listă cu posibile opțiuni de linie de comandă ChessCoin 0.32%.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1572,13 +1572,13 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="-104"/>
-        <source>ChessCoin - Debug window</source>
-        <translation>ChessCoin - fereastră depanare</translation>
+        <source>ChessCoin 0.32% - Debug window</source>
+        <translation>ChessCoin 0.32% - fereastră depanare</translation>
     </message>
     <message>
         <location line="+25"/>
-        <source>ChessCoin Core</source>
-        <translation>ChessCoin Core</translation>
+        <source>ChessCoin 0.32% Core</source>
+        <translation>ChessCoin 0.32% Core</translation>
     </message>
     <message>
         <location line="+279"/>
@@ -1587,8 +1587,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+7"/>
-        <source>Open the ChessCoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Deschideti fisierul de depanare ChessCoin din folderul curent. Acest lucru poate dura cateva secunde pentru fisiere de log mari.</translation>
+        <source>Open the ChessCoin 0.32% debug log file from the current data directory. This can take a few seconds for large log files.</source>
+        <translation>Deschideti fisierul de depanare ChessCoin 0.32% din folderul curent. Acest lucru poate dura cateva secunde pentru fisiere de log mari.</translation>
     </message>
     <message>
         <location line="+102"/>
@@ -1597,8 +1597,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location filename="../rpcconsole.cpp" line="-33"/>
-        <source>Welcome to the ChessCoin RPC console.</source>
-        <translation>Bine ati venit la consola ChessCoin RPC.</translation>
+        <source>Welcome to the ChessCoin 0.32% RPC console.</source>
+        <translation>Bine ati venit la consola ChessCoin 0.32% RPC.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1756,8 +1756,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location filename="../sendcoinsdialog.cpp" line="-173"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Introduceți o adresă ChessCoin(ex:B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Introduceți o adresă ChessCoin 0.32%(ex:B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="+15"/>
@@ -1856,8 +1856,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+251"/>
-        <source>WARNING: Invalid ChessCoin address</source>
-        <translation>Atenție: Adresă ChessCoin invalidă</translation>
+        <source>WARNING: Invalid ChessCoin 0.32% address</source>
+        <translation>Atenție: Adresă ChessCoin 0.32% invalidă</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1930,8 +1930,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location filename="../sendcoinsentry.cpp" line="+1"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Introduceți o adresă ChessCoin(ex:B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Introduceți o adresă ChessCoin 0.32%(ex:B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
 </context>
 <context>
@@ -1991,8 +1991,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this ChessCoin address</source>
-        <translation>Semnează un mesaj pentru a dovedi că dețineti o adresă ChessCoin</translation>
+        <source>Sign the message to prove you own this ChessCoin 0.32% address</source>
+        <translation>Semnează un mesaj pentru a dovedi că dețineti o adresă ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2023,8 +2023,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+40"/>
-        <source>Verify the message to ensure it was signed with the specified ChessCoin address</source>
-        <translation>Verifică un mesaj pentru a vă asigura că a fost semnat cu o anumită adresă ChessCoin</translation>
+        <source>Verify the message to ensure it was signed with the specified ChessCoin 0.32% address</source>
+        <translation>Verifică un mesaj pentru a vă asigura că a fost semnat cu o anumită adresă ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2034,8 +2034,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     <message>
         <location filename="../signverifymessagedialog.cpp" line="+27"/>
         <location line="+3"/>
-        <source>Enter a ChessCoin address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
-        <translation>Introduceți o adresă ChessCoin(ex:B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
+        <source>Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</source>
+        <translation>Introduceți o adresă ChessCoin 0.32%(ex:B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)</translation>
     </message>
     <message>
         <location line="-2"/>
@@ -2044,8 +2044,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+3"/>
-        <source>Enter ChessCoin signature</source>
-        <translation>Introduceti semnatura ChessCoin</translation>
+        <source>Enter ChessCoin 0.32% signature</source>
+        <translation>Introduceti semnatura ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+82"/>
@@ -2615,8 +2615,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     <name>bitcoin-core</name>
     <message>
         <location filename="../bitcoinstrings.cpp" line="+33"/>
-        <source>ChessCoin version</source>
-        <translation>Versiune ChessCoin</translation>
+        <source>ChessCoin 0.32% version</source>
+        <translation>Versiune ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2800,8 +2800,8 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
     </message>
     <message>
         <location line="+61"/>
-        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin will not work properly.</source>
-        <translation>Atentie: Va rugam verificati ca timpul si data calculatorului sunt corete. Daca timpul este gresit ChessCoin nu va functiona corect.</translation>
+        <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ChessCoin 0.32% will not work properly.</source>
+        <translation>Atentie: Va rugam verificati ca timpul si data calculatorului sunt corete. Daca timpul este gresit ChessCoin 0.32% nu va functiona corect.</translation>
     </message>
     <message>
         <location line="-31"/>
@@ -2996,7 +2996,7 @@ rpcpassword=%s
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;ChessCoin 0.32% Alert&quot; admin@foo.com
 </source>
         <translation>%s, trebuie să configurați o parolă rpc în fișierul de configurare: %s
 Este recomandat să folosiți următoarea parolă generată aleator: rpcuser=chesscoinrpc
@@ -3005,7 +3005,7 @@ rpcpassword=%s
 Username-ul și parola NU TREBUIE să fie aceleași.
 Dacă fișierul nu există, creați-l cu drepturi de citire doar de către deținător.
 Este deasemenea recomandat să setați alertnotify pentru a fi notificat de probleme;
-de exemplu: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo.com
+de exemplu: alertnotify=echo %%s | mail -s &quot;ChessCoin 0.32% Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -3130,13 +3130,13 @@ de exemplu: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot obtain a lock on data directory %s.  ChessCoin is probably already running.</source>
+        <source>Cannot obtain a lock on data directory %s.  ChessCoin 0.32% is probably already running.</source>
         <translation>Nu se poate obtine un lock pe directorul de date &amp;s. Blackoin probabil ruleaza deja.</translation>
     </message>
     <message>
         <location line="-98"/>
-        <source>ChessCoin</source>
-        <translation>ChessCoin</translation>
+        <source>ChessCoin 0.32%</source>
+        <translation>ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+140"/>
@@ -3170,13 +3170,13 @@ de exemplu: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+4"/>
-        <source>Error loading wallet.dat: Wallet requires newer version of ChessCoin</source>
-        <translation>Eroare la încărcarea wallet.dat: Portofelul necesita o versiune mai noua de ChessCoin</translation>
+        <source>Error loading wallet.dat: Wallet requires newer version of ChessCoin 0.32%</source>
+        <translation>Eroare la încărcarea wallet.dat: Portofelul necesita o versiune mai noua de ChessCoin 0.32%</translation>
     </message>
     <message>
         <location line="+1"/>
-        <source>Wallet needed to be rewritten: restart ChessCoin to complete</source>
-        <translation>A fost nevoie de rescrierea portofelului: restartați ChessCoin pentru a finaliza</translation>
+        <source>Wallet needed to be rewritten: restart ChessCoin 0.32% to complete</source>
+        <translation>A fost nevoie de rescrierea portofelului: restartați ChessCoin 0.32% pentru a finaliza</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -3245,8 +3245,8 @@ de exemplu: alertnotify=echo %%s | mail -s &quot;ChessCoin Alert&quot; admin@foo
     </message>
     <message>
         <location line="+122"/>
-        <source>Unable to bind to %s on this computer. ChessCoin is probably already running.</source>
-        <translation>Imposibil de conectat %s pe acest computer. Cel mai probabil ChessCoin ruleaza</translation>
+        <source>Unable to bind to %s on this computer. ChessCoin 0.32% is probably already running.</source>
+        <translation>Imposibil de conectat %s pe acest computer. Cel mai probabil ChessCoin 0.32% ruleaza</translation>
     </message>
     <message>
         <location line="-97"/>
