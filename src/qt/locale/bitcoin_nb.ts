@@ -25,13 +25,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 Dette er eksperimentell programvare.
 
 Distribuert under MIT/X11 programvarelisensen, se medfølgende fil COPYING eller http://www.opensource.org/licenses/mit-license.php.
 
-Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i OpenSSL Toolkit (http://www.openssl.org/) og kryptografisk programvare skrevet av Eric Young (eay@cryptsoft.com) og UPnP programvare skrevet av Thomas Bernard.</translation>
+Dette produktet inneholder programvare utviklet av OpenSSL prosjektet for bruk i OpenSSL Toolkit (http://www.openssl.org/) og kryptografisk programvare skrevet av Eric Young (eay@cryptsoft.com).</translation>
     </message>
 </context>
 <context>
@@ -1153,16 +1153,6 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>&amp;Nettverk</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Sett opp port vha. &amp;UPnP</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2919,16 +2909,6 @@ Dette betyr at det trengs en avgift på minimum %2.</translation>
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Bruk UPnP for lytteport (standardverdi: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Bruk UPnP for lytteport (standardverdi: 1 ved lytting)</translation>
     </message>
     <message>
         <location line="-25"/>

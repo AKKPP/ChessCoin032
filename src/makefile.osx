@@ -19,8 +19,6 @@ LIBPATHS= \
  -L"$(DEPSDIR)/lib" \
  -L"$(DEPSDIR)/lib/db48"
 
-USE_UPNP:=1
-
 LIBS= -dead_strip
 
 ifdef STATIC
@@ -105,18 +103,6 @@ OBJS= \
     obj/zerocoin/SerialNumberSignatureOfKnowledge.o \
     obj/zerocoin/SpendMetaData.o \
     obj/zerocoin/ZeroTest.o
-
-ifndef USE_UPNP
-	override USE_UPNP = -
-endif
-ifneq (${USE_UPNP}, -)
-	DEFS += -DUSE_UPNP=$(USE_UPNP)
-ifdef STATIC
-	LIBS += $(DEPSDIR)/lib/libminiupnpc.a
-else
-	LIBS += -lminiupnpc
-endif
-endif
 
 all: chesscoind
 

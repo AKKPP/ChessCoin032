@@ -25,13 +25,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
  Bu, deneysel bir yazılımdır.
 
  MIT/X11 yazılım lisansı kapsamında yayınlanmıştır, beraberindeki COPYING dosyasına ya da http://www.opensource.org/licenses/mit-license.php sayfasına bakınız.
 
- Bu ürün, OpenSSL Araç Takımı&apos;nda (http://www.openssl.org/) kullanılmak üzere OpenSSL projesi tarafından geliştirilen yazılımı, Eric Young (eay@cryptsoft.com) tarafından hazırlanmış kriptografik yazılımı ve Thomas Bernard tarafından yazılmış UPnP yazılımı içerir.</translation>
+ Bu ürün, OpenSSL Araç Takımı&apos;nda (http://www.openssl.org/) kullanılmak üzere OpenSSL projesi tarafından geliştirilen yazılımı, Eric Young (eay@cryptsoft.com) tarafından hazırlanmış kriptografik yazılımı.</translation>
     </message>
 </context>
 <context>
@@ -1165,16 +1165,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>&amp;Şebeke</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Yönelticide ChessCoin 0.32% istemci portunu otomatik olarak aç. Bu, sadece yönelticiniz UPnP&apos;i desteklediğinde ve etkin olduğunda çalışır.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Portları &amp;UPnP kullanarak haritala</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2932,16 +2922,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 </source>
         <translation>Kontrol noktası imzalanamadı, bu bir hatalı kontrol noktası anahtarı mı?
 </translation>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Dinlenecek portu haritalamak için UPnP kullan (varsayılan: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Dinlenecek portu haritalamak için UPnP kullan (varsayılan: dinlenildiğinde 1)</translation>
     </message>
     <message>
         <location line="-25"/>

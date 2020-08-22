@@ -27,13 +27,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 Это экспериментальная программа.
 
 Распространяется на правах лицензии MIT/X11, см. файл license.txt или http://www.opensource.org/licenses/mit-license.php.
 
-Этот продукт включает ПО, разработанное OpenSSL Project для использования в OpenSSL Toolkit (http://www.openssl.org/) и криптографическое ПО, написанное Eric Young (eay@cryptsoft.com) и ПО для работы с UPnP, написанное Thomas Bernard.</translation>
+Этот продукт включает ПО, разработанное OpenSSL Project для использования в OpenSSL Toolkit (http://www.openssl.org/) и криптографическое ПО, написанное Eric Young (eay@cryptsoft.com).</translation>
     </message>
 </context>
 <context>
@@ -1153,16 +1153,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>&amp;Сеть</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Автоматически открыть порт для ChessCoin 0.32%-клиента на роутере. Работает только если Ваш роутер поддерживает UPnP, и данная функция включена.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Пробросить порт через &amp;UPnP</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2921,16 +2911,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Использовать UPnP для проброса порта (по умолчанию: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Использовать UPnP для проброса порта (по умолчанию: 1, если используется прослушивание)</translation>
     </message>
     <message>
         <location line="-25"/>

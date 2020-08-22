@@ -25,7 +25,7 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 位元幣，原名是 Bitcoin, 又叫做比特幣。
 
@@ -33,7 +33,7 @@ This product includes software developed by the OpenSSL Project for use in the O
 
 這套軟體是依據 MIT/X11 軟體授權條款散布，詳情請見附帶的 COPYING 檔案，或是以下網站: http://www.opensource.org/licenses/mit-license.php.
 
-此產品也包含了由 OpenSSL Project 所開發的 OpenSSL Toolkit (http://www.openssl.org/) 軟體，和由 Eric Young (eay@cryptsoft.com) 撰寫的加解密軟體，以及由 Thomas Bernard 所撰寫的 UPnP 軟體。</translation>
+此產品也包含了由 OpenSSL Project 所開發的 OpenSSL Toolkit (http://www.openssl.org/) 軟體，和由 Eric Young (eay@cryptsoft.com) 撰寫的加解密軟體。</translation>
     </message>
 </context>
 <context>
@@ -1153,16 +1153,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>網路</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>用 &amp;UPnP 設定通訊埠對應</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2920,16 +2910,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>是否要使用通用即插即用(UPnP)協定，來設定聽候連線的通訊埠的對應(預設值: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>是否要使用通用即插即用(UPnP)協定，來設定聽候連線的通訊埠的對應(預設值: 當有聽候連線時為 1)</translation>
     </message>
     <message>
         <location line="-25"/>

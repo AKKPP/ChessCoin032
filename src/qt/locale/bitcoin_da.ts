@@ -27,13 +27,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 Dette program er eksperimentelt.
 
 Det er gjort tilgængeligt under MIT/X11-softwarelicensen. Se den medfølgende fil &quot;COPYING&quot; eller http://www.opensource.org/licenses/mit-license.php.
 
-Produktet indeholder software, som er udviklet af OpenSSL Project til brug i OpenSSL Toolkit (http://www.openssl.org/). Kryptografisk software er skrevet af Eric Young (eay@cryptsoft.com), og UPnP-software er skrevet af Thomas Bernard.</translation>
+Produktet indeholder software, som er udviklet af OpenSSL Project til brug i OpenSSL Toolkit (http://www.openssl.org/). Kryptografisk software er skrevet af Eric Young (eay@cryptsoft.com).</translation>
     </message>
 </context>
 <context>
@@ -1167,16 +1167,6 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>Netværk</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatisk åbne ChessCoin 0.32% klient-port på routeren. Dette virker kun, når din router understøtter UPnP og er det er aktiveret.</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Konfigurer port vha. UPnP</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2934,16 +2924,6 @@ Det betyder, at et gebyr på mindst %2 er påkrævet.</translation>
 </source>
         <translation>Kan ikke logge checkpoint, forkert checkpointkey?
 </translation>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Forsøg at bruge UPnP til at konfigurere den lyttende port (standard: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Forsøg at bruge UPnP til at konfigurere den lyttende port (standard: 1 når lytter)</translation>
     </message>
     <message>
         <location line="-25"/>

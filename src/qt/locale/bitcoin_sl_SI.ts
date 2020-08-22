@@ -25,13 +25,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 To je poizkusen softver. 
 
 Distribuiran pod MIT/X11 softversko licenco, glej priloženo datoteko COPYING ali http://www.opensource.org/licenses/mit-license.php.
 
-Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v OpenSSL Toolkit (http://www.openssl.org/) in kriptografski softver, ki ga je napisal Eric Young (eay@cryptsoft.com), ter UPnP softver, ki ga je napisal Thomas Bernard.</translation>
+Ta proizvod vključuje softver razvit s strani projekta OpenSSL za uporabo v OpenSSL Toolkit (http://www.openssl.org/) in kriptografski softver, ki ga je napisal Eric Young (eay@cryptsoft.com).</translation>
     </message>
 </context>
 <context>
@@ -1165,16 +1165,6 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>&amp;Omrežje</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Avtomatično odpri vrata na routerju za ChessCoin 0.32% program. To deluje le če vaš router podpira UPnP in je ta omogočen. </translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Začrtaj vrata z &amp;UPnP</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2932,16 +2922,6 @@ Ta oznaka se obarva rdeče, če je prioriteta manjša kot &quot;srednja&quot;.
 </source>
         <translation>Ni bilo mogoče vpisati točke preverjanja, napačen ključ za točko preverjanja?
 </translation>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Uporabi UPnP za mapiranje vrat poslušanja (privzeto: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Uporabi UPnP za mapiranje vrat poslušanja (privzeto: 1 med poslušanjem)</translation>
     </message>
     <message>
         <location line="-25"/>

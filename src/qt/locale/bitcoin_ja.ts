@@ -27,13 +27,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 これは実験的なソフトウェアです。
 
 MIT/X11 ソフトウェア ライセンスの下で配布されています。詳しくは添付の COPYING ファイルやhttp://www.opensource.org/licenses/mit-license.php を参照してください。
 
-この製品は OpenSSL Toolkit (http://www.openssl.org/) に用いられる  Eric Young (eay@cryptsoft.com)  が開発した暗号化ソフトウェアと Thomas Bernard が開発した UPnP ソフトウェアを含んでいます。</translation>
+この製品は OpenSSL Toolkit (http://www.openssl.org/) に用いられる  Eric Young (eay@cryptsoft.com)  が開発した暗号化ソフトウェアと。</translation>
     </message>
 </context>
 <context>
@@ -1166,16 +1166,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>ネットワーク (&amp;N)</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>自動的にルーターでブラックコインクライエントソフトウェアのポートを開く。ルーターはUPnPのサポートあり、UPnPを有効にするならできる。</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>UPnP を使ってポートを割り当てる (&amp;U)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2933,16 +2923,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
 </source>
         <translation>チェックポイントを署名できません。checkpointkeyは違いますか。
 </translation>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>リスン ポートの割当に UPnP を使用 (初期値: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>リスン ポートの割当に UPnP を使用 (初期値: リスン中は1)</translation>
     </message>
     <message>
         <location line="-25"/>

@@ -25,13 +25,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 პროგრამა ექსპერიმენტულია.
 
 ვრცელდება MIT/X11 ლიცენზიით, იხილე თანდართული ფაილი COPYING ან http://www.opensource.org/licenses/mit-license.php.
 
-პროდუქტი შეიცავს OpenSSL პროექტის ფარგლებში შემუშავებულ პროგრამულ უზრუნველყოფას OpenSSL Toolkit-ში გამოყენებისათვის (http://www.openssl.org/), კრიპტოგრაფიულ პროგრამას, ავტორი ერიქ იანგი (Eric Young, eay@cryptsoft.com) და UPnP-პროგრამას, ავტორი თომას ბერნარდი (Thomas Bernard).</translation>
+პროდუქტი შეიცავს OpenSSL პროექტის ფარგლებში შემუშავებულ პროგრამულ უზრუნველყოფას OpenSSL Toolkit-ში გამოყენებისათვის (http://www.openssl.org/), კრიპტოგრაფიულ პროგრამას, ავტორი ერიქ იანგი (Eric Young, eay@cryptsoft.com).</translation>
     </message>
 </context>
 <context>
@@ -1151,16 +1151,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>&amp;ქსელი</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>პორტის გადამისამართება &amp;UPnP-ით</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2917,16 +2907,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>გამოიყენეთ UPnP მისაყურადებელი პორტის გადასამისამართებლად (ნაგულისხმევი: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>გამოიყენეთ UPnP მისაყურადებელი პორტის გადასამისამართებლად (ნაგულისხმევი: 1 როცა ჩართულია მიყურადება)</translation>
     </message>
     <message>
         <location line="-25"/>

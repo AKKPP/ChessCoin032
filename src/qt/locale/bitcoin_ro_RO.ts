@@ -27,13 +27,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 Acesta este un software experimental.
 
 Distribuit sub licența MIT/X11, vezi fișierul însoțitor COPYING sau http://www.opensource.org/licenses/mit-license.php.
 
-Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi folosite în OpenSSL Toolkit (http://www.openssl.org/) și programe criptografice scrise de către Eric Young (eay@cryptsoft.com) și programe UPnP scrise de către Thomas Bernard.</translation>
+Acest produs include programe dezvoltate de către OpenSSL Project pentru a fi folosite în OpenSSL Toolkit (http://www.openssl.org/) și programe criptografice scrise de către Eric Young (eay@cryptsoft.com).</translation>
     </message>
 </context>
 <context>
@@ -1167,16 +1167,6 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>&amp;Retea</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Deschide automat portul pentru cientul ChessCoin 0.32% pe router. Aces lucru este posibil doara daca routerul suporta UPnP si este activat</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Mapeaza portul folosind &amp;UPnP</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2934,16 +2924,6 @@ Acest lucru înseamnă că o taxă de cel puțin %2 este necesară</translation>
 </source>
         <translation>În imposibilitatea de a semna checkpoint-ul, checkpointkey greșit?
 </translation>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Foloseste UPnP pentru a vedea porturile (initial: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Foloseste UPnP pentru a vedea porturile (initial: 1 cand listezi)</translation>
     </message>
     <message>
         <location line="-25"/>

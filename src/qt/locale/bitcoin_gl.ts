@@ -25,13 +25,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 Isto é software experimental.
 
 Distribuído baixo a licencia de software MIT/X11, véxase o arquivo que acompaña COPYING ou http://www.opensource.org/licenses/mit-license.php.
 
-Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no OpenSSL Toolkit (http://www.openssl.org/) e software criptográfico escrito por Eric Young (eay@cryptsoft.com) e software UPnP escrito por Thomas Bernard.</translation>
+Este produto inclúe software desenvolvido polo OpenSSL Project para o uso no OpenSSL Toolkit (http://www.openssl.org/) e software criptográfico escrito por Eric Young (eay@cryptsoft.com).</translation>
     </message>
 </context>
 <context>
@@ -1151,16 +1151,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>&amp;Rede</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>Mapear porto empregando &amp;UPnP</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2917,16 +2907,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
         <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>Usar UPnP para mapear o porto de escoita (por defecto: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>Usar UPnP para mapear o porto de escoita (por defecto: 1 se á escoita)</translation>
     </message>
     <message>
         <location line="-25"/>

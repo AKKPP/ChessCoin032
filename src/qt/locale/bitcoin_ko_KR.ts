@@ -25,13 +25,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 이 프로그램은 시험용입니다.
 
 MIT/X11 프로그램 라이선스에 따라 배포합니다. COPYING 또는 http://www.opensource.org/licenses/mit-license.php를 참조하십시오.
 
-이 프로그램에는 OpenSSL 툴킷(http://www.openssl.org) 사용 목적으로 개발한 OpenSSL 프로젝트를 포함하고 있으며, 암호화 프로그램은 Eric Young(eay@cryptsoft.com)이, UPnP 프로그램은 Thomas Bernard가 작성했습니다.</translation>
+이 프로그램에는 OpenSSL 툴킷(http://www.openssl.org) 사용 목적으로 개발한 OpenSSL 프로젝트를 포함하고 있으며, 암호화 프로그램은 Eric Young(eay@cryptsoft.com)이.</translation>
     </message>
 </context>
 <context>
@@ -1151,16 +1151,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>네트워크(&amp;N)</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>사용중인 UPnP 포트 매핑(&amp;U)</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2916,16 +2906,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+109"/>
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation type="unfinished"/>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
         <translation type="unfinished"/>
     </message>
     <message>

@@ -27,13 +27,13 @@ This is experimental software.
 
 Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com) and UPnP software written by Thomas Bernard.</source>
+This product includes software developed by the OpenSSL Project for use in the OpenSSL Toolkit (http://www.openssl.org/) and cryptographic software written by Eric Young (eay@cryptsoft.com).</source>
         <translation>
 测试版软件
 
 经MIT/X11软件授权发布, 具体参见http://www.opensource.org/licenses/mit-license.php.
 
-本产品包括由OpenSSL Project (http://www.openssl.org/)开发的OpenSSL工具包 ，由 Eric Young (eay@cryptsoft.com) 撰写的密码学软件以及由 Thomas Bernard 撰写的UPnP软件.</translation>
+本产品包括由OpenSSL Project (http://www.openssl.org/)开发的OpenSSL工具包 ，由 Eric Young (eay@cryptsoft.com).</translation>
     </message>
 </context>
 <context>
@@ -1160,16 +1160,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <location line="+21"/>
         <source>&amp;Network</source>
         <translation>网络(&amp;N)</translation>
-    </message>
-    <message>
-        <location line="+6"/>
-        <source>Automatically open the ChessCoin 0.32% client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>路由器自动打开黑币客户端端口。该功能仅在路由器开启UPnP支持时有效。</translation>
-    </message>
-    <message>
-        <location line="+3"/>
-        <source>Map port using &amp;UPnP</source>
-        <translation>使用 &amp;UPnP 映射端口</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2934,16 +2924,6 @@ This label turns red, if the priority is smaller than &quot;medium&quot;.
         <source>Unable to sign checkpoint, wrong checkpointkey?
 </source>
         <translation>无法为记录点签名，错误的记录点密钥。</translation>
-    </message>
-    <message>
-        <location line="-80"/>
-        <source>Use UPnP to map the listening port (default: 0)</source>
-        <translation>使用UPnP映射监听端口 (缺省: 0)</translation>
-    </message>
-    <message>
-        <location line="-1"/>
-        <source>Use UPnP to map the listening port (default: 1 when listening)</source>
-        <translation>使用UPnp映射监听端口(缺省: 监听状态设为1)</translation>
     </message>
     <message>
         <location line="-25"/>

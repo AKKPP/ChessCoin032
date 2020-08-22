@@ -12,7 +12,7 @@ MAKEFILE      = Makefile
 
 CC            = gcc
 CXX           = g++
-DEFINES       = -DQT_GUI -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE -DQT_DISABLE_DEPRECATED_BEFORE=0 -DUSE_UPNP=1 -DSTATICLIB -DUSE_DBUS -DHAVE_BUILD_INFO -DLINUX -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_DBUS_LIB -DQT_CORE_LIB
+DEFINES       = -DQT_GUI -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE -DQT_DISABLE_DEPRECATED_BEFORE=0 -DSTATICLIB -DUSE_DBUS -DHAVE_BUILD_INFO -DLINUX -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_DBUS_LIB -DQT_CORE_LIB
 CFLAGS        = -pipe -O2 -D_REENTRANT -Wall -W -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -fstack-protector-all --param ssp-buffer-size=1 -O2 -std=gnu++11 -D_REENTRANT -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector -fPIC $(DEFINES)
 INCPATH       = -Isrc -Isrc/json -Isrc/qt -Isrc/leveldb/include -Isrc/leveldb/helpers -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtDBus -I/usr/include/x86_64-linux-gnu/qt5/QtCore -Ibuild -I/usr/include/libdrm -Ibuild -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++
@@ -38,7 +38,7 @@ DISTNAME      = chesscoin-qt1.0.7
 DISTDIR = /tmp/custom-compile/ChessCoin-1.2.0/build/chesscoin-qt1.0.7
 LINK          = g++
 LFLAGS        = -fstack-protector-all --param ssp-buffer-size=1 -Wl,-O1
-LIBS          = $(SUBLIBS) -Wl,-Bstatic -lminiupnpc /tmp/custom-compile/ChessCoin-1.2.0/src/leveldb/libleveldb.a /tmp/custom-compile/ChessCoin-1.2.0/src/leveldb/libmemenv.a -lssl -lcrypto -ldb_cxx -lboost_system -lboost_filesystem -lboost_program_options -lboost_thread -Wl,-Bdynamic -lrt -ldl -L/usr/lib/x86_64-linux-gnu -lQt5Widgets -lQt5Gui -lQt5DBus -lQt5Core -lpthread -lGL 
+LIBS          = $(SUBLIBS) -Wl,-Bstatic /tmp/custom-compile/ChessCoin-1.2.0/src/leveldb/libleveldb.a /tmp/custom-compile/ChessCoin-1.2.0/src/leveldb/libmemenv.a -lssl -lcrypto -ldb_cxx -lboost_system -lboost_filesystem -lboost_program_options -lboost_thread -Wl,-Bdynamic -lrt -ldl -L/usr/lib/x86_64-linux-gnu -lQt5Widgets -lQt5Gui -lQt5DBus -lQt5Core -lpthread -lGL 
 AR            = ar cqs
 RANLIB        = 
 SED           = sed
