@@ -16,7 +16,7 @@ static const int nCheckpointSpan = 10;
 
 namespace Checkpoints
 {
-    typedef std::map<int, uint256> MapCheckpoints;
+    typedef std::map<int, std::pair<uint256, unsigned int> > MapCheckpoints;
 
     //
     // What makes a good checkpoint block?
@@ -27,13 +27,13 @@ namespace Checkpoints
     //
     static MapCheckpoints mapCheckpoints =
         boost::assign::map_list_of
-        ( 0,      hashGenesisBlock )
+        ( 0,       std::make_pair(hashGenesisBlock, 1465133106) )
     ;
 
     // TestNet has no checkpoints
     static MapCheckpoints mapCheckpointsTestnet =
         boost::assign::map_list_of
-        ( 0, hashGenesisBlockTestNet )
+        ( 0,       std::make_pair(hashGenesisBlock, 1465133106) )
         ;
 
     bool CheckHardened(int nHeight, const uint256& hash)
@@ -42,7 +42,7 @@ namespace Checkpoints
 
         MapCheckpoints::const_iterator i = checkpoints.find(nHeight);
         if (i == checkpoints.end()) return true;
-        return hash == i->second;
+        return hash == i->second.first;
     }
 
     int GetTotalBlocksEstimate()
@@ -52,13 +52,20 @@ namespace Checkpoints
         return checkpoints.rbegin()->first;
     }
 
+    unsigned int GetLastCheckpointTime()
+    {
+        MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
+
+        return checkpoints.rbegin()->second.second;
+    }
+
     CBlockIndex* GetLastCheckpoint(const std::map<uint256, CBlockIndex*>& mapBlockIndex)
     {
         MapCheckpoints& checkpoints = (fTestNet ? mapCheckpointsTestnet : mapCheckpoints);
 
         BOOST_REVERSE_FOREACH(const MapCheckpoints::value_type& i, checkpoints)
         {
-            const uint256& hash = i.second;
+            const uint256& hash = i.second.first;
             std::map<uint256, CBlockIndex*>::const_iterator t = mapBlockIndex.find(hash);
             if (t != mapBlockIndex.end())
                 return t->second;
@@ -242,7 +249,7 @@ namespace Checkpoints
     bool ResetSyncCheckpoint()
     {
         LOCK(cs_hashSyncCheckpoint);
-        const uint256& hash = mapCheckpoints.rbegin()->second;
+        const uint256& hash = mapCheckpoints.rbegin()->second.first;
         if (mapBlockIndex.count(hash) && !mapBlockIndex[hash]->IsInMainChain())
         {
             // checkpoint block accepted but not yet in main chain
@@ -266,7 +273,7 @@ namespace Checkpoints
 
         BOOST_REVERSE_FOREACH(const MapCheckpoints::value_type& i, mapCheckpoints)
         {
-            const uint256& hash = i.second;
+            const uint256& hash = i.second.first;
             if (mapBlockIndex.count(hash) && mapBlockIndex[hash]->IsInMainChain())
             {
                 if (!WriteSyncCheckpoint(hash))

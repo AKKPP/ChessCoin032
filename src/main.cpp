@@ -2259,7 +2259,7 @@ bool ProcessBlock(CNode* pfrom, CBlock* pblock)
         return error("ProcessBlock() : duplicate proof-of-stake (%s, %d) for block %s", pblock->GetProofOfStake().first.ToString().c_str(), pblock->GetProofOfStake().second, hash.ToString().c_str());
 
     // Preliminary checks
-    if (!pblock->CheckBlock())
+    if (!pblock->CheckBlock(true, true, (pblock->nTime > Checkpoints::GetLastCheckpointTime())))
         return error("ProcessBlock() : CheckBlock FAILED");
 
     CBlockIndex* pcheckpoint = Checkpoints::GetLastSyncCheckpoint();
