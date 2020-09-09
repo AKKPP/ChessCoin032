@@ -1,3 +1,5 @@
+[![ChessCoin](https://i.ibb.co/TYYC9Lr/ge-ndert-256.jpg)](https://bitcointalk.org/index.php?topic=1510517.new;topicseen#new)
+
 
 ChessCoin 0.32% development tree
 
