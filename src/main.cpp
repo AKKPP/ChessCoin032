@@ -1138,8 +1138,8 @@ static unsigned int GetNextTargetRequiredV2(const CBlockIndex* pindexLast, bool 
     CBigNum bnNew;
     bnNew.SetCompact(pindexPrev->nBits);
 
-    if (pindexLast->nHeight <= 1999793)
-     nTargetSpacing = 60;
+    if (pindexLast->nHeight >= 1999856)
+     nTargetSpacing = 5 * 60;
 
     int64_t nInterval = nTargetTimespan / nTargetSpacing;
     bnNew *= ((nInterval - 1) * nTargetSpacing + nActualSpacing + nActualSpacing);
