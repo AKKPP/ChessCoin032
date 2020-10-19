@@ -1071,7 +1071,8 @@ void createConf()
             + "\nrpcallowip=127.0.0.1"
             + "\naddnode=66.70.191.185:7323"
             + "\naddnode=51.79.145.189:7323"
-            + "\naddnode=95.222.251.44:7323";						
+            + "\naddnode=139.99.196.131:7323"
+            + "\naddnode=147.135.210.113:7323";						
     pConf.close();
 }
 
