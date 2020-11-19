@@ -1,32 +1,49 @@
-ChessCoin-qt: Qt5 GUI for ChessCoin 0.32%
-===============================
+ChessCoin-qt: Qt GUI for ChessCoin 0.32%
+========================================
 
 Build instructions
-===================
+==================
 
-Debian
--------
+Debian/Ubuntu
+-------------
 
-First, make sure that the required packages for Qt5 development of your
+01.
+Make sure that the required packages for Qt development of your
 distribution are installed, for Debian and Ubuntu these are:
 
-::
+For Qt4:
+sudo apt-get install qt4-qmake libqt4-dev build-essential libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev libssl-dev
 
-    apt-get install qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools \
-        build-essential libboost-dev libboost-system-dev \
-        libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev \
-        libssl-dev libdb++-dev
+sudo add-apt-repository ppa:bitcoin/bitcoin
+sudo apt-get update
+sudo apt-get install -y libdb4.8-dev libdb4.8++-dev
 
-then execute the following:
+For Qt5:
+sudo apt-get install qt5-default qt5-qmake qtbase5-dev-tools qttools5-dev-tools build-essential libboost-dev libboost-system-dev libboost-filesystem-dev libboost-program-options-dev libboost-thread-dev libssl-dev libdb++-dev
 
-::
+02.
+Download: https://github.com/AKKPP/ChessCoin/archive/master.zip
 
-    qmake
-    make
+03.
+Unpack ChessCoin-master.zip to Home and rename to ChessCoin.
+
+04.
+cd ChessCoin
+qmake USE_O3=1 RELEASE=1
+make
+
 
 Alternatively, install Qt Creator and open the `chesscoin-qt.pro` file.
 
 An executable named `chesscoin-qt` will be built.
+
+To build chesscoind create empty folder src/obj/zerocoin
+
+cd src/leveldb
+chmod 755 *
+cd ..
+make -f makefile.unix STATIC=1
+strip chesscoind
 
 
 Windows
@@ -105,19 +122,3 @@ and 4.X cannot open the new format. This means that you cannot go back to the ol
 significant hassle!
 
 .. _`this Debian issue`: http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=621425
-
-Ubuntu 11.10 warning
-====================
-
-Ubuntu 11.10 has a package called 'qt-at-spi' installed by default.  At the time of writing, having that package
-installed causes chesscoin-qt to crash intermittently.  The issue has been reported as `launchpad bug 857790`_, but
-isn't yet fixed.
-
-Until the bug is fixed, you can remove the qt-at-spi package to work around the problem, though this will presumably
-disable screen reader functionality for Qt apps:
-
-::
-
-    sudo apt-get remove qt-at-spi
-
-.. _`launchpad bug 857790`: https://bugs.launchpad.net/ubuntu/+source/qt-at-spi/+bug/857790
