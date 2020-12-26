@@ -1066,7 +1066,7 @@ void createConf()
             + randomStrGen(15)
             + "\nrpcport=7324"
             + "\nport=7323"
-            + "\ndaemon=0 #(0=off, 1=on) Run in the background as a daemon and accept commands"
+            + "\ndaemon=0 #(0=off, 1=on) Run in the background as a daemon and accept commands (Ubuntu 18.04 has to be 0)"
             + "\nserver=0 #(0=off, 1=on) Accept command line and JSON-RPC commands"
             + "\nrpcallowip=127.0.0.1"
             + "\naddnode=66.70.191.185:7323"
