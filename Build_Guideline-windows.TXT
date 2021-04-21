@@ -1,0 +1,90 @@
+-------------------------------------------------------------------------------------------------
+Precondition:
+-------------
+1->> Install newest QT 5.xx to have QT Creator that easy to DEV.
+
+2->> Install QT5.9.3 and Mingw32 5.3, set PATH to C:\Qt\Qt5.9.3\Tools\mingw530_32\bin
+https://download.qt.io/official_releases/qt/5.9/5.9.3/
+(note, remove C:\mingw32 and remote C:\mingw32\bin from PATH)
+			 
+-------------------------------------------------------------------------------------------------
+
+3->> Addition tools:
+Install perl
+Install Cywin
+-------------------------------------------------------------------------------------------------
+
+4->> To easy compile libs. Please install MSYS shell:
+Download from: http://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download
+==Guideline++
+From MinGW installation manager -> All packages -> MSYS
+mark the following for installation:
+
+msys-base-bin
+msys-autoconf-bin
+msys-automake-bin
+msys-libtool-bin
+
+then click on Installation -> Apply changes
+-------------------------------------------------------------------------------------------------
+
+Project folder tree overview:
+
+./ChessCoin-qt
+  --ChessCoin-qt.pro
+  --src
+  -----leveldb
+  --3party
+  -----openssl1.0.2u
+  -----db-6.0.20
+  -----boost_1.57.0
+  -----miniupnpc
+
+RUN C:\MinGW\msys\1.0\msys.bat
+Do these steps on MSYS command prompt:
+
+cd to folder ChessCoin\3partye
+
+6->> Build openssl:
+-------------- 
+tar xvfz openssl-1.0.2u.tar.gz into \3party
+cd openssl-1.0.2u
+./config mingw
+or
+./Configure no-zlib no-shared no-dso no-krb5 no-camellia no-capieng no-cast no-cms no-dtls1 no-gost no-gmp no-heartbeats no-idea no-jpake no-md2 no-mdc2 no-rc5 no-rdrand no-rfc3779 no-rsax no-sctp no-seed no-sha0 no-static_engine no-whirlpool no-rc2 no-rc4 no-ssl2 no-ssl3 mingw
+
+make or make depend
+
+Berkeley DB:
+------------
+tar xvfz db-6.0.20.tar.gz into \3party
+cd db-6.0.20/build_windows
+../dist/configure --enable-mingw --enable-cxx --disable-shared --disable-replication
+make 
+
+
+Boost:
+-------
+download from: http://sourceforge.net/projects/boost/files/boost/1.57.0/ saved into \3party
+./bootstrap.bat mingw
+./b2 --build-type=complete --with-chrono --with-filesystem --with-program_options --with-system --with-thread toolset=gcc variant=release link=static threading=multi runtime-link=static stage
+
+Miniupnpc: 
+----------
+download from: http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.20150206.tar.gz and extract into \3party
+
+cd miniupnpc
+make -f Makefile.mingw init upnpc-static
+
+leveldb:
+--------
+cd leveldb
+TARGET_OS=NATIVE_WINDOWS make libleveldb.a libmemenv.a
+
+*** Moving from Ubuntu version to Windows
+Copy and paste folder 3party to that folder
+and need to build leveldb
+build leveldb in src/leveldb
+by following command
+cd leveldb
+TARGET_OS=NATIVE_WINDOWS make libleveldb.a libmemenv.a

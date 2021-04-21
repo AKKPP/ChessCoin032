@@ -1,0 +1,102 @@
+-------------------------------------------------------------------------------------------------
+Precondition:
+-------------
+1->> Install newest QT 5.9.3 to have QT Creator that easy to DEV.
+
+2->> Install QT4.8 and Mingw32 4.8, set PATH for mingw32
+https://download.qt.io/archive/qt/4.8/4.8.6/qt-opensource-windows-x86-mingw482-4.8.6-1.exe
+mingw32 url is shown when you run qt installer above.
+
+3->> Setting up QT 4.8.6 kit to QT Creator
+- Open QT Creator
+->> Menu "Tools"\"Options"
+->> Check tab Compilers where mingw32-gcc and mingw32-g++ are auto detected. If not, please add it by manual
+             C=c:\mingw32\bin\gcc
+			 C++=c:\mingw32\bin\g++
+->> Check tab Qt Version
+             If Qt 4.8.6 does not exist in this tab, please Add it from C:\Qt\4.8.6\bin\qmake.exe
+
+->> Check tab Kits, Add new kit if it is not exist kit Qt 4.8.2
+             Name: QT 4.8.6 <any name do you want>
+			 Complilers: Config C and C++ as following the complilers that you setup above.
+			 Debugger: Mingw32 (C:\mingw32\bin\gdb.exe)
+			 Qt Version: Select Qt 4.8.2 as setting Qt Version above.
+			 
+-------------------------------------------------------------------------------------------------
+
+4->> Addition tools:
+Install perl
+Install Cywin
+-------------------------------------------------------------------------------------------------
+
+5->> To easy compile libs. Please install MSYS shell:
+Download from: http://sourceforge.net/projects/mingw/files/Installer/mingw-get-setup.exe/download
+==Guideline++
+From MinGW installation manager -> All packages -> MSYS
+mark the following for installation:
+
+msys-base-bin
+msys-autoconf-bin
+msys-automake-bin
+msys-libtool-bin
+
+then click on Installation -> Apply changes
+-------------------------------------------------------------------------------------------------
+
+Project folder tree overview:
+
+./ChessCoin-qt
+  --ChessCoin-qt.pro
+  --src
+  -----leveldb
+  --3party
+  -----openssl1.0.1l
+  -----db-4.8.30.NC
+  -----boost_1.57.0
+  -----miniupnpc
+
+RUN C:\MinGW\msys\1.0\msys.bat
+Do these steps on MSYS command prompt:
+
+cd to folder ChessCoin\3partye
+
+6->> Build openssl:
+-------------- 
+tar xvfz openssl-1.0.2u.tar.gz into \3party
+cd openssl-1.0.2u
+./Configure no-zlib no-shared no-dso no-krb5 no-camellia no-capieng no-cast no-cms no-dtls1 no-gost no-gmp no-heartbeats no-idea no-jpake no-md2 no-mdc2 no-rc5 no-rdrand no-rfc3779 no-rsax no-sctp no-seed no-sha0 no-static_engine no-whirlpool no-rc2 no-rc4 no-ssl2 no-ssl3 mingw
+make or make depend
+
+Berkeley DB:
+------------
+tar xvfz db-4.8.30.NC.tar.gz into \3party
+cd db-4.8.30.NC/build_windows
+../dist/configure --enable-mingw --enable-cxx --disable-shared --disable-replication
+make 
+
+
+Boost:
+-------
+download from: http://sourceforge.net/projects/boost/files/boost/1.57.0/ saved into \3party
+./bootstrap.bat mingw
+./b2 --build-type=complete --with-chrono --with-filesystem --with-program_options --with-system --with-thread toolset=gcc variant=release link=static threading=multi runtime-link=static stage
+
+Miniupnpc: 
+----------
+download from: http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.20150206.tar.gz and extract into \3party
+
+cd miniupnpc
+make -f Makefile.mingw init upnpc-static
+
+leveldb:
+--------
+cd leveldb
+TARGET_OS=NATIVE_WINDOWS make libleveldb.a libmemenv.a
+
+*** Moving from Ubuntu version to Windows
+Copy and paste folder 3party to that folder
+and need to build leveldb
+build leveldb in src/leveldb
+by following command
+cd leveldb
+TARGET_OS=NATIVE_WINDOWS make libleveldb.a libmemenv.a
