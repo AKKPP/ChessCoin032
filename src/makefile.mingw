@@ -13,11 +13,11 @@ LIBPATHS= \
  -L"C:\openssl-1.0.1g-mgw"
 
 LIBS= \
- -lboost_system-mgw83-mt-s-1_55 \
- -lboost_filesystem-mgw83-mt-s-1_55 \
- -lboost_program_options-mgw83-mt-s-1_55 \
- -lboost_thread-mgw83-mt-s-1_55 \
- -lboost_chrono-mgw83-mt-s-1_55 \
+ -lboost_system-mgw63-mt-s-1_55 \
+ -lboost_filesystem-mgw63-mt-s-1_55 \
+ -lboost_program_options-mgw63-mt-s-1_55 \
+ -lboost_thread-mgw63-mt-s-1_55 \
+ -lboost_chrono-mgw63-mt-s-1_55 \
  -ldb_cxx \
  -lssl \
  -lcrypto

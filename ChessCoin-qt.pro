@@ -28,15 +28,25 @@ UI_DIR = build
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
+    # Mac: compile for maximum compatibility (10.5, 32-bit)
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+
     !windows:!macx {
         # Linux: static link
         LIBS += -Wl,-Bstatic
     }
 }
 
+!win32 {
+# for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
+QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
+QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
+# We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
+# This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
+}
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
-QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
-QMAKE_LFLAGS += -static-libgcc -static-libstdc++
+win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
+win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
 
 # use: qmake "USE_QRCODE=1"
 # libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
@@ -57,20 +67,35 @@ contains(BITCOIN_NEED_QT_PLUGINS, 1) {
     QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
 }
 
-BOOST_LIB_SUFFIX=-mgw63-mt-s-1_55
-BOOST_INCLUDE_PATH=C:/boost_1_55_0-mgw
-BOOST_LIB_PATH=C:/boost_1_55_0-mgw/stage/lib
-BDB_INCLUDE_PATH=C:/db-4.8.30.NC-mgw/build_unix
-BDB_LIB_PATH=C:/db-4.8.30.NC-mgw/build_unix
-OPENSSL_INCLUDE_PATH=C:/openssl-1.0.1g-mgw/include
-OPENSSL_LIB_PATH=C:/openssl-1.0.1g-mgw
-QRENCODE_INCLUDE_PATH=C:/qrencode-3.4.3-mgw
-QRENCODE_LIB_PATH=C:/qrencode-3.4.3-mgw/.libs
+BOOST_LIB_SUFFIX=-mgw63-mt-s-1_57
+BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_57_0
+BOOST_LIB_PATH=C:/ChessCoinLibs/boost_1_57_0/stage/lib
+
+BDB_INCLUDE_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
+BDB_LIB_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
+
+OPENSSL_INCLUDE_PATH=C:/ChessCoinLibs/openssl-1.0.2u/include
+OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.0.2u
+
+QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-3.4.4
+QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-3.4.4/.libs
+
+contains(USE_UPNP, 1) {
+ message(Building with miniupnpc support)
+ INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
+ MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-1.9
+ LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+ win32:LIBS += -liphlpapi
+ DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
+}
 
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
 SOURCES += src/txdb-leveldb.cpp
-{
+!win32 {
+    # we use QMAKE_CXXFLAGS_RELEASE even without RELEASE=1 because we use RELEASE to indicate linking preferences not -O preferences
+    genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a
+} else {
     # make an educated guess about what the ranlib command is called
     isEmpty(QMAKE_RANLIB) {
         QMAKE_RANLIB = $$replace(QMAKE_STRIP, strip, ranlib)
@@ -86,6 +111,16 @@ PRE_TARGETDEPS += $$PWD/src/leveldb/libleveldb.a
 QMAKE_EXTRA_TARGETS += genleveldb
 # Gross ugly hack that depends on qmake internals, unfortunately there is no other way to do it.
 QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) clean
+
+# regenerate src/build.h
+!windows|contains(USE_BUILD_INFO, 1) {
+    genbuild.depends = FORCE
+    genbuild.commands = cd $$PWD; /bin/sh share/genbuild.sh $$OUT_PWD/build/build.h
+    genbuild.target = $$OUT_PWD/build/build.h
+    PRE_TARGETDEPS += $$OUT_PWD/build/build.h
+    QMAKE_EXTRA_TARGETS += genbuild
+    DEFINES += HAVE_BUILD_INFO
+}
 
 contains(USE_O3, 1) {
     message(Building O3 optimization flag)
@@ -310,7 +345,8 @@ CODECFORTR = UTF-8
 TRANSLATIONS = $$files(src/qt/locale/bitcoin_*.ts)
 
 isEmpty(QMAKE_LRELEASE) {
-    QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\\lrelease.exe
+    win32:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]\\lrelease.exe
+    else:QMAKE_LRELEASE = $$[QT_INSTALL_BINS]/lrelease
 }
 
 isEmpty(QM_DIR):QM_DIR = $$PWD/src/qt/locale
@@ -327,38 +363,6 @@ QMAKE_EXTRA_COMPILERS += TSQM
 OTHER_FILES += \
     doc/*.rst doc/*.txt doc/README README.md res/bitcoin-qt.rc
 
-# platform specific defaults, if not overridden on command line
-isEmpty(BOOST_LIB_SUFFIX) {
-    BOOST_LIB_SUFFIX = -mgw63-mt-s-1_55
-}
-
-isEmpty(BOOST_THREAD_LIB_SUFFIX) {
-    BOOST_THREAD_LIB_SUFFIX = -mgw63-mt-s-1_55
-}
-
-isEmpty(BDB_LIB_PATH) {
-    BDB_LIB_PATH = C:/db-4.8.30.NC-mgw/build_unix
-}
-
-isEmpty(BDB_INCLUDE_PATH) {
-    BDB_INCLUDE_PATH = C:/db-4.8.30.NC-mgw/build_unix
-}
-
-isEmpty(BOOST_LIB_PATH) {
-    BOOST_LIB_PATH = C:/boost_1_55_0-mgw/stage/lib
-}
-
-isEmpty(BOOST_INCLUDE_PATH) {
-    BOOST_INCLUDE_PATH = C:/boost_1_55_0-mgw
-}
-
-isEmpty(OPENSSL_INCLUDE_PATH) {
-    OPENSSL_INCLUDE_PATH = C:/openssl-1.0.1g-mgw/include
-}
-
-isEmpty(OPENSSL_LIB_PATH) {
-    OPENSSL_LIB_PATH = C:/openssl-1.0.1g-mgw
-}
 
 windows:DEFINES += WIN32
 windows:RC_FILE = src/qt/res/bitcoin-qt.rc
@@ -382,8 +386,8 @@ LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB
 LIBS += -lssl -lcrypto -ldb_cxx
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
-LIBS += libboost_system-mgw63-mt-s-1_55 libboost_filesystem-mgw63-mt-s-1_55 libboost_program_options-mgw63-mt-s-1_55 libboost_thread-mgw63-mt-s-1_55
-windows:LIBS += libboost_chrono-mgw63-mt-s-1_55
+LIBS += -lboost_system-mgw63-mt-s-1_57 -lboost_filesystem-mgw63-mt-s-1_57 -lboost_program_options-mgw63-mt-s-1_57 -lboost_thread-mgw63-mt-s-1_57
+windows:LIBS += libboost_chrono-mgw63-mt-s-1_57
 
 contains(RELEASE, 1) {
     !windows:!macx {
@@ -397,3 +401,4 @@ contains(RELEASE, 1) {
     LIBS += -lrt -ldl
 }
 
+system($$QMAKE_LRELEASE -silent $$_PRO_FILE_)
