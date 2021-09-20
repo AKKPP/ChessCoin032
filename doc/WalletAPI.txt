@@ -1,0 +1,69 @@
+addmultisigaddress <nrequired> <'["key","key"]'> [account]
+addredeemscript <redeemScript> [account]
+backupwallet <destination>
+checkwallet
+createrawtransaction [{"txid":txid,"vout":n},...] {address:amount,...}
+decoderawtransaction <hex string>
+decodescript <hex string>
+dumpprivkey <chesscoinaddress>
+dumpwallet <filename>
+getaccount <chesscoinaddress>
+getaccountaddress <account>
+getaddressesbyaccount <account>
+getbalance [account] [minconf=1]
+getbestblockhash
+getblock <hash> [txinfo]
+getblockbynumber <number> [txinfo]
+getblockcount
+getblockhash <index>
+getblocktemplate [params]
+getcheckpoint
+getconnectioncount
+getdifficulty
+getinfo
+getmininginfo
+getnewaddress [account]
+getnewpubkey [account]
+getpeerinfo
+getrawmempool
+getrawtransaction <txid> [verbose=0]
+getreceivedbyaccount <account> [minconf=1]
+getreceivedbyaddress <chesscoinaddress> [minconf=1]
+getstakinginfo
+getsubsidy [nTarget]
+gettransaction <txid>
+getwork [data]
+getworkex [data, coinbase]
+help [command]
+importprivkey <chesscoinprivkey> [label]
+importwallet <filename>
+keypoolrefill [new-size]
+listaccounts [minconf=1]
+listaddressgroupings
+listreceivedbyaccount [minconf=1] [includeempty=false]
+listreceivedbyaddress [minconf=1] [includeempty=false]
+listsinceblock [blockhash] [target-confirmations]
+listtransactions [account] [count=10] [from=0]
+listunspent [minconf=1] [maxconf=9999999] ["address",...]
+makekeypair [prefix]
+move <fromaccount> <toaccount> <amount> [minconf=1] [comment]
+repairwallet
+resendtx
+reservebalance [<reserve> [amount]]
+sendalert <message> <privatekey> <minver> <maxver> <priority> <id> [cancelupto]
+sendfrom <fromaccount> <tochesscoinaddress> <amount> [minconf=1] [comment] [comment-to]
+sendmany <fromaccount> {address:amount,...} [minconf=1] [comment]
+sendrawtransaction <hex string>
+sendtoaddress <chesscoinaddress> <amount> [comment] [comment-to]
+setaccount <chesscoinaddress> <account>
+settxfee <amount>
+signmessage <chesscoinaddress> <message>
+signrawtransaction <hex string> [{"txid":txid,"vout":n,"scriptPubKey":hex},...] [<privatekey1>,...] [sighashtype="ALL"]
+stop
+submitblock <hex data> [optional-params-obj]
+validateaddress <chesscoinaddress>
+validatepubkey <chesscoinpubkey>
+verifymessage <chesscoinaddress> <signature> <message>
+walletlock
+walletpassphrase <passphrase> <timeout> [stakingonly]
+walletpassphrasechange <oldpassphrase> <newpassphrase>

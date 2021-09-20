@@ -1,0 +1,9 @@
+Building ChessCoin 0.32%
+
+See doc/readme-qt.rst for instructions on building ChessCoin 0.32% QT,
+the intended-for-end-users, nice-graphical-interface, reference
+implementation of ChessCoin 0.32%.
+
+See doc/build-*.txt for instructions on building chesscoind,
+the intended-for-services, no-graphical-interface, reference
+implementation of ChessCoin 0.32%.
