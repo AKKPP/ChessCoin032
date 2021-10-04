@@ -23,6 +23,7 @@
 #include <boost/asio/ssl.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/algorithm/string.hpp>
 #include <list>
 
 #define printf OutputDebugStringF
@@ -171,7 +172,7 @@ string CRPCTable::help(string strCommand) const
             if (setDone.insert(pfn).second)
                 (*pfn)(params, true);
         }
-        catch (std::exception& e)
+        catch (std::runtime_error& e)
         {
             // Help text is returned in an exception
             string strHelp = string(e.what());
@@ -383,7 +384,7 @@ static string HTTPReply(int nStatus, const string& strMsg, bool keepalive)
             "HTTP/1.1 %d %s\r\n"
             "Date: %s\r\n"
             "Connection: %s\r\n"
-            "Content-Length: %" PRIszu"\r\n"
+            "Content-Length: %"PRIszu"\r\n"
             "Content-Type: application/json\r\n"
             "Server: chesscoin-json-rpc/%s\r\n"
             "\r\n"

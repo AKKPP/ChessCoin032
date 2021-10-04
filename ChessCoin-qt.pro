@@ -4,12 +4,16 @@ VERSION = 1.2.1
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
-CONFIG += thread
-CONFIG += static
+#CONFIG += thread
+#CONFIG += exceptions
+#CONFIG += static
+
+QT += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
     DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0
+    DEFINES += QT_DEPRECATED_WARNINGS
 }
 
 # for boost 1.37, add -mt to the boost libraries
@@ -26,6 +30,14 @@ OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
 
+# use: qmake "USE_QRCODE=1"
+# libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
+contains(USE_QRCODE, 1) {
+    message(Building with QRCode support)
+    DEFINES += USE_QRCODE
+    LIBS += -lqrencode
+}
+
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
     # Mac: compile for maximum compatibility (10.5, 32-bit)
@@ -37,23 +49,13 @@ contains(RELEASE, 1) {
     }
 }
 
-!win32 {
-# for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
-QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
-QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
-# We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
-# This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
-}
-# for extra security on Windows: enable ASLR and DEP via GCC linker flags
-win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
-win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
-
-# use: qmake "USE_QRCODE=1"
-# libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
-contains(USE_QRCODE, 1) {
-    message(Building with QRCode support)
-    DEFINES += USE_QRCODE
-    LIBS += -lqrencode
+contains(USE_UPNP, 1) {
+ message(Building with miniupnpc support)
+ INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
+ MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-1.9
+ LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+ win32:LIBS += -liphlpapi
+ DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 }
 
 contains(USE_DBUS, 1) {
@@ -62,10 +64,29 @@ contains(USE_DBUS, 1) {
     QT += dbus
 }
 
+# use: qmake "USE_SSL=1"
+contains(USE_SSL, 1) {
+    message(Building with SSL support for RPC)
+    DEFINES += USE_SSL
+}
+
 contains(BITCOIN_NEED_QT_PLUGINS, 1) {
     DEFINES += BITCOIN_NEED_QT_PLUGINS
-    QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
+    QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs
 }
+
+!windows {
+# for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
+    QMAKE_CXXFLAGS += -fstack-protector
+    QMAKE_LFLAGS += -fstack-protector
+# We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
+# This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
+}
+
+# for extra security on Windows: enable ASLR and DEP via GCC linker flags
+#win32:QMAKE_CXXFLAGS *= -fexceptions
+#win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat -fexceptions
+#win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
 
 BOOST_LIB_SUFFIX=-mgw63-mt-s-1_57
 BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_57_0
@@ -80,14 +101,6 @@ OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.0.2u
 QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-3.4.4
 QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-3.4.4/.libs
 
-contains(USE_UPNP, 1) {
- message(Building with miniupnpc support)
- INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
- MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-1.9
- LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
- win32:LIBS += -liphlpapi
- DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
-}
 
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
@@ -104,13 +117,13 @@ SOURCES += src/txdb-leveldb.cpp
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libleveldb.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libmemenv.a
 }
 
-genleveldb.target = $$PWD/src/leveldb/libleveldb.a
-genleveldb.depends = FORCE
+#genleveldb.target = $$PWD/src/leveldb/libleveldb.a
+#genleveldb.depends = FORCE
 
-PRE_TARGETDEPS += $$PWD/src/leveldb/libleveldb.a
-QMAKE_EXTRA_TARGETS += genleveldb
-# Gross ugly hack that depends on qmake internals, unfortunately there is no other way to do it.
-QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) clean
+#PRE_TARGETDEPS += $$PWD/src/leveldb/libleveldb.a
+#QMAKE_EXTRA_TARGETS += genleveldb
+## Gross ugly hack that depends on qmake internals, unfortunately there is no other way to do it.
+#QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) clean
 
 # regenerate src/build.h
 !windows|contains(USE_BUILD_INFO, 1) {
@@ -137,7 +150,7 @@ contains(USE_O3, 1) {
     QMAKE_CFLAGS += -msse2
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector -fexceptions
 
 # Input
 DEPENDPATH += src src/json src/qt
@@ -358,6 +371,7 @@ TSQM.output = $$QM_DIR/${QMAKE_FILE_BASE}.qm
 TSQM.commands = $$QMAKE_LRELEASE ${QMAKE_FILE_IN} -qm ${QMAKE_FILE_OUT}
 TSQM.CONFIG = no_link
 QMAKE_EXTRA_COMPILERS += TSQM
+PRE_TARGETDEPS += compiler_TSQM_make_all
 
 # "Other files" to show in Qt Creator
 OTHER_FILES += \
@@ -367,16 +381,18 @@ OTHER_FILES += \
 windows:DEFINES += WIN32
 windows:RC_FILE = src/qt/res/bitcoin-qt.rc
 
-windows:!contains(MINGW_THREAD_BUGFIX, 0) {
+# serious bug when throw exception calls : 20211002
+#windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     # At least qmake's win32-g++-cross profile is missing the -lmingwthrd
     # thread-safety flag. GCC has -mthreads to enable this, but it doesn't
     # work with static linking. -lmingwthrd must come BEFORE -lmingw, so
     # it is prepended to QMAKE_LIBS_QT_ENTRY.
     # It can be turned off with MINGW_THREAD_BUGFIX=0, just in case it causes
     # any problems on some untested qmake profile now or in the future.
-    DEFINES += _MT BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN
-    QMAKE_LIBS_QT_ENTRY = -lmingwthrd $$QMAKE_LIBS_QT_ENTRY
-}
+
+    # DEFINES += _MT BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN
+    # QMAKE_LIBS_QT_ENTRY = -lmingwthrd $$QMAKE_LIBS_QT_ENTRY
+#}
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH
@@ -386,8 +402,7 @@ LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB
 LIBS += -lssl -lcrypto -ldb_cxx
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
-LIBS += -lboost_system-mgw63-mt-s-1_57 -lboost_filesystem-mgw63-mt-s-1_57 -lboost_program_options-mgw63-mt-s-1_57 -lboost_thread-mgw63-mt-s-1_57
-windows:LIBS += libboost_chrono-mgw63-mt-s-1_57
+LIBS += -lboost_system-mgw63-mt-s-1_57 -lboost_filesystem-mgw63-mt-s-1_57 -lboost_program_options-mgw63-mt-s-1_57 -lboost_thread-mgw63-mt-s-1_57 libboost_chrono-mgw63-mt-s-1_57
 
 contains(RELEASE, 1) {
     !windows:!macx {

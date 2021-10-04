@@ -185,7 +185,7 @@ int main(int argc, char *argv[])
     if (!boost::filesystem::is_directory(GetDataDir(false)))
     {
         QMessageBox::critical(0, "ChessCoin 0.32%",
-                              QObject::tr("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(mapArgs["-datadir"])));
+        QObject::tr("Error: Specified data directory \"%1\" does not exist.").arg(QString::fromStdString(mapArgs["-datadir"])));
         return 1;
     }
     ReadConfigFile(mapArgs, mapMultiArgs);

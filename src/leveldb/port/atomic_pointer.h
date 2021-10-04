@@ -23,7 +23,7 @@
 #ifdef LEVELDB_CSTDATOMIC_PRESENT
 #include <cstdatomic>
 #endif
-#ifdef OS_WIN
+#if defined (OS_WIN) || defined (WIN32)
 #include <windows.h>
 #endif
 #ifdef OS_MACOSX
@@ -45,7 +45,7 @@ namespace port {
 
 // Define MemoryBarrier() if available
 // Windows on x86
-#if defined(OS_WIN) && defined(COMPILER_MSVC) && defined(ARCH_CPU_X86_FAMILY)
+#if defined(WIN32) && defined(COMPILER_MSVC) && defined(ARCH_CPU_X86_FAMILY)
 // windows.h already provides a MemoryBarrier(void) macro
 // http://msdn.microsoft.com/en-us/library/ms684208(v=vs.85).aspx
 #define LEVELDB_HAVE_MEMORY_BARRIER

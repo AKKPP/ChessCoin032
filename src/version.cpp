@@ -43,31 +43,25 @@ const std::string CLIENT_NAME("Satoshi");
 #define GIT_COMMIT_ID "32a928e"
 #endif
 
-#ifdef WIN32 || OS_WIN
-#define OS_VER_WINDOW "1"
-#elif OS_MACOSX
-#define OS_VER_WINDOW "3"
+#if (defined (WIN32) || defined (WIN64))
+    #define OS_VER_WINDOW       "1"
+#elif (defined (LINUX) || defined (_linux_))
+        #define OS_VER_WINDOW   "2"
 #else
-#define OS_VER_WINDOW "2"
+        #define OS_VER_WINDOW   "4"
 #endif
 
-//#define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \
-//    "v" DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "." DO_STRINGIZE(build) "-g" commit
+#define BUILD_DESC_FROM_COMMIT(maj,min,rev,commit) \
+    DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "." commit
 
-//#define BUILD_DESC_FROM_UNKNOWN(maj,min,rev,build) \
-//    "v" DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "." DO_STRINGIZE(build) "-unk"
-
-#define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \
-    DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "." DO_STRINGIZE(build) "." commit
-
-#define BUILD_DESC_FROM_UNKNOWN(maj,min,rev,build) \
-    DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "." DO_STRINGIZE(build) "-unk"
+#define BUILD_DESC_FROM_UNKNOWN(maj,min,rev) \
+    DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "-unk"
 
 #ifndef BUILD_DESC
 #    ifdef GIT_COMMIT_ID
-#        define BUILD_DESC BUILD_DESC_FROM_COMMIT(CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, CLIENT_VERSION_REVISION, CLIENT_VERSION_BUILD, OS_VER_WINDOW)
+#        define BUILD_DESC BUILD_DESC_FROM_COMMIT(CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, CLIENT_VERSION_REVISION, OS_VER_WINDOW)
 #    else
-#        define BUILD_DESC BUILD_DESC_FROM_UNKNOWN(CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, CLIENT_VERSION_REVISION, CLIENT_VERSION_BUILD)
+#        define BUILD_DESC BUILD_DESC_FROM_UNKNOWN(CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, CLIENT_VERSION_REVISION)
 #    endif
 #endif
 

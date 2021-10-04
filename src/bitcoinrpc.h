@@ -93,7 +93,8 @@ typedef json_spirit::Value(*rpcfn_type)(const json_spirit::Array& params, bool f
 class CRPCCommand
 {
 public:
-    std::string name;
+    //std::string name;
+    char    name[32];
     rpcfn_type actor;
     bool okSafeMode;
     bool unlocked;
@@ -104,9 +105,9 @@ public:
  */
 class CRPCTable
 {
-private:
-    std::map<std::string, const CRPCCommand*> mapCommands;
 public:
+    std::map<std::string, const CRPCCommand*> mapCommands;
+
     CRPCTable();
     const CRPCCommand* operator[](std::string name) const;
     std::string help(std::string name) const;
