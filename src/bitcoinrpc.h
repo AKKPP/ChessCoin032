@@ -104,9 +104,9 @@ public:
  */
 class CRPCTable
 {
-private:
-    std::map<std::string, const CRPCCommand*> mapCommands;
 public:
+    std::map<std::string, const CRPCCommand*> mapCommands;
+
     CRPCTable();
     const CRPCCommand* operator[](std::string name) const;
     std::string help(std::string name) const;

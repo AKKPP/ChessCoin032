@@ -31,6 +31,7 @@ public:
         Language,          // QString
         CoinControlFeatures, // bool
         OptionIDRowCount,
+        MapPortUPnP,
     };
 
     void Init();

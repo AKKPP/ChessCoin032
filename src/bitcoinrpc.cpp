@@ -23,6 +23,7 @@
 #include <boost/asio/ssl.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/algorithm/string.hpp>
 #include <list>
 
 #define printf OutputDebugStringF
@@ -171,7 +172,7 @@ string CRPCTable::help(string strCommand) const
             if (setDone.insert(pfn).second)
                 (*pfn)(params, true);
         }
-        catch (std::exception& e)
+        catch (std::runtime_error& e)
         {
             // Help text is returned in an exception
             string strHelp = string(e.what());
