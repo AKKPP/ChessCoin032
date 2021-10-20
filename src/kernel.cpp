@@ -84,8 +84,9 @@ static bool SelectBlockFromCandidates(vector<pair<int64_t, uint256> >& vSortedBy
             continue;
         // compute the selection hash by hashing its proof-hash and the
         // previous proof-of-stake modifier
+        uint256 hashProof = pindex->IsProofOfStake()? pindex->hashProof : pindex->GetBlockHash();
         CDataStream ss(SER_GETHASH, 0);
-        ss << pindex->hashProof << nStakeModifierPrev;
+        ss << hashProof << nStakeModifierPrev;
         uint256 hashSelection = Hash(ss.begin(), ss.end());
         // the selection hash is divided by 2**32 so that proof-of-stake block
         // is always favored over proof-of-work block. this is to preserve
@@ -243,6 +244,15 @@ static bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifi
     return true;
 }
 
+bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifier)
+{
+    int nStakeModifierHeight;
+    int64_t nStakeModifierTime;
+
+    return GetKernelStakeModifier(hashBlockFrom, nStakeModifier, nStakeModifierHeight, nStakeModifierTime, false);
+}
+
+
 // ppcoin kernel protocol
 // coinstake must meet hash target according to the protocol:
 // kernel (input 0) must meet the formula
@@ -342,7 +352,7 @@ bool CheckProofOfStake(const CTransaction& tx, unsigned int nBits, uint256& hash
         return tx.DoS(1, error("CheckProofOfStake() : INFO: read txPrev failed"));  // previous transaction not in main chain, may occur during initial download
 
     // Verify signature
-    if (!VerifySignature(txPrev, tx, 0, 0))
+    if (!VerifySignature(txPrev, tx, 0, 0, MANDATORY_SCRIPT_VERIFY_FLAGS))
         return tx.DoS(100, error("CheckProofOfStake() : VerifySignature failed on coinstake %s", tx.GetHash().ToString().c_str()));
 
     // Read block header

@@ -190,6 +190,7 @@ void ThreadIRCSeed(void* parg)
 {
     // Make this thread recognisable as the IRC seeding thread
     RenameThread("chesscoin-ircseed");
+	printf("ThreadIRCSeed started\n");
 
     try
     {
@@ -360,8 +361,8 @@ void ThreadIRCSeed2(void* parg)
                 }
             }
         }
-        closesocket(hSocket);
-        hSocket = INVALID_SOCKET;
+
+        CloseSocket(hSocket);
 
         if (GetTime() - nStart > 20 * 60)
         {

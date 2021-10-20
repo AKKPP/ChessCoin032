@@ -21,6 +21,8 @@ using namespace boost;
 
 unsigned int nWalletDBUpdated;
 
+
+
 //
 // CDB
 //

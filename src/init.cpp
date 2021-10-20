@@ -2,6 +2,7 @@
 // Copyright (c) 2009-2012 The Bitcoin developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
 #include "txdb.h"
 #include "walletdb.h"
 #include "bitcoinrpc.h"
@@ -21,7 +22,6 @@
 #ifndef WIN32
 #include <signal.h>
 #endif
-
 
 using namespace std;
 using namespace boost;
@@ -447,6 +447,15 @@ bool AppInit2()
 
     // ********************************************************* Step 3: parameter-to-internal-flags
 
+    // -par=0 means autodetect, but nScriptCheckThreads==0 means no concurrency
+    nScriptCheckThreads = GetArg("-par", 0);
+    if (nScriptCheckThreads == 0)
+        nScriptCheckThreads = boost::thread::hardware_concurrency();
+    if (nScriptCheckThreads <= 1)
+        nScriptCheckThreads = 0;
+    else if (nScriptCheckThreads > MAX_SCRIPTCHECK_THREADS)
+        nScriptCheckThreads = MAX_SCRIPTCHECK_THREADS;
+
     fDebug = GetBoolArg("-debug");
 
     // -debug implies fDebug*
@@ -560,6 +569,13 @@ bool AppInit2()
 
     if (fDaemon)
         fprintf(stdout, "ChessCoin 0.32% server starting\n");
+
+
+    if (nScriptCheckThreads) {
+        printf("Using %u threads for script verification\n", nScriptCheckThreads);
+        for (int i=0; i<nScriptCheckThreads-1; i++)
+            NewThread(ThreadScriptCheck, NULL);
+    }
 
     int64_t nStart;
 

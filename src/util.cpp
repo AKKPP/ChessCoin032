@@ -241,8 +241,14 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
                     }
 
                     // Debug print useful for profiling
+
+    #ifndef MYLOG
+                    fprintf(logfileout, "%s ", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
+    #else
                     if (fLogTimestamps && fStartedNewLine)
                         fprintf(logfileout, "%s ", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
+    #endif
+
                     if (pszFormat[strlen(pszFormat) - 1] == '\n')
                         fStartedNewLine = true;
                     else
@@ -250,6 +256,9 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
 
                     va_list arg_ptr;
                     va_start(arg_ptr, pszFormat);
+    #ifndef MYLOG
+                    ret = vprintf(pszFormat, arg_ptr);
+    #endif
                     ret = vfprintf(logfileout, pszFormat, arg_ptr);
                     va_end(arg_ptr);
                 }

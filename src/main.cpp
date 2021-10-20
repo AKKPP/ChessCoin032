@@ -11,6 +11,8 @@
 #include "init.h"
 #include "ui_interface.h"
 #include "kernel.h"
+#include "checkqueue.h"
+#include "timestamps.h"
 #include "zerocoin/Zerocoin.h"
 #include <boost/algorithm/string/replace.hpp>
 #include <boost/filesystem.hpp>
@@ -39,6 +41,9 @@ libzerocoin::Params* ZCParams;
 CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // "standard" scrypt target limit for proof of work, results with 0,000244140625 proof-of-work difficulty
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
+CBigNum bnProofOfStakeLegacyLimit(~uint256(0) >> 24); // proof of stake target limit from block #15000 and until 20 June 2013, results with 0,00390625 proof of stake difficulty
+CBigNum bnProofOfStakeHardLimit(~uint256(0) >> 30); // disabled temporarily, will be used in the future to fix minimal proof of stake difficulty at 0.25
+
 
 unsigned int nTargetSpacing = 1 * 60; // 1 minute
 unsigned int nStakeMinAge = 2 * 60 * 60;
@@ -55,6 +60,7 @@ uint256 nBestInvalidTrust = 0;
 uint256 hashBestChain = 0;
 CBlockIndex* pindexBest = NULL;
 int64_t nTimeBestReceived = 0;
+int nScriptCheckThreads = 0;
 
 CMedianFilter<int> cPeerBlockCounts(5, 0); // Amount of blocks that other nodes claim to have
 
@@ -418,8 +424,9 @@ bool CTransaction::AreInputsStandard(const MapPrevTx& mapInputs) const
         // be quick, because if there are any operations
         // beside "push data" in the scriptSig the
         // IsStandard() call returns false
-        vector<vector<unsigned char> > stack;
-        if (!EvalScript(stack, vin[i].scriptSig, *this, i, 0))
+        vector<vector<unsigned char> > stack;        
+
+        if (!EvalScript(stack, vin[i].scriptSig, *this, i, 0, 0))
             return false;
 
         if (whichType == TX_SCRIPTHASH)
@@ -718,7 +725,7 @@ bool AcceptToMemoryPool(CTxMemPool& pool, CTransaction &tx,
 
         // Check against previous transactions
         // This is done last to help prevent CPU exhaustion denial-of-service attacks.
-        if (!tx.ConnectInputs(txdb, mapInputs, mapUnused, CDiskTxPos(1,1,1), pindexBest, false, false))
+        if (!tx.ConnectInputs(txdb, mapInputs, mapUnused, CDiskTxPos(1,1,1), pindexBest, false, false, true, STRICT_FLAGS))
         {
             return error("AcceptToMemoryPool : ConnectInputs failed %s", hash.ToString().substr(0,10).c_str());
         }
@@ -997,6 +1004,21 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
     return pblockOrphan->hashPrevBlock;
 }
 
+// select stake target limit according to hard-coded conditions
+CBigNum inline GetProofOfStakeLimit(int nHeight, unsigned int nTime)
+{
+    if(fTestNet) // separate proof of stake target limit for testnet
+        return bnProofOfStakeLimit;
+    if(nTime > TARGETS_SWITCH_TIME) // 27 bits since 20 July 2013
+        return bnProofOfStakeLimit;
+    if(nHeight + 1 > 15000) // 24 bits since block 15000
+        return bnProofOfStakeLegacyLimit;
+    if(nHeight + 1 > 14060) // 31 bits since block 14060 until 15000
+        return bnProofOfStakeHardLimit;
+
+    return bnProofOfWorkLimit; // return bnProofOfWorkLimit of none matched
+}
+
 // miner's coin base reward
 int64_t GetProofOfWorkReward(int64_t nFees)
 {
@@ -1035,6 +1057,68 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
         printf("GetProofOfStakeReward(): create=%s nCoinAge=%" PRId64 "\n", FormatMoney(nSubsidy).c_str(), nCoinAge);
 
     return nSubsidy + nFees;
+}
+
+int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, int64_t nTime, bool bCoinYearOnly)
+{
+    int64_t nRewardCoinYear, nSubsidy, nSubsidyLimit = 10 * COIN;
+
+    // Stage 2 of emission process is mostly PoS-based.
+
+    CBigNum bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 100% year interest
+    CBigNum bnTarget;
+    bnTarget.SetCompact(nBits);
+    CBigNum bnTargetLimit = GetProofOfStakeLimit(0, nTime);
+    bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
+
+    // A reasonably continuous curve is used to avoid shock to market
+
+    CBigNum bnLowerBound = 1 * CENT, // Lower interest bound is 1% per year
+        bnUpperBound = bnRewardCoinYearLimit, // Upper interest bound is 100% per year
+        bnMidPart, bnRewardPart;
+
+    while (bnLowerBound + CENT <= bnUpperBound)
+    {
+        CBigNum bnMidValue = (bnLowerBound + bnUpperBound) / 2;
+
+        //
+        // Reward for coin-year is cut in half every 8x multiply of PoS difficulty
+        //
+        // (nRewardCoinYearLimit / nRewardCoinYear) ** 3 == bnProofOfStakeLimit / bnTarget
+        //
+        // Human readable form: nRewardCoinYear = 1 / (posdiff ^ 1/3)
+        //
+
+        bnMidPart = bnMidValue * bnMidValue * bnMidValue;
+        bnRewardPart = bnRewardCoinYearLimit * bnRewardCoinYearLimit * bnRewardCoinYearLimit;
+
+        if (bnMidPart * bnTargetLimit > bnRewardPart * bnTarget)
+            bnUpperBound = bnMidValue;
+        else
+            bnLowerBound = bnMidValue;
+    }
+
+    nRewardCoinYear = bnUpperBound.getuint64();
+    nRewardCoinYear = min((nRewardCoinYear / CENT) * CENT, MAX_MINT_PROOF_OF_STAKE);
+
+    if(bCoinYearOnly)
+        return nRewardCoinYear;
+
+    nSubsidy = nCoinAge * nRewardCoinYear * 33 / (365 * 33 + 8);
+
+    // Set reasonable reward limit for large inputs
+    //
+    // This will stimulate large holders to use smaller inputs, that's good for the network protection
+
+    if (fDebug && GetBoolArg("-printcreation") && nSubsidyLimit < nSubsidy)
+        printf("GetProofOfStakeReward(): %s is greater than %s, coinstake reward will be truncated\n", FormatMoney(nSubsidy).c_str(), FormatMoney(nSubsidyLimit).c_str());
+
+    nSubsidy = min(nSubsidy, nSubsidyLimit);
+
+    if (fDebug && GetBoolArg("-printcreation"))
+        printf("GetProofOfStakeReward(): create=%s nCoinAge=%" PRId64 " nBits=%d\n", FormatMoney(nSubsidy).c_str(), nCoinAge, nBits);
+
+    return nSubsidy;
 }
 
 static const int64_t nTargetTimespan = 16 * 60;  // 16 mins
@@ -1385,13 +1469,22 @@ unsigned int CTransaction::GetP2SHSigOpCount(const MapPrevTx& inputs) const
     return nSigOps;
 }
 
+bool CScriptCheck::operator()() const {
+    const CScript &scriptSig = ptxTo->vin[nIn].scriptSig;
+    if (!VerifyScript(scriptSig, scriptPubKey, *ptxTo, nIn, nFlags, nHashType))
+        return error("CScriptCheck() : %s VerifySignature failed", ptxTo->GetHash().ToString().substr(0,10).c_str());
+    return true;
+}
+
+
 bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTxIndex>& mapTestPool, const CDiskTxPos& posThisTx,
-    const CBlockIndex* pindexBlock, bool fBlock, bool fMiner)
+    const CBlockIndex* pindexBlock, bool fBlock, bool fMiner, bool fScriptChecks, unsigned int flags, std::vector<CScriptCheck> *pvChecks)
 {
     // Take over previous transactions' spent pointers
     // fBlock is true when this is called from AcceptBlock when a new best-block is added to the blockchain
     // fMiner is true when called from the internal bitcoin miner
     // ... both are false when called from CTransaction::AcceptToMemoryPool
+
     if (!IsCoinBase())
     {
         int64_t nValueIn = 0;
@@ -1422,6 +1515,10 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
                 return DoS(100, error("ConnectInputs() : txin values out of range"));
 
         }
+
+        if (pvChecks)
+            pvChecks->reserve(vin.size());
+
         // The first loop above does all the inexpensive checks.
         // Only if ALL inputs pass do we perform expensive ECDSA signature checks.
         // Helps prevent CPU exhaustion attacks.
@@ -1441,11 +1538,24 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             // Skip ECDSA signature verification when connecting blocks (fBlock=true)
             // before the last blockchain checkpoint. This is safe because block merkle hashes are
             // still computed and checked, and any change will be caught at the next checkpoint.
-            if (!(fBlock && (nBestHeight < Checkpoints::GetTotalBlocksEstimate())))
+            if (fScriptChecks)
             {
                 // Verify signature
-                if (!VerifySignature(txPrev, *this, i, 0))
+                CScriptCheck check(txPrev, *this, i, flags, 0);
+                if (pvChecks)
                 {
+                    pvChecks->push_back(CScriptCheck());
+                    check.swap(pvChecks->back());
+                }
+                else if (!check())
+                {
+                    if (flags & STRICT_FLAGS)
+                {
+                        // Don't trigger DoS code in case of STRICT_FLAGS caused failure.
+                        CScriptCheck check(txPrev, *this, i, flags & ~STRICT_FLAGS, 0);
+                        if (check())
+                            return error("ConnectInputs() : %s strict VerifySignature failed", GetHash().ToString().substr(0,10).c_str());
+                    }
                     return DoS(100,error("ConnectInputs() : %s VerifySignature failed", GetHash().ToString().substr(0,10).c_str()));
                 }
             }
@@ -1460,7 +1570,25 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             }
         }
 
-        if (!IsCoinStake())
+        if (IsCoinStake())
+        {
+            if (nTime >  Checkpoints::GetLastCheckpointTime())
+            {
+                unsigned int nTxSize = GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION);
+
+                // coin stake tx earns reward instead of paying fee
+                uint64_t nCoinAge;
+                if (!GetCoinAge(txdb, nCoinAge))
+                    return error("ConnectInputs() : %s unable to get coin age for coinstake", GetHash().ToString().substr(0,10).c_str());
+
+                int64_t nReward = GetValueOut() - nValueIn;
+                int64_t nCalculatedReward = GetProofOfStakeReward(nCoinAge, pindexBlock->nBits, nTime) - GetMinFee(1, GMF_BLOCK, nTxSize) + CENT;
+
+                if (nReward > nCalculatedReward)
+                    return DoS(100, error("ConnectInputs() : coinstake pays too much(actual=%" PRId64 " vs calculated=%" PRId64 ")", nReward, nCalculatedReward));
+            }
+        }
+        else
         {
             if (nValueIn < GetValueOut())
                 return DoS(100, error("ConnectInputs() : %s value in < value out", GetHash().ToString().substr(0,10).c_str()));
@@ -1469,10 +1597,6 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             int64_t nTxFee = nValueIn - GetValueOut();
             if (nTxFee < 0)
                 return DoS(100, error("ConnectInputs() : %s nTxFee < 0", GetHash().ToString().substr(0,10).c_str()));
-
-            // enforce transaction fees for every block
-            if (nTxFee < GetMinFee())
-                return fBlock? DoS(100, error("ConnectInputs() : %s not paying required fee=%s, paid=%s", GetHash().ToString().substr(0,10).c_str(), FormatMoney(GetMinFee()).c_str(), FormatMoney(nTxFee).c_str())) : false;
 
             nFees += nTxFee;
             if (!MoneyRange(nFees))
@@ -1507,11 +1631,27 @@ bool CBlock::DisconnectBlock(CTxDB& txdb, CBlockIndex* pindex)
     return true;
 }
 
+static CCheckQueue<CScriptCheck> scriptcheckqueue(128);
+
+void ThreadScriptCheck(void*) {
+    vnThreadsRunning[THREAD_SCRIPTCHECK]++;
+    RenameThread("chesscoin-scriptch");
+    scriptcheckqueue.Thread();
+    vnThreadsRunning[THREAD_SCRIPTCHECK]--;
+}
+
+void ThreadScriptCheckQuit() {
+    scriptcheckqueue.Quit();
+}
+
 bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 {
     // Check it again in case a previous version let a bad block in, but skip BlockSig checking
     if (!CheckBlock(!fJustCheck, !fJustCheck, false))
         return false;
+
+    bool fEnforceBIP30 = true;
+    bool fScriptChecks = pindex->nHeight >= Checkpoints::GetTotalBlocksEstimate();
 
     //// issue here: it doesn't know the version
     unsigned int nTxPos;
@@ -1523,15 +1663,20 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         nTxPos = pindex->nBlockPos + ::GetSerializeSize(CBlock(), SER_DISK, CLIENT_VERSION) - (2 * GetSizeOfCompactSize(0)) + GetSizeOfCompactSize(vtx.size());
 
     map<uint256, CTxIndex> mapQueuedChanges;
+    CCheckQueueControl<CScriptCheck> control(fScriptChecks && nScriptCheckThreads ? &scriptcheckqueue : NULL);
+
     int64_t nFees = 0;
     int64_t nValueIn = 0;
     int64_t nValueOut = 0;
     int64_t nStakeReward = 0;
     unsigned int nSigOps = 0;
+
     BOOST_FOREACH(CTransaction& tx, vtx)
     {
         uint256 hashTx = tx.GetHash();
 
+        if (fEnforceBIP30)
+        {
         // Do not allow blocks that contain transactions which 'overwrite' older transactions,
         // unless those are already completely spent.
         // If such overwrites are allowed, coinbases and transactions depending upon those
@@ -1544,11 +1689,13 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
         // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
         // two in the chain that violate it. This prevents exploiting the issue against nodes in their
         // initial block download.
+
         CTxIndex txindexOld;
         if (txdb.ReadTxIndex(hashTx, txindexOld)) {
             BOOST_FOREACH(CDiskTxPos &pos, txindexOld.vSpent)
                 if (pos.IsNull())
                     return false;
+        }
         }
 
         nSigOps += tx.GetLegacySigOpCount();
@@ -1584,12 +1731,25 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
             if (tx.IsCoinStake())
                 nStakeReward = nTxValueOut - nTxValueIn;
 
-            if (!tx.ConnectInputs(txdb, mapInputs, mapQueuedChanges, posThisTx, pindex, true, false))
+            unsigned int nFlags = SCRIPT_VERIFY_NOCACHE | SCRIPT_VERIFY_P2SH;
+
+            if (tx.nTime >= CHECKLOCKTIMEVERIFY_SWITCH_TIME) {
+                nFlags |= SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY;
+                // OP_CHECKSEQUENCEVERIFY is senseless without BIP68, so we're going disable it for now.
+                // nFlags |= SCRIPT_VERIFY_CHECKSEQUENCEVERIFY;
+            }
+
+            std::vector<CScriptCheck> vChecks;
+            if (!tx.ConnectInputs(txdb, mapInputs, mapQueuedChanges, posThisTx, pindex, true, false, fScriptChecks, nFlags, nScriptCheckThreads ? &vChecks : NULL))
                 return false;
+            control.Add(vChecks);
         }
 
         mapQueuedChanges[hashTx] = CTxIndex(posThisTx, tx.vout.size());
     }
+
+    if (!control.Wait())
+        return DoS(100, false);
 
     if (IsProofOfWork())
     {
@@ -2639,8 +2799,6 @@ bool LoadBlockIndex(bool fAllowNew)
         if ((!fTestNet) && !Checkpoints::ResetSyncCheckpoint())
             return error("LoadBlockIndex() : failed to reset sync-checkpoint");
     }
-
-        txdb.Close();
     }
 
     return true;

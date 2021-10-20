@@ -162,6 +162,26 @@ public:
             return (n > (unsigned long)std::numeric_limits<int>::max() ? std::numeric_limits<int>::min() : -(int)n);
     }
 
+    void setuint32(uint32_t n)
+    {
+        if (!BN_set_word(this, n))
+            throw bignum_error("CBigNum conversion from uint32_t : BN_set_word failed");
+    }
+
+    uint32_t getuint32() const
+    {
+        return BN_get_word(this);
+    }
+
+    int32_t getint32() const
+    {
+        uint64_t n = BN_get_word(this);
+        if (!BN_is_negative(this))
+            return (n > (uint64_t)std::numeric_limits<int32_t>::max() ? std::numeric_limits<int32_t>::max() : (int32_t)n);
+        else
+            return (n > (uint64_t)std::numeric_limits<int32_t>::max() ? std::numeric_limits<int32_t>::min() : -(int32_t)n);
+    }
+
     void setint64(int64_t sn)
     {
         unsigned char pch[sizeof(sn) + 6];
