@@ -3,8 +3,6 @@
 // found in the LICENSE file. See the AUTHORS file for names of contributors.
 #if !defined(LEVELDB_PLATFORM_WINDOWS)
 
-#include <deque>
-#include <set>
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -18,9 +16,8 @@
 #include <sys/types.h>
 #include <time.h>
 #include <unistd.h>
-#if defined(LEVELDB_PLATFORM_ANDROID)
-#include <sys/stat.h>
-#endif
+#include <deque>
+#include <set>
 #include "leveldb/env.h"
 #include "leveldb/slice.h"
 #include "port/port.h"
