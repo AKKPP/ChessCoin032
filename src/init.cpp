@@ -91,7 +91,7 @@ void Shutdown(void* parg)
         delete pwalletMain;
         NewThread(ExitTimeout, NULL);
         MilliSleep(50);
-        printf("ChessCoin 0.32% exited\n\n");
+        printf("ChessCoin 0.32%% exited\n\n");
         fExit = true;
 #ifndef QT_GUI
         // ensure non-UI client gets exited here, but let Bitcoin-Qt reach 'return 0;' in bitcoin.cpp
@@ -568,7 +568,7 @@ bool AppInit2()
     std::ostringstream strErrors;
 
     if (fDaemon)
-        fprintf(stdout, "ChessCoin 0.32% server starting\n");
+        printf("ChessCoin 0.32%% server starting\n");
 
 
     if (nScriptCheckThreads) {

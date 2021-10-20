@@ -178,13 +178,15 @@ static void createDesktopFile()
     if (readlink("/proc/self/exe", pszExePath, sizeof(pszExePath)-1) == -1)
         return;
 
-    deskdir += "/Desktop";
-
-    string deskfile = deskdir + "/chesscoin-qt.desktop";
+    //string deskfile = "/usr/share/applications/chesscoin-qt.desktop";
+    string deskfile = deskdir + "/Desktop/chesscoin-qt.desktop";
 
     boost::filesystem::ofstream optionFile(deskfile, std::ios_base::out|std::ios_base::trunc);
     if (!optionFile.good())
+    {
+        fprintf(stderr, "desktop file creation failure...\n");
         return;
+    }
 
     // Write a bitcoin.desktop file to the autostart directory:
     optionFile << "[Desktop Entry]\n";
@@ -234,9 +236,9 @@ int main(int argc, char *argv[])
 
     app.setStyle("fusion");
 
-#if (defined (LINUX) || defined (_linux_))
-    createDesktopFile();
-#endif
+//#if (defined (LINUX) || defined (_linux_))
+//    createDesktopFile();
+//#endif
 
     // Now that QSettings are accessible, initialize translations
     QTranslator qtTranslatorBase, qtTranslator, translatorBase, translator;

@@ -75,6 +75,7 @@ bool fLogTimestamps = false;
 CMedianFilter<int64_t> vTimeOffsets(200,0);
 bool fReopenDebugLog = false;
 
+// print to debug.log
 static FILE* logfileout = NULL;
 static CCriticalSection cs_LogFile;
 
@@ -242,7 +243,7 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
 
                     // Debug print useful for profiling
 
-    #ifndef MYLOG
+    #ifdef MYLOG
                     fprintf(logfileout, "%s ", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
     #else
                     if (fLogTimestamps && fStartedNewLine)
@@ -256,7 +257,7 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
 
                     va_list arg_ptr;
                     va_start(arg_ptr, pszFormat);
-    #ifndef MYLOG
+    #ifdef MYLOG
                     ret = vprintf(pszFormat, arg_ptr);
     #endif
                     ret = vfprintf(logfileout, pszFormat, arg_ptr);
