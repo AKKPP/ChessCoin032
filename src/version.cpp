@@ -43,12 +43,12 @@ const std::string CLIENT_NAME("Satoshi");
 #define GIT_COMMIT_ID "32a928e"
 #endif
 
-#ifdef WIN32 || OS_WIN
-#define OS_VER_WINDOW "1"
-#elif OS_MACOSX
-#define OS_VER_WINDOW "3"
+#if (defined (WIN32) || defined (WIN64))
+    #define OS_VER_WINDOW       "1"
+#elif (defined (LINUX) || defined (_linux_))
+        #define OS_VER_WINDOW   "2"
 #else
-#define OS_VER_WINDOW "2"
+        #define OS_VER_WINDOW   "4"
 #endif
 
 //#define BUILD_DESC_FROM_COMMIT(maj,min,rev,build,commit) \
