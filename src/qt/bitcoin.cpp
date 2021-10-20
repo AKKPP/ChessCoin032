@@ -24,6 +24,14 @@
 #include <QLibraryInfo>
 #include <QSettings>
 
+#if (defined (LINUX) || defined (_linux_))
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#endif
+
 #if defined(BITCOIN_NEED_QT_PLUGINS) && !defined(_BITCOIN_QT_PLUGINS_INCLUDED)
 #define _BITCOIN_QT_PLUGINS_INCLUDED
 #define __INSURE__
@@ -147,6 +155,59 @@ static void handleRunawayException(std::exception *e)
     exit(1);
 }
 
+#if (defined (LINUX) || defined (_linux_))
+static void createDesktopFile()
+{
+    string deskdir = "";
+
+    char* pszConfigHome = getenv("XDG_CONFIG_HOME");
+    if (pszConfigHome)
+         deskdir = pszConfigHome;
+    else
+    {
+        char* pszHome = getenv("HOME");
+        if (pszHome)
+            deskdir = pszHome;
+    }
+
+    if (deskdir == "")
+        return;
+
+    char pszExePath[MAX_PATH+1];
+    memset(pszExePath, 0, sizeof(pszExePath));
+    if (readlink("/proc/self/exe", pszExePath, sizeof(pszExePath)-1) == -1)
+        return;
+
+    deskdir += "/Desktop";
+
+    string deskfile = deskdir + "/chesscoin-qt.desktop";
+
+    boost::filesystem::ofstream optionFile(deskfile, std::ios_base::out|std::ios_base::trunc);
+    if (!optionFile.good())
+        return;
+
+    // Write a bitcoin.desktop file to the autostart directory:
+    optionFile << "[Desktop Entry]\n";
+    optionFile << "Type=Application\n";
+    optionFile << "Name=chesscoin-qt\n";
+    optionFile << "Exec=" << pszExePath << "\n";
+    optionFile << "Icon=" << pszExePath << ".png\n";
+    optionFile << "Terminal=false\n";
+    optionFile << "Hidden=false\n";
+    optionFile << "GenericName=chesscoin-qt\n";
+    optionFile << "Comment=GUI application for linux\n";
+    optionFile << "Categories=Application\n";
+    optionFile.close();
+
+    chmod(deskfile.c_str(), ACCESSPERMS); // enables owner to rwx file
+
+    string cmd = "gio set ";
+    cmd += deskfile;
+    cmd += " metadata::trusted yes";
+    system(cmd.c_str());
+}
+#endif
+
 #ifndef BITCOIN_QT_TEST
 int main(int argc, char *argv[])
 {
@@ -170,6 +231,11 @@ int main(int argc, char *argv[])
         app.setApplicationName("ChessCoin-Qt-testnet");
     else
         app.setApplicationName("ChessCoin-Qt");
+
+#if (defined (LINUX) || defined (_linux_))
+    createDesktopFile();
+#endif
+
     // Now that QSettings are accessible, initialize translations
     QTranslator qtTranslatorBase, qtTranslator, translatorBase, translator;
     initTranslations(qtTranslatorBase, qtTranslator, translatorBase, translator);

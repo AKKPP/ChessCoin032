@@ -517,11 +517,27 @@ public:
 
     bool IsCoinBase() const
     {
+        int count = vin.size();
+        if (count == 0)
+            return false;
+
+        count = vout.size();
+        if (count == 0)
+            return false;
+
         return (vin.size() == 1 && vin[0].prevout.IsNull() && vout.size() >= 1);
     }
 
     bool IsCoinStake() const
     {
+        int count = vin.size();
+        if (count == 0)
+            return false;
+
+        count = vout.size();
+        if (count == 0)
+            return false;
+
         // ppcoin: the coin stake transaction is marked with the first output empty
         return (vin.size() > 0 && (!vin[0].prevout.IsNull()) && vout.size() >= 2 && vout[0].IsEmpty());
     }

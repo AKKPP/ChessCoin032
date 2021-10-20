@@ -1006,7 +1006,7 @@ boost::filesystem::path GetDefaultDataDir()
     return pathRet / "ChessCoin";
 #else
     // Unix
-    return pathRet / ".chesscoin";
+    return pathRet / "chesscoin"; //".chesscoin";
 #endif
 #endif
 }

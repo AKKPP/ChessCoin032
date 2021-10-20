@@ -8,6 +8,10 @@
 #include "main.h"
 #include "ui_interface.h"
 
+#ifdef Q_OS_MAC
+#include <boost/bind/placeholders.hpp>
+#endif
+
 #include <QDateTime>
 #include <QTimer>
 

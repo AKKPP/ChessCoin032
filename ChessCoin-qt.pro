@@ -56,6 +56,7 @@ contains(RELEASE, 1) {
 }
 
 contains(DEBUG, 1) {
+    message(Building with DEBUG)
     QMAKE_CXXFLAGS -= -O2
     QMAKE_CFLAGS -= -O2
 
@@ -73,6 +74,10 @@ QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
 # for extra security on Windows: enable ASLR and DEP via GCC linker flags
 
 win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
+
+# for debugging at release mode
+#QMAKE_CXXFLAGS +=-g
+QMAKE_LFLAGS_RELEASE-=-Wl,-s
 
 ## Windows Debug help Bug
 #win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++

@@ -129,3 +129,17 @@ void MacDockIconHandler::handleDockIconClickEvent()
 
     emit this->dockIconClicked();
 }
+
+// sendAppleScript just take a QString and executes it as apple script
+void MacDockIconHandler::sendAppleScript(const QString &script)
+{
+    QByteArray utf8 = script.toUtf8();
+    char* cString = (char *)utf8.constData();
+    NSString *scriptApple = [[NSString alloc] initWithUTF8String:cString];
+
+    NSAppleScript *as = [[NSAppleScript alloc] initWithSource:scriptApple];
+    NSDictionary *err = nil;
+    [as executeAndReturnError:&err];
+    [as release];
+    [scriptApple release];
+}

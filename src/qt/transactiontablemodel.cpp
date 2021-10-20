@@ -66,7 +66,8 @@ public:
      */
     void refreshWallet()
     {
-        OutputDebugStringF("refreshWallet\n");
+        printf("refreshWallet calling ...\n");
+
         cachedWallet.clear();
         {
             LOCK2(cs_main, wallet->cs_wallet);
@@ -76,6 +77,8 @@ public:
                     cachedWallet.append(TransactionRecord::decomposeTransaction(wallet, it->second));
             }
         }
+
+        printf("refreshWallet call end\n");
     }
 
     /* Update our model of the wallet incrementally, to synchronize our model of the wallet

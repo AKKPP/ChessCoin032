@@ -32,6 +32,9 @@ public:
 
     void handleDockIconClickEvent();
 
+    /** executes AppleScript */
+     void sendAppleScript(const QString &script);
+
 signals:
     void dockIconClicked();
 

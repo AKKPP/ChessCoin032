@@ -87,7 +87,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     qApp->setWindowIcon(QIcon(":icons/bitcoin"));
     setWindowIcon(QIcon(":icons/bitcoin"));
 #else
-    setUnifiedTitleAndToolBarOnMac(true);
+    //setUnifiedTitleAndToolBarOnMac(true);
     QApplication::setAttribute(Qt::AA_DontShowIconsInMenus);
 #endif
     // Accept D&D of URIs
@@ -647,6 +647,8 @@ void BitcoinGUI::closeEvent(QCloseEvent *event)
         {
             qApp->quit();
         }
+#else
+        qApp->quit();
 #endif
     }
     // close rpcConsole in case it was open to make some space for the shutdown window

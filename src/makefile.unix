@@ -2,8 +2,24 @@
 # Distributed under the MIT/X11 software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+
 LINK:=$(CXX)
 ARCH:=$(system lscpu | head -n 1 | awk '{print $2}')
+
+STATIC=1
+
+BOOST_LIB_SUFFIX=
+BOOST_INCLUDE_PATH=/usr/local/include
+BOOST_LIB_PATH=/usr/local/lib
+
+BDB_INCLUDE_PATH=/usr/local/berkeleydb.6.0.20/include
+BDB_LIB_PATH=/usr/local/berkeleydb.6.0.20/lib
+
+OPENSSL_INCLUDE_PATH=/usr/local/ssl/include
+OPENSSL_LIB_PATH=/usr/local/ssl/lib
+
+QRENCODE_INCLUDE_PATH=/usr/local/include
+QRENCODE_LIB_PATH=/usr/local/lib
 
 DEFS=-DBOOST_SPIRIT_THREADSAFE
 
@@ -135,6 +151,8 @@ OBJS= \
     obj/zerocoin/ZeroTest.o
 
 all: chesscoind
+
+DEFS += -DBUILD_DAEMON
 
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)

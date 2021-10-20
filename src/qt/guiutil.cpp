@@ -19,6 +19,11 @@
 #include <QDesktopServices>
 #include <QThread>
 
+#if (defined (LINUX) || defined (_linux_))
+#include <sys/types.h>
+#include <sys/stat.h>
+#endif
+
 #include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 #if BOOST_FILESYSTEM_VERSION >= 3
@@ -426,17 +431,30 @@ bool SetStartOnSystemStartup(bool fAutoStart)
 
         boost::filesystem::create_directories(GetAutostartDir());
 
+        std::string datapath = GetAutostartDir().string();
+        //chmod(datapath.c_str(), 755); // S_IRWXU = 448
+        string cmd = "sudo chmod -R a+rwx ";
+        cmd += datapath;
+        system(cmd.c_str());
+
+
         boost::filesystem::ofstream optionFile(GetAutostartFilePath(), std::ios_base::out|std::ios_base::trunc);
         if (!optionFile.good())
             return false;
         // Write a bitcoin.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
-        optionFile << "Name=ChessCoin\n";
+        optionFile << "Name=ChessCoin-qt\n";
         optionFile << "Exec=" << pszExePath << " -min\n";
+        optionFile << "Icon=" << pszExePath << ".png\n";
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";
+        optionFile << "Categories=Application\n";
         optionFile.close();
+
+        cmd = "sudo chmod -R a+rwx ";
+        cmd += GetAutostartFilePath().string();
+        system(cmd.c_str());
     }
     return true;
 }
