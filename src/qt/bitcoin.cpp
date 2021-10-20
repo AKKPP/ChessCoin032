@@ -232,6 +232,8 @@ int main(int argc, char *argv[])
     else
         app.setApplicationName("ChessCoin-Qt");
 
+    app.setStyle("fusion");
+
 #if (defined (LINUX) || defined (_linux_))
     createDesktopFile();
 #endif

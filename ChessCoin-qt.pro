@@ -77,7 +77,9 @@ win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
 
 # for debugging at release mode
 #QMAKE_CXXFLAGS +=-g
-QMAKE_LFLAGS_RELEASE-=-Wl,-s
+QMAKE_LFLAGS_RELEASE -= -Wl,-s
+#QMAKE_CXXFLAGS_RELEASE += $$QMAKE_CFLAGS_RELEASE_WITH_DEBUGINFO
+#QMAKE_LFLAGS_RELEASE += $$QMAKE_LFLAGS_RELEASE_WITH_DEBUGINFO
 
 ## Windows Debug help Bug
 #win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
@@ -88,7 +90,6 @@ QMAKE_LFLAGS_RELEASE-=-Wl,-s
 contains(USE_QRCODE, 1) {
     message(Building with QRCode support)
     DEFINES += USE_QRCODE
-    #LIBS += -lqrencode
     LIBS += -lqrencode
 }
 
@@ -128,7 +129,7 @@ contains(USE_IPV6, -) {
 
 contains(BITCOIN_NEED_QT_PLUGINS, 1) {
     DEFINES += BITCOIN_NEED_QT_PLUGINS
-    QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs
+    QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
 }
 
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
@@ -179,7 +180,7 @@ contains(USE_O3, 1) {
     QMAKE_CFLAGS += -msse2
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector -fexceptions
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wno-unused-local-typedef -Wstack-protector -Wstack-protector -fexceptions
 
 # Input
 DEPENDPATH += src src/json src/qt
@@ -431,6 +432,7 @@ LIBS += -lssl -lcrypto -ldb_cxx
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
 LIBS += -lboost_system-mgw63-mt-s-1_57 -lboost_filesystem-mgw63-mt-s-1_57 -lboost_program_options-mgw63-mt-s-1_57 -lboost_thread-mgw63-mt-s-1_57 libboost_chrono-mgw63-mt-s-1_57
+windows:LIBS += -Wl,-Bstatic -lpthread -Wl,-Bdynamic
 
 contains(RELEASE, 1) {
     !windows:!macx {

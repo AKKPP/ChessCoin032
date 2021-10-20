@@ -75,6 +75,9 @@ bool fLogTimestamps = false;
 CMedianFilter<int64_t> vTimeOffsets(200,0);
 bool fReopenDebugLog = false;
 
+static FILE* logfileout = NULL;
+static CCriticalSection cs_LogFile;
+
 // Init OpenSSL library multithreading support
 static CCriticalSection** ppmutexOpenSSL;
 void locking_callback(int mode, int i, const char* file, int line)
@@ -197,6 +200,9 @@ uint256 GetRandHash()
 inline int OutputDebugStringF(const char* pszFormat, ...)
 {
     int ret = 0;
+
+    try
+    {
     if (fPrintToConsole)
     {
         // print to console
@@ -208,15 +214,13 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
     else if (!fPrintToDebugger)
     {
         // print to debug.log
-        static FILE* fileout = NULL;
-
-        if (!fileout)
+            if (!logfileout)
         {
             boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
-            fileout = fopen(pathDebug.string().c_str(), "a");
-            if (fileout) setbuf(fileout, NULL); // unbuffered
+                logfileout = fopen(pathDebug.string().c_str(), "a");
+                if (logfileout) setbuf(logfileout, NULL); // unbuffered
         }
-        if (fileout)
+            if (logfileout)
         {
             static bool fStartedNewLine = true;
 
@@ -224,6 +228,32 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
             // Since the order of destruction of static/global objects is undefined,
             // allocate mutexDebugLog on the heap the first time this routine
             // is called to avoid crashes during shutdown.
+
+    #ifdef WIN32
+                {
+                    LOCK(cs_LogFile);
+                    // reopen the log file, if requested
+                    if (fReopenDebugLog) {
+                        fReopenDebugLog = false;
+                        boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
+                        if (freopen(pathDebug.string().c_str(),"a",logfileout) != NULL)
+                            setbuf(logfileout, NULL); // unbuffered
+                    }
+
+                    // Debug print useful for profiling
+                    if (fLogTimestamps && fStartedNewLine)
+                        fprintf(logfileout, "%s ", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
+                    if (pszFormat[strlen(pszFormat) - 1] == '\n')
+                        fStartedNewLine = true;
+                    else
+                        fStartedNewLine = false;
+
+                    va_list arg_ptr;
+                    va_start(arg_ptr, pszFormat);
+                    ret = vfprintf(logfileout, pszFormat, arg_ptr);
+                    va_end(arg_ptr);
+                }
+    #else
             static boost::mutex* mutexDebugLog = NULL;
             if (mutexDebugLog == NULL) mutexDebugLog = new boost::mutex();
             boost::mutex::scoped_lock scoped_lock(*mutexDebugLog);
@@ -232,13 +262,13 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
             if (fReopenDebugLog) {
                 fReopenDebugLog = false;
                 boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
-                if (freopen(pathDebug.string().c_str(),"a",fileout) != NULL)
-                    setbuf(fileout, NULL); // unbuffered
+                    if (freopen(pathDebug.string().c_str(),"a",logfileout) != NULL)
+                        setbuf(logfileout, NULL); // unbuffered
             }
 
             // Debug print useful for profiling
             if (fLogTimestamps && fStartedNewLine)
-                fprintf(fileout, "%s ", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
+                    fprintf(logfileout, "%s ", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
             if (pszFormat[strlen(pszFormat) - 1] == '\n')
                 fStartedNewLine = true;
             else
@@ -246,12 +276,14 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
 
             va_list arg_ptr;
             va_start(arg_ptr, pszFormat);
-            ret = vfprintf(fileout, pszFormat, arg_ptr);
+                //ret = vprintf(pszFormat, arg_ptr);
+                ret = vfprintf(logfileout, pszFormat, arg_ptr);
             va_end(arg_ptr);
+    #endif
         }
     }
 
-#ifdef WIN32
+    #ifdef WIN32
     if (fPrintToDebugger)
     {
         static CCriticalSection cs_OutputDebugStringF;
@@ -275,13 +307,29 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
             buffer.erase(0, line_start);
         }
     }
-#endif
+    #endif
+    }
+    catch (...)
+    {
+        if (fPrintToConsole)
+            fprintf(stderr, "printf logout exception");
+        else
+        {
+            fprintf(stderr, "%s printf logout exception\n", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
+            fprintf(logfileout, "%s printf logout exception\n", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
+        }
+
+        ret = 0;
+    }
+
+
     return ret;
 }
 
 string vstrprintf(const char *format, va_list ap)
 {
-    char buffer[50000];
+    //char buffer[50000];
+    char buffer[8192];
     char* p = buffer;
     int limit = sizeof(buffer);
     int ret;
@@ -366,7 +414,7 @@ string FormatMoney(int64_t n, bool fPlus)
     int64_t n_abs = (n > 0 ? n : -n);
     int64_t quotient = n_abs/COIN;
     int64_t remainder = n_abs%COIN;
-    string str = strprintf("%" PRId64".%08" PRId64, quotient, remainder);
+    string str = strprintf("%" PRId64 ".%08" PRId64, quotient, remainder);
 
     // Right-trim excess zeros before the decimal point:
     int nTrim = 0;
@@ -1066,7 +1114,7 @@ void createConf()
             + randomStrGen(15)
             + "\nrpcport=7324"
             + "\nport=7323"
-            + "\ndaemon=0 #(0=off, 1=on) Run in the background as a daemon and accept commands (Ubuntu 18.04 has to be 0)"
+            + "\ndaemon=0 #(0=off, 1=on) Run in the background as a daemon and accept commands"
             + "\nserver=0 #(0=off, 1=on) Accept command line and JSON-RPC commands"
             + "\nrpcallowip=127.0.0.1"
             + "\naddnode=66.70.191.185:7323"
@@ -1217,7 +1265,7 @@ void AddTimeData(const CNetAddr& ip, int64_t nTime)
 
     // Add data
     vTimeOffsets.input(nOffsetSample);
-    printf("Added time data, samples %d, offset %+" PRId64" (%+" PRId64" minutes)\n", vTimeOffsets.size(), nOffsetSample, nOffsetSample/60);
+    printf("Added time data, samples %d, offset %+" PRId64 " (%+" PRId64 " minutes)\n", vTimeOffsets.size(), nOffsetSample, nOffsetSample/60);
     if (vTimeOffsets.size() >= 5 && vTimeOffsets.size() % 2 == 1)
     {
         int64_t nMedian = vTimeOffsets.median();
@@ -1252,10 +1300,10 @@ void AddTimeData(const CNetAddr& ip, int64_t nTime)
         }
         if (fDebug) {
             BOOST_FOREACH(int64_t n, vSorted)
-                printf("%+" PRId64"  ", n);
+                printf("%+" PRId64 "  ", n);
             printf("|  ");
         }
-        printf("nTimeOffset = %+" PRId64"  (%+" PRId64" minutes)\n", nTimeOffset, nTimeOffset/60);
+        printf("nTimeOffset = %+" PRId64 "  (%+" PRId64 " minutes)\n", nTimeOffset, nTimeOffset/60);
     }
 }
 

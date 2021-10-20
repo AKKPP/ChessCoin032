@@ -9,6 +9,9 @@ AboutDialog::AboutDialog(QWidget *parent) :
     ui(new Ui::AboutDialog)
 {
     ui->setupUi(this);
+
+    setMinimumSize(600, 300);
+    setMaximumSize(600, 300);
 }
 
 void AboutDialog::setModel(ClientModel *model)
