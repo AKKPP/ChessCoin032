@@ -109,6 +109,33 @@ bool CDBEnv::Open(boost::filesystem::path pathEnv_)
     fDbEnvInit = true;
     fMockDb = false;
 
+/*
+#ifndef USE_LEVELDB
+    // Check that the number of locks is sufficient (to prevent chain fork possibility, read http://bitcoin.org/may15 for more info)
+    u_int32_t nMaxLocks;
+    if (!dbenv.get_lk_max_locks(&nMaxLocks))
+    {
+        int nBlocks, nDeepReorg;
+        std::string strMessage;
+
+        nBlocks = nMaxLocks / 48768;
+        nDeepReorg = (nBlocks - 1) / 2;
+
+        printf("Final lk_max_locks is %u, sufficient for (worst case) %d block%s in a single transaction (up to a %d-deep reorganization)\n", nMaxLocks, nBlocks, (nBlocks == 1) ? "" : "s", nDeepReorg);
+        if (nDeepReorg < 3)
+        {
+            if (nBlocks < 1)
+                strMessage = strprintf(_("Warning: DB_CONFIG has set_lk_max_locks %u, which may be too low for a single block. If this limit is reached, NovaCoin may stop working."), nMaxLocks);
+            else
+                strMessage = strprintf(_("Warning: DB_CONFIG has set_lk_max_locks %u, which may be too low for a common blockchain reorganization. If this limit is reached, NovaCoin may stop working."), nMaxLocks);
+
+            strMiscWarning = strMessage;
+            printf("*** %s\n", strMessage.c_str());
+        }
+    }
+#endif
+*/
+
     return true;
 }
 
@@ -208,7 +235,7 @@ bool CDBEnv::Salvage(std::string strFile, bool fAggressive,
     while (!strDump.eof() && keyHex != "DATA=END")
     {
         getline(strDump, keyHex);
-        if (keyHex != "DATA_END")
+        if (keyHex != "DATA=END")
         {
             getline(strDump, valueHex);
             vResult.push_back(make_pair(ParseHex(keyHex),ParseHex(valueHex)));
@@ -291,6 +318,14 @@ CDB::CDB(const char *pszFile, const char* pszMode) :
     }
 }
 
+static bool IsChainFile(std::string strFile)
+{
+    if (strFile == "blkindex.dat")
+        return true;
+
+    return false;
+}
+
 void CDB::Close()
 {
     if (!pdb)
@@ -304,6 +339,10 @@ void CDB::Close()
     unsigned int nMinutes = 0;
     if (fReadOnly)
         nMinutes = 1;
+    if (IsChainFile(strFile))
+        nMinutes = 2;
+    if (IsChainFile(strFile) && IsInitialBlockDownload())
+        nMinutes = 5;
 
     bitdb.dbenv.txn_checkpoint(nMinutes ? GetArg("-dblogsize", 100)*1024 : 0, nMinutes, 0);
 
@@ -462,7 +501,7 @@ void CDBEnv::Flush(bool fShutdown)
             else
                 mi++;
         }
-        printf("DBFlush(%s)%s ended %15" PRId64"ms\n", fShutdown ? "true" : "false", fDbEnvInit ? "" : " db not started", GetTimeMillis() - nStart);
+        printf("DBFlush(%s)%s ended %15" PRId64 "ms\n", fShutdown ? "true" : "false", fDbEnvInit ? "" : " db not started", GetTimeMillis() - nStart);
         if (fShutdown)
         {
             char** listp;

@@ -492,17 +492,28 @@ int CAddrMan::Check_()
 
 void CAddrMan::GetAddr_(std::vector<CAddress> &vAddr)
 {
-    int nNodes = ADDRMAN_GETADDR_MAX_PCT*vRandom.size()/100;
+    size_t nNodes = ADDRMAN_GETADDR_MAX_PCT*vRandom.size()/100;
     if (nNodes > ADDRMAN_GETADDR_MAX)
         nNodes = ADDRMAN_GETADDR_MAX;
 
     // perform a random shuffle over the first nNodes elements of vRandom (selecting from all)
-    for (int n = 0; n<nNodes; n++)
+    for (unsigned int n = 0; n<nNodes; n++)
     {
         int nRndPos = GetRandInt(vRandom.size() - n) + n;
         SwapRandom(n, nRndPos);
         assert(mapInfo.count(vRandom[n]) == 1);
         vAddr.push_back(mapInfo[vRandom[n]]);
+    }
+}
+
+void CAddrMan::GetOnlineAddr_(std::vector<CAddrInfo> &vAddr)
+{
+    for (std::map<int, CAddrInfo>::const_iterator it = mapInfo.begin(); it != mapInfo.end(); it++)
+    {
+        CAddrInfo addr = it->second;
+        bool fCurrentlyOnline = (GetAdjustedTime() - addr.nTime < 86400);
+        if (fCurrentlyOnline)
+            vAddr.push_back(addr);
     }
 }
 

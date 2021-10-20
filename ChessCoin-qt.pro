@@ -1,14 +1,13 @@
 TEMPLATE = app
 TARGET = chesscoin-qt
-VERSION = 1.2.2
+VERSION = 1.3.1
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
-#CONFIG += thread
-#CONFIG += exceptions
-#CONFIG += static
+CONFIG += thread
+CONFIG += static
 
-QT += core gui
+QT += core gui network
 
 greaterThan(QT_MAJOR_VERSION, 4) {
     QT += widgets
@@ -26,17 +25,24 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
+BOOST_LIB_SUFFIX=-mgw63-mt-s-1_57
+BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_57_0
+BOOST_LIB_PATH=C:/ChessCoinLibs/boost_1_57_0/stage/lib
+
+BDB_INCLUDE_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
+BDB_LIB_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
+
+OPENSSL_INCLUDE_PATH=C:/ChessCoinLibs/openssl-1.0.2u/include
+OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.0.2u
+
+#QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-3.4.4
+#QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-3.4.4/.libs
+QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-4.1.1
+QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-4.1.1/.libs
+
 OBJECTS_DIR = build
 MOC_DIR = build
 UI_DIR = build
-
-# use: qmake "USE_QRCODE=1"
-# libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
-contains(USE_QRCODE, 1) {
-    message(Building with QRCode support)
-    DEFINES += USE_QRCODE
-    LIBS += -lqrencode
-}
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
@@ -49,6 +55,45 @@ contains(RELEASE, 1) {
     }
 }
 
+contains(DEBUG, 1) {
+    QMAKE_CXXFLAGS -= -O2
+    QMAKE_CFLAGS -= -O2
+
+    QMAKE_CFLAGS += -g -O0
+    QMAKE_CXXCFLAGS += -g -O0
+}
+
+!win32 {
+# for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
+QMAKE_CXXFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
+QMAKE_LFLAGS *= -fstack-protector-all --param ssp-buffer-size=1
+# We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
+# This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
+}
+# for extra security on Windows: enable ASLR and DEP via GCC linker flags
+
+win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat
+
+## Windows Debug help Bug
+#win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
+## Windows Debug help Bug
+
+# use: qmake "USE_QRCODE=1"
+# libqrencode (http://fukuchi.org/works/qrencode/index.en.html) must be installed for support
+contains(USE_QRCODE, 1) {
+    message(Building with QRCode support)
+    DEFINES += USE_QRCODE
+    #LIBS += -lqrencode
+    LIBS += -lqrencode
+}
+
+# use: qmake "USE_DBUS=1"
+contains(USE_DBUS, 1) {
+    message(Building with DBUS (Freedesktop notifications) support)
+    DEFINES += USE_DBUS
+    QT += dbus
+}
+
 contains(USE_UPNP, 1) {
  message(Building with miniupnpc support)
  INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
@@ -58,49 +103,28 @@ contains(USE_UPNP, 1) {
  DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 }
 
-contains(USE_DBUS, 1) {
-    message(Building with DBUS (Freedesktop notifications) support)
-    DEFINES += USE_DBUS
-    QT += dbus
-}
-
 # use: qmake "USE_SSL=1"
 contains(USE_SSL, 1) {
     message(Building with SSL support for RPC)
     DEFINES += USE_SSL
 }
 
+# use: qmake "USE_IPV6=1" ( enabled by default; default)
+#  or: qmake "USE_IPV6=0" (disabled by default)
+#  or: qmake "USE_IPV6=-" (not supported)
+contains(USE_IPV6, -) {
+    message(Building without IPv6 support)
+} else {
+    count(USE_IPV6, 0) {
+        USE_IPV6=1
+    }
+    DEFINES += USE_IPV6=$$USE_IPV6
+}
+
 contains(BITCOIN_NEED_QT_PLUGINS, 1) {
     DEFINES += BITCOIN_NEED_QT_PLUGINS
     QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs
 }
-
-!windows {
-# for extra security against potential buffer overflows: enable GCCs Stack Smashing Protection
-    QMAKE_CXXFLAGS += -fstack-protector
-    QMAKE_LFLAGS += -fstack-protector
-# We need to exclude this for Windows cross compile with MinGW 4.2.x, as it will result in a non-working executable!
-# This can be enabled for Windows, when we switch to MinGW >= 4.4.x.
-}
-
-# for extra security on Windows: enable ASLR and DEP via GCC linker flags
-#win32:QMAKE_CXXFLAGS *= -fexceptions
-#win32:QMAKE_LFLAGS *= -Wl,--dynamicbase -Wl,--nxcompat -fexceptions
-#win32:QMAKE_LFLAGS += -static-libgcc -static-libstdc++
-
-BOOST_LIB_SUFFIX=-mgw63-mt-s-1_57
-BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_57_0
-BOOST_LIB_PATH=C:/ChessCoinLibs/boost_1_57_0/stage/lib
-
-BDB_INCLUDE_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
-BDB_LIB_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
-
-OPENSSL_INCLUDE_PATH=C:/ChessCoinLibs/openssl-1.0.2u/include
-OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.0.2u
-
-QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-3.4.4
-QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-3.4.4/.libs
-
 
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
 LIBS += $$PWD/src/leveldb/libleveldb.a $$PWD/src/leveldb/libmemenv.a
@@ -117,12 +141,12 @@ SOURCES += src/txdb-leveldb.cpp
     genleveldb.commands = cd $$PWD/src/leveldb && CC=$$QMAKE_CC CXX=$$QMAKE_CXX TARGET_OS=OS_WINDOWS_CROSSCOMPILE $(MAKE) OPT=\"$$QMAKE_CXXFLAGS $$QMAKE_CXXFLAGS_RELEASE\" libleveldb.a libmemenv.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libleveldb.a && $$QMAKE_RANLIB $$PWD/src/leveldb/libmemenv.a
 }
 
-#genleveldb.target = $$PWD/src/leveldb/libleveldb.a
-#genleveldb.depends = FORCE
+genleveldb.target = $$PWD/src/leveldb/libleveldb.a
+genleveldb.depends = FORCE
 
 #PRE_TARGETDEPS += $$PWD/src/leveldb/libleveldb.a
 #QMAKE_EXTRA_TARGETS += genleveldb
-## Gross ugly hack that depends on qmake internals, unfortunately there is no other way to do it.
+##Gross ugly hack that depends on qmake internals, unfortunately there is no other way to do it.
 #QMAKE_CLEAN += $$PWD/src/leveldb/libleveldb.a; cd $$PWD/src/leveldb ; $(MAKE) clean
 
 # regenerate src/build.h
@@ -346,9 +370,9 @@ FORMS += \
     src/qt/forms/optionsdialog.ui
 
 contains(USE_QRCODE, 1) {
-HEADERS += src/qt/qrcodedialog.h
-SOURCES += src/qt/qrcodedialog.cpp
-FORMS += src/qt/forms/qrcodedialog.ui
+    HEADERS += src/qt/qrcodedialog.h
+    SOURCES += src/qt/qrcodedialog.cpp
+    FORMS += src/qt/forms/qrcodedialog.ui
 }
 
 CODECFORTR = UTF-8
@@ -381,8 +405,7 @@ OTHER_FILES += \
 windows:DEFINES += WIN32
 windows:RC_FILE = src/qt/res/bitcoin-qt.rc
 
-# serious bug when throw exception calls : 20211002
-#windows:!contains(MINGW_THREAD_BUGFIX, 0) {
+windows:!contains(MINGW_THREAD_BUGFIX, 0) {
     # At least qmake's win32-g++-cross profile is missing the -lmingwthrd
     # thread-safety flag. GCC has -mthreads to enable this, but it doesn't
     # work with static linking. -lmingwthrd must come BEFORE -lmingw, so
@@ -390,9 +413,9 @@ windows:RC_FILE = src/qt/res/bitcoin-qt.rc
     # It can be turned off with MINGW_THREAD_BUGFIX=0, just in case it causes
     # any problems on some untested qmake profile now or in the future.
 
-    # DEFINES += _MT BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN
-    # QMAKE_LIBS_QT_ENTRY = -lmingwthrd $$QMAKE_LIBS_QT_ENTRY
-#}
+    DEFINES += _MT BOOST_THREAD_PROVIDES_GENERIC_SHARED_MUTEX_ON_WIN
+    QMAKE_LIBS_QT_ENTRY = -lmingwthrd $$QMAKE_LIBS_QT_ENTRY
+}
 
 # Set libraries and includes at end, to use platform-defined defaults if not overridden
 INCLUDEPATH += $$BOOST_INCLUDE_PATH $$BDB_INCLUDE_PATH $$OPENSSL_INCLUDE_PATH $$QRENCODE_INCLUDE_PATH
