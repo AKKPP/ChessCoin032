@@ -101,12 +101,12 @@ contains(USE_DBUS, 1) {
 }
 
 contains(USE_UPNP, 1) {
- message(Building with miniupnpc support)
- INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
- MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-1.9
- LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
- win32:LIBS += -liphlpapi
- DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
+    message(Building with miniupnpc support)
+    INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
+    MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-1.9
+    LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+    win32:LIBS += -liphlpapi
+    DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
 }
 
 # use: qmake "USE_SSL=1"

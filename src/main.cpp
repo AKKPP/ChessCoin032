@@ -424,8 +424,7 @@ bool CTransaction::AreInputsStandard(const MapPrevTx& mapInputs) const
         // be quick, because if there are any operations
         // beside "push data" in the scriptSig the
         // IsStandard() call returns false
-        vector<vector<unsigned char> > stack;        
-
+        vector<vector<unsigned char> > stack;
         if (!EvalScript(stack, vin[i].scriptSig, *this, i, 0, 0))
             return false;
 
@@ -1471,7 +1470,7 @@ unsigned int CTransaction::GetP2SHSigOpCount(const MapPrevTx& inputs) const
 
 bool CScriptCheck::operator()() const {
     const CScript &scriptSig = ptxTo->vin[nIn].scriptSig;
-    if (!VerifyScript(scriptSig, scriptPubKey, *ptxTo, nIn, nFlags, nHashType))
+    if (!VerifyScript(scriptSig, scriptPubKey, *ptxTo, nIn, nHashType, nFlags))
         return error("CScriptCheck() : %s VerifySignature failed", ptxTo->GetHash().ToString().substr(0,10).c_str());
     return true;
 }
@@ -1570,25 +1569,25 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             }
         }
 
-        if (IsCoinStake())
-        {
-            if (nTime >  Checkpoints::GetLastCheckpointTime())
-            {
-                unsigned int nTxSize = GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION);
+        if (!IsCoinStake())
+//        {
+//            if (nTime >  Checkpoints::GetLastCheckpointTime())
+//            {
+//                unsigned int nTxSize = GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION);
 
-                // coin stake tx earns reward instead of paying fee
-                uint64_t nCoinAge;
-                if (!GetCoinAge(txdb, nCoinAge))
-                    return error("ConnectInputs() : %s unable to get coin age for coinstake", GetHash().ToString().substr(0,10).c_str());
+//                // coin stake tx earns reward instead of paying fee
+//                uint64_t nCoinAge;
+//                if (!GetCoinAge(txdb, nCoinAge))
+//                    return error("ConnectInputs() : %s unable to get coin age for coinstake", GetHash().ToString().substr(0,10).c_str());
 
-                int64_t nReward = GetValueOut() - nValueIn;
-                int64_t nCalculatedReward = GetProofOfStakeReward(nCoinAge, pindexBlock->nBits, nTime) - GetMinFee(1, GMF_BLOCK, nTxSize) + CENT;
+//                int64_t nReward = GetValueOut() - nValueIn;
+//                int64_t nCalculatedReward = GetProofOfStakeReward(nCoinAge, pindexBlock->nBits, nTime) - GetMinFee(1, GMF_BLOCK, nTxSize) + CENT;
 
-                if (nReward > nCalculatedReward)
-                    return DoS(100, error("ConnectInputs() : coinstake pays too much(actual=%" PRId64 " vs calculated=%" PRId64 ")", nReward, nCalculatedReward));
-            }
-        }
-        else
+//                if (nReward > nCalculatedReward)
+//                    return DoS(100, error("ConnectInputs() : coinstake pays too much(actual=%" PRId64 " vs calculated=%" PRId64 ")", nReward, nCalculatedReward));
+//            }
+//        }
+//        else
         {
             if (nValueIn < GetValueOut())
                 return DoS(100, error("ConnectInputs() : %s value in < value out", GetHash().ToString().substr(0,10).c_str()));
@@ -2620,7 +2619,9 @@ FILE* OpenBlockFile(unsigned int nFile, unsigned int nBlockPos, const char* pszM
 {
     if ((nFile < 1) || (nFile == (unsigned int) -1))
         return NULL;
-    FILE* file = fopen(BlockFilePath(nFile).string().c_str(), pszMode);
+
+    string filepath = BlockFilePath(nFile).string();
+    FILE* file = fopen(filepath.c_str(), pszMode);
     if (!file)
         return NULL;
     if (nBlockPos != 0 && !strchr(pszMode, 'a') && !strchr(pszMode, 'w'))

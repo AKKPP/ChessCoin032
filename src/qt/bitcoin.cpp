@@ -291,7 +291,7 @@ int main(int argc, char *argv[])
 
     app.processEvents();
 
-    app.setQuitOnLastWindowClosed(false);
+    app.setQuitOnLastWindowClosed(true);
 
     try
     {
