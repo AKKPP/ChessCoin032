@@ -22,7 +22,7 @@ LIBS= \
  -lssl \
  -lcrypto
 
-DEFS=-DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE -DBUILD_DAEMON
+DEFS=-DWIN32 -D_WINDOWS -DBOOST_THREAD_USE_LIB -DBOOST_SPIRIT_THREADSAFE -DBUILD_CHESSCOIN_CLI
 DEBUGFLAGS=-g
 CFLAGS=-mthreads -O3 -msse2 -w -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter $(DEBUGFLAGS) $(DEFS) $(INCLUDEPATHS)
 LDFLAGS=-Wl,--dynamicbase -Wl,--nxcompat
@@ -51,19 +51,19 @@ OBJS= \
     obj/net.o \
     obj/protocol.o \
     obj/bitcoinrpc.o \
+obj/chesscoin-cli.o \
     obj/rpcdump.o \
     obj/rpcnet.o \
     obj/rpcmining.o \
     obj/rpcwallet.o \
     obj/rpcblockchain.o \
-    obj/rpcrawtransaction.o \
+     obj/rpcrawtransaction.o \
     obj/script.o \
     obj/sync.o \
     obj/util.o \
     obj/wallet.o \
     obj/walletdb.o \
-    obj/noui.o \
-    obj/kernel.o \
+     obj/kernel.o \
     obj/pbkdf2.o \
     obj/scrypt.o \
     obj/scrypt-x86.o \
@@ -79,7 +79,7 @@ OBJS= \
     obj/zerocoin/SpendMetaData.o \
     obj/zerocoin/ZeroTest.o
 
-all: chesscoind.exe
+all: chesscoin-cli.exe
 
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a -lshlwapi
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)
@@ -101,11 +101,11 @@ obj/scrypt-x86.o: scrypt-x86.S
 obj/scrypt-x86_64.o: scrypt-x86_64.S
 	$(CXX) -c $(xCXXFLAGS) -MMD -o $@ $<
 
-chesscoind.exe: $(OBJS:obj/%=obj/%)
+chesscoin-cli.exe: $(OBJS:obj/%=obj/%)
 	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 
 clean:
-	-del /Q chesscoind
+	-del /Q chesscoin-cli
 	-del /Q obj\*
 	-del /Q obj\zerocoin\*
 

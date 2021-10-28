@@ -43,27 +43,15 @@ const std::string CLIENT_NAME("Satoshi");
 #define GIT_COMMIT_ID "32a928e"
 #endif
 
-#ifdef BUILD_DAEMON
-    #define OS_VER_WINDOW "3"
-#else
-    #if (defined (_WIN32) || defined (_WIN64))
-    #define OS_VER_WINDOW       "1"
-    #elif (defined (LINUX) || defined (__linux__))
-        #define OS_VER_WINDOW   "2"
-    #else
-        #define OS_VER_WINDOW   "4"
-    #endif
-#endif
-
-#define BUILD_DESC_FROM_COMMIT(maj,min,rev,commit) \
-    DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "." commit
+#define BUILD_DESC_FROM_COMMIT(maj,min,rev,buildnum) \
+    DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "." DO_STRINGIZE(buildnum)
 
 #define BUILD_DESC_FROM_UNKNOWN(maj,min,rev) \
     DO_STRINGIZE(maj) "." DO_STRINGIZE(min) "." DO_STRINGIZE(rev) "-unk"
 
 #ifndef BUILD_DESC
 #    ifdef GIT_COMMIT_ID
-#        define BUILD_DESC BUILD_DESC_FROM_COMMIT(CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, CLIENT_VERSION_REVISION, OS_VER_WINDOW)
+#        define BUILD_DESC BUILD_DESC_FROM_COMMIT(CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, CLIENT_VERSION_REVISION, CLIENT_VERSION_BUILD)
 #    else
 #        define BUILD_DESC BUILD_DESC_FROM_UNKNOWN(CLIENT_VERSION_MAJOR, CLIENT_VERSION_MINOR, CLIENT_VERSION_REVISION)
 #    endif

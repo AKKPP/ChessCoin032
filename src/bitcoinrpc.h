@@ -71,6 +71,8 @@ json_spirit::Object JSONRPCError(int code, const std::string& message);
 void ThreadRPCServer(void* parg);
 int CommandLineRPC(int argc, char *argv[]);
 
+std::string HelpMessageCli(bool mainProgram);
+
 /** Convert parameter values for RPC call from strings to command-specific JSON objects. */
 json_spirit::Array RPCConvertValues(const std::string &strMethod, const std::vector<std::string> &strParams);
 
@@ -217,5 +219,8 @@ extern json_spirit::Value getblockhash(const json_spirit::Array& params, bool fH
 extern json_spirit::Value getblock(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value getblockbynumber(const json_spirit::Array& params, bool fHelp);
 extern json_spirit::Value getcheckpoint(const json_spirit::Array& params, bool fHelp);
+
+extern json_spirit::Value getblockchaininfo(const json_spirit::Array& params, bool fHelp); // in rpcblockchain.cpp
+extern json_spirit::Value getnetworkinfo(const json_spirit::Array& params, bool fHelp); // in rpcnet.cpp
 
 #endif

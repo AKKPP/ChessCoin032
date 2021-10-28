@@ -57,6 +57,9 @@ int nBestHeight = -1;
 uint256 nBestChainTrust = 0;
 uint256 nBestInvalidTrust = 0;
 
+bool fReindex = false;
+bool fTxIndex = false;
+
 uint256 hashBestChain = 0;
 CBlockIndex* pindexBest = NULL;
 int64_t nTimeBestReceived = 0;

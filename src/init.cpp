@@ -125,7 +125,7 @@ void HandleSIGHUP(int)
 //
 // Start
 //
-#if !defined(QT_GUI)
+#if !defined(QT_GUI) && defined(BUILD_DAEMON)
 bool AppInit(int argc, char* argv[])
 {
     bool fRet = false;
@@ -185,6 +185,8 @@ bool AppInit(int argc, char* argv[])
 extern void noui_connect();
 int main(int argc, char* argv[])
 {
+    printf("[*] Daemon Starting ...");
+
     bool fRet = false;
 
     // Connect bitcoind signal handlers
@@ -272,7 +274,9 @@ std::string HelpMessage()
         "  -server                " + _("Accept command line and JSON-RPC commands") + "\n" +
 #endif
 #if !defined(WIN32) && !defined(QT_GUI)
+#ifdef BUILD_DAEMON
         "  -daemon                " + _("Run in the background as a daemon and accept commands") + "\n" +
+#endif
 #endif
         "  -testnet               " + _("Use the test network") + "\n" +
         "  -debug                 " + _("Output extra debugging information. Implies all other -debug* options") + "\n" +
@@ -464,7 +468,7 @@ bool AppInit2()
     else
         fDebugNet = GetBoolArg("-debugnet");
 
-#if !defined(WIN32) && !defined(QT_GUI)
+#if !defined(WIN32) && !defined(QT_GUI) && defined(BUILD_DAEMON)
     fDaemon = GetBoolArg("-daemon");
 #else
     fDaemon = false;
@@ -476,7 +480,7 @@ bool AppInit2()
         fServer = GetBoolArg("-server");
 
     /* force fServer when running without GUI */
-#if !defined(QT_GUI)
+#if !defined(QT_GUI) && defined(BUILD_DAEMON)
     fServer = true;
 #endif
 
@@ -535,6 +539,7 @@ bool AppInit2()
         return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  ChessCoin 0.32% is probably already running."), strDataDir.c_str()));
 
 #if !defined(WIN32) && !defined(QT_GUI)
+    #ifdef BUILD_DAEMON
     if (fDaemon)
     {
         // Daemonize
@@ -554,6 +559,7 @@ bool AppInit2()
         if (sid < 0)
             fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
     }
+    #endif
 #endif
 
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
@@ -567,9 +573,10 @@ bool AppInit2()
     printf("Used data directory %s\n", strDataDir.c_str());
     std::ostringstream strErrors;
 
+#ifdef BUILD_DAEMON
     if (fDaemon)
         printf("ChessCoin 0.32%% server starting\n");
-
+#endif
 
     if (nScriptCheckThreads) {
         printf("Using %u threads for script verification\n", nScriptCheckThreads);
@@ -725,6 +732,8 @@ bool AppInit2()
         AddOneShot(strDest);
 
     // ********************************************************* Step 7: load blockchain
+
+    fReindex = GetBoolArg("-reindex", false);
 
     if (!bitdb.Open(GetDataDir()))
     {
@@ -920,7 +929,8 @@ bool AppInit2()
     }
 
     filesystem::path pathBootstrap = GetDataDir() / "bootstrap.dat";
-    if (filesystem::exists(pathBootstrap)) {
+    if (filesystem::exists(pathBootstrap))
+    {
         uiInterface.InitMessage(_("Importing bootstrap blockchain data file."));
 
         FILE *file = fopen(pathBootstrap.string().c_str(), "rb");

@@ -130,3 +130,97 @@ Value sendalert(const Array& params, bool fHelp)
         result.push_back(Pair("nCancel", alert.nCancel));
     return result;
 }
+
+static std::string GetNetworkName(enum Network net) {
+    switch(net)
+    {
+    case NET_IPV4: return "ipv4";
+    case NET_IPV6: return "ipv6";
+    case NET_TOR: return "onion";
+    default: return "";
+    }
+}
+
+static Value GetNetworksInfo()
+{
+    Array networks;
+    for (int n = 0; n < NET_MAX; ++n) {
+        enum Network network = static_cast<enum Network>(n);
+        if (network == NET_UNROUTABLE)
+            continue;
+
+        proxyType proxy;
+        Object obj;
+        GetProxy(network, proxy);
+        obj.push_back(Pair("name", GetNetworkName(network)));
+        obj.push_back(Pair("limited", IsLimited(network)));
+        obj.push_back(Pair("reachable", IsReachable(network)));
+        obj.push_back(Pair("proxy", proxy.first.ToStringIPPort()));
+        obj.push_back(Pair("proxy_randomize_credentials", proxy.second));
+        networks.push_back(obj);
+    }
+    return networks;
+}
+
+Value getnetworkinfo(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "getnetworkinfo\n"
+            "Returns an object containing various state info regarding P2P networking.\n"
+            "\nResult:\n"
+            "{\n"
+            "  \"version\": xxxxx,                      (numeric) the server version\n"
+            "  \"subversion\": \"/Fundin Core:x.x.x.x/\",     (string) the server subversion string\n"
+            "  \"protocolversion\": xxxxx,              (numeric) the protocol version\n"
+            "  \"localservices\": \"xxxxxxxxxxxxxxxx\", (string) the services we offer to the network\n"
+            "  \"timeoffset\": xxxxx,                   (numeric) the time offset\n"
+            "  \"connections\": xxxxx,                  (numeric) the number of connections\n"
+            "  \"networks\": [                          (array) information per network\n"
+            "  {\n"
+            "    \"name\": \"xxx\",                     (string) network (ipv4, ipv6 or onion)\n"
+            "    \"limited\": true|false,               (boolean) is the network limited using -onlynet?\n"
+            "    \"reachable\": true|false,             (boolean) is the network reachable?\n"
+            "    \"proxy\": \"host:port\"               (string) the proxy that is used for this network, or empty if none\n"
+            "  }\n"
+            "  ,...\n"
+            "  ],\n"
+            "  \"localaddresses\": [                    (array) list of local addresses\n"
+            "  {\n"
+            "    \"address\": \"xxxx\",                 (string) network address\n"
+            "    \"port\": xxx,                         (numeric) network port\n"
+            "    \"score\": xxx                         (numeric) relative score\n"
+            "  }\n"
+            "  ,...\n"
+            "  ]\n"
+            "}\n");
+
+    LOCK(cs_main);
+
+    proxyType proxy;
+    GetProxy(NET_IPV4, proxy);
+
+    Object result;
+    result.push_back(Pair("version",            CLIENT_VERSION));
+    result.push_back(Pair("subversion",         FormatSubVersion(CLIENT_NAME, CLIENT_VERSION, std::vector<string>())));
+    result.push_back(Pair("protocolversion",    PROTOCOL_VERSION));
+    result.push_back(Pair("localservices",      strprintf("%016x", nLocalServices)));
+    result.push_back(Pair("timeoffset",         GetTimeOffset()));
+    result.push_back(Pair("connections",        (int)vNodes.size()));
+    result.push_back(Pair("networks",           GetNetworksInfo()));
+
+    Array localAddresses;
+    {
+        LOCK(cs_mapLocalHost);
+        BOOST_FOREACH (const PAIRTYPE(CNetAddr, LocalServiceInfo) & item, mapLocalHost) {
+            Object rec;
+            rec.push_back(Pair("address",   item.first.ToString()));
+            rec.push_back(Pair("port",      item.second.nPort));
+            rec.push_back(Pair("score",     item.second.nScore));
+            localAddresses.push_back(rec);
+        }
+    }
+    result.push_back(Pair("localaddresses", localAddresses));
+
+    return result;
+}

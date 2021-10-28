@@ -21,7 +21,7 @@ OPENSSL_LIB_PATH=/usr/local/ssl/lib
 QRENCODE_INCLUDE_PATH=/usr/local/include
 QRENCODE_LIB_PATH=/usr/local/lib
 
-DEFS = -DBOOST_SPIRIT_THREADSAFE -DBUILD_DAEMON
+DEFS = -DBOOST_SPIRIT_THREADSAFE -DBUILD_CHESSCOIN_CLI
 DEFS += $(addprefix -I,$(CURDIR) $(CURDIR)/obj $(BOOST_INCLUDE_PATH) $(BDB_INCLUDE_PATH) $(OPENSSL_INCLUDE_PATH))
 LIBS = $(addprefix -L,$(BOOST_LIB_PATH) $(BDB_LIB_PATH) $(OPENSSL_LIB_PATH))
 
@@ -120,6 +120,7 @@ OBJS= \
     obj/net.o \
     obj/protocol.o \
     obj/bitcoinrpc.o \
+	obj/chesscoin-cli.o \
     obj/rpcdump.o \
     obj/rpcnet.o \
     obj/rpcmining.o \
@@ -149,7 +150,7 @@ OBJS= \
     obj/zerocoin/SpendMetaData.o \
     obj/zerocoin/ZeroTest.o
 
-all: chesscoind
+all: chesscoin-cli
 
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)
@@ -190,11 +191,11 @@ obj/zerocoin/%.o: zerocoin/%.cpp
 	      -e '/^$$/ d' -e 's/$$/ :/' < $(@:%.o=%.d) >> $(@:%.o=%.P); \
 	  rm -f $(@:%.o=%.d)
 
-chesscoind: $(OBJS:obj/%=obj/%)
+chesscoin-cli: $(OBJS:obj/%=obj/%)
 	$(LINK) $(xCXXFLAGS) -o $@ $^ $(xLDFLAGS) $(LIBS)
 
 clean:
-	-rm -f chesscoind
+	-rm -f chesscoin-cli
 	-rm -f obj/*.o
 	-rm -f obj/zerocoin/*.o
 	-rm -f obj/*.P

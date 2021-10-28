@@ -306,6 +306,8 @@ static const CRPCCommand vRPCCommands[] =
     { "resendtx",               &resendtx,               false,  true},
     { "makekeypair",            &makekeypair,            false,  true},
     { "sendalert",              &sendalert,              false,  false},
+    { "getblockchaininfo",      &getblockchaininfo,      true,   false},
+    { "getnetworkinfo",         &getnetworkinfo,         true,   false},
 };
 
 CRPCTable::CRPCTable()
@@ -1118,6 +1120,20 @@ Object CallRPC(const string& strMethod, const Array& params)
     if (!d.connect(GetArg("-rpcconnect", "127.0.0.1"), GetArg("-rpcport", itostr(GetDefaultRPCPort()))))
         throw runtime_error("couldn't connect to server");
 
+    bool fWait = GetBoolArg("-rpcwait", false); // -rpcwait means try until server has started
+    do {
+        bool fConnected = d.connect(GetArg("-rpcconnect", "127.0.0.1"), GetArg("-rpcport", itostr(GetDefaultRPCPort())));
+        if (fConnected)
+            break;
+
+        if (fWait)
+            MilliSleep(1000);
+        else
+            throw runtime_error("couldn't connect to server");
+    } while (fWait);
+
+    fprintf(stderr, "Connect OK\n");
+
     // HTTP basic authentication
     string strUserPass64 = EncodeBase64(mapArgs["-rpcuser"] + ":" + mapArgs["-rpcpassword"]);
     map<string, string> mapRequestHeaders;
@@ -1301,8 +1317,40 @@ int CommandLineRPC(int argc, char *argv[])
     return nRet;
 }
 
+std::string HelpMessageCli(bool mainProgram)
+{
+    string strUsage;
+    if(mainProgram)
+    {
+        strUsage += _("Options:") + "\n";
+        strUsage += "  -?                     " + _("This help message") + "\n";
+        strUsage += "  -conf=<file>           " + _("Specify configuration file (default: chesscoin.conf)") + "\n";
+        strUsage += "  -datadir=<dir>         " + _("Specify data directory") + "\n";
+        strUsage += "  -testnet               " + _("Use the test network") + "\n";
+        //strUsage += "  -addrinfo              " + _("Get the number of addresses known to the node, per network and total.") + "\n";
+        //strUsage += "  -getinfo               " + _("Get general information from the remote server. Note that unlike server-side RPC calls, the results of -getinfo is the result of multiple non-atomic requests. Some entries in the result may represent results from different states (e.g. wallet balance may be as of a different block from the chain state reported)") + "\n";
+        //strUsage += "  -netinfo               " + _("Get network peer connection information from the remote server. An optional integer argument from 0 to 4 can be passed for different peers listings (default: 0). Pass \"help\" for detailed help documentation") + "\n";
+    }
+    else
+    {
+        strUsage += _("RPC client options:") + "\n";
+    }
 
+    strUsage += "  -rpcconnect=<ip>       " + _("Send commands to node running on <ip> (default: 127.0.0.1)") + "\n";
+    strUsage += "  -rpcport=<port>        " + _("Connect to JSON-RPC on <port> (default: 7323 or testnet: 17323)") + "\n";
+    strUsage += "  -rpcwait               " + _("Wait for RPC server to start") + "\n";
 
+    if(mainProgram)
+    {
+        strUsage += "  -rpcuser=<user>        " + _("Username for JSON-RPC connections") + "\n";
+        strUsage += "  -rpcpassword=<pw>      " + _("Password for JSON-RPC connections") + "\n";
+
+        strUsage += "\n" + _("SSL options: (see the Bitcoin Wiki for SSL setup instructions)") + "\n";
+        strUsage += "  -rpcssl                " + _("Use OpenSSL (https) for JSON-RPC connections") + "\n";
+    }
+
+    return strUsage;
+}
 
 #ifdef TEST
 int main(int argc, char *argv[])
