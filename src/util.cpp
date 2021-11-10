@@ -9,6 +9,7 @@
 #include "version.h"
 #include "ui_interface.h"
 #include <boost/algorithm/string/join.hpp>
+#include <algorithm>
 
 // Work around clang compilation problem in Boost 1.46:
 // /usr/include/boost/program_options/detail/config_file.hpp:163:17: error: call to function 'to_internal' that is neither visible in the template definition nor found by argument-dependent lookup
@@ -1118,6 +1119,12 @@ void createConf()
 {
     srand(time(NULL));
 
+    // Added 2021/11/9
+    // 54.38.157.243
+    // 151.80.149.31
+    // 54.36.163.33
+    // 51.178.41.236
+
     ofstream pConf;
     pConf.open(GetConfigFile().generic_string().c_str());
     pConf << "rpcuser=user\nrpcpassword="
@@ -1130,7 +1137,11 @@ void createConf()
             + "\naddnode=66.70.191.185:7323"
             + "\naddnode=51.79.145.189:7323"
             + "\naddnode=139.99.196.131:7323"
-            + "\naddnode=147.135.210.113:7323";						
+            + "\naddnode=147.135.210.113:7323"
+            + "\naddnode=54.38.157.243:7323"
+            + "\naddnode=151.80.149.31:7323"
+            + "\naddnode=54.36.163.33:7323"
+            + "\naddnode=51.178.41.236:7323";
     pConf.close();
 }
 
@@ -1139,6 +1150,52 @@ boost::filesystem::path GetConfigFile()
     boost::filesystem::path pathConfigFile(GetArg("-conf", "chesscoin.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
+}
+
+void AppendNewConfNode(string ip)
+{
+    string confpath = GetConfigFile().string();
+
+    FILE * fp = fopen(confpath.c_str(), "a+");
+    if (fp == NULL)
+        return;
+
+    string buf = "\naddnode=";
+    buf += ip;
+
+    fwrite(buf.c_str(), buf.length(), 1, fp);
+
+    fflush(fp);
+    fclose(fp);
+}
+
+void CheckNewNodeServerList(map<string, vector<string> >& mapMultiSettingsRet)
+{
+    // Added 2021/11/9
+    vector<string> vNode;
+    vNode.push_back("54.38.157.243:7323");
+    vNode.push_back("151.80.149.31:7323");
+    vNode.push_back("54.36.163.33:7323");
+    vNode.push_back("51.178.41.236:7323");
+
+    map<string, vector<string>>::iterator it = mapMultiSettingsRet.begin();
+    while (it != mapMultiSettingsRet.end())
+    {
+        // Accessing KEY from element pointed by it.
+        string key = it->first;
+        if (key.find("addnode") != -1)
+        {
+            vector<string>& vSvr = it->second;
+            for (int i = 0; i < vNode.size(); i ++)
+            {
+                string ip = vNode.at(i);
+                if ( std::find(vSvr.begin(), vSvr.end(), ip) == vSvr.end() )
+                    AppendNewConfNode(ip);
+            }
+            break;
+        }
+        it++;
+    }
 }
 
 void ReadConfigFile(map<string, string>& mapSettingsRet, map<string, vector<string> >& mapMultiSettingsRet)
@@ -1166,6 +1223,8 @@ void ReadConfigFile(map<string, string>& mapSettingsRet, map<string, vector<stri
         }
         mapMultiSettingsRet[strKey].push_back(it->value[0]);
     }
+
+    CheckNewNodeServerList(mapMultiSettingsRet);
 }
 
 boost::filesystem::path GetPidFile()
