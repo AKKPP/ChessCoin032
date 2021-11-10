@@ -57,13 +57,13 @@ obj/chesscoin-cli.o \
     obj/rpcmining.o \
     obj/rpcwallet.o \
     obj/rpcblockchain.o \
-     obj/rpcrawtransaction.o \
+    obj/rpcrawtransaction.o \
     obj/script.o \
     obj/sync.o \
     obj/util.o \
     obj/wallet.o \
     obj/walletdb.o \
-     obj/kernel.o \
+    obj/kernel.o \
     obj/pbkdf2.o \
     obj/scrypt.o \
     obj/scrypt-x86.o \

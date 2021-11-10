@@ -480,9 +480,9 @@ bool AppInit2()
         fServer = GetBoolArg("-server");
 
     /* force fServer when running without GUI */
-#if !defined(QT_GUI) && defined(BUILD_DAEMON)
-    fServer = true;
-#endif
+//#if !defined(QT_GUI) && defined(BUILD_DAEMON)
+//    fServer = true;
+//#endif
 
 #ifdef QT_NO_DEBUG
     fPrintToConsole = GetBoolArg("-printtoconsole");
@@ -540,25 +540,25 @@ bool AppInit2()
 
 #if !defined(WIN32) && !defined(QT_GUI)
     #ifdef BUILD_DAEMON
-    if (fDaemon)
-    {
-        // Daemonize
-        pid_t pid = fork();
-        if (pid < 0)
+        if (fDaemon)
         {
-            fprintf(stderr, "Error: fork() returned %d errno %d\n", pid, errno);
-            return false;
-        }
-        if (pid > 0)
-        {
-            CreatePidFile(GetPidFile(), pid);
-            return true;
-        }
+            // Daemonize
+            pid_t pid = fork();
+            if (pid < 0)
+            {
+                fprintf(stderr, "Error: fork() returned %d errno %d\n", pid, errno);
+                return false;
+            }
+            if (pid > 0)
+            {
+                CreatePidFile(GetPidFile(), pid);
+                return true;
+            }
 
-        pid_t sid = setsid();
-        if (sid < 0)
-            fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
-    }
+            pid_t sid = setsid();
+            if (sid < 0)
+                fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
+        }
     #endif
 #endif
 
@@ -608,7 +608,7 @@ bool AppInit2()
     if (filesystem::exists(GetDataDir() / strWalletFileName))
     {
         CDBEnv::VerifyResult r = bitdb.Verify(strWalletFileName, CWalletDB::Recover);
-        if (r == CDBEnv::RECOVER_OK)
+        if (r == CDBEnv::RECOVER_OK)F
         {
             string msg = strprintf(_("Warning: wallet.dat corrupt, data salvaged!"
                                      " Original wallet.dat saved as wallet.{timestamp}.bak in %s; if"
@@ -758,7 +758,7 @@ bool AppInit2()
         std::string strLoadError;
         uiInterface.InitMessage(_("Loading block index..."));
 
-    nStart = GetTimeMillis();
+        nStart = GetTimeMillis();
         do {
             try {
                 UnloadBlockIndex();
@@ -965,7 +965,7 @@ bool AppInit2()
 
     //// debug print
     printf("mapBlockIndex.size() = %" PRIszu "\n",   mapBlockIndex.size());
-    printf("nBestHeight = %d\n",            nBestHeight);
+    printf("nBestHeight = %d\n",                     nBestHeight);
     printf("setKeyPool.size() = %" PRIszu "\n",      pwalletMain->setKeyPool.size());
     printf("mapWallet.size() = %" PRIszu "\n",       pwalletMain->mapWallet.size());
     printf("mapAddressBook.size() = %" PRIszu "\n",  pwalletMain->mapAddressBook.size());

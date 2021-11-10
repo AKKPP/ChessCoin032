@@ -1067,7 +1067,7 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, int64_t nTim
 
     // Stage 2 of emission process is mostly PoS-based.
 
-    CBigNum bnRewardCoinYearLimit = MAX_MINT_PROOF_OF_STAKE; // Base stake mint rate, 100% year interest
+    CBigNum bnRewardCoinYearLimit = CBigNum(MAX_MINT_PROOF_OF_STAKE); // Base stake mint rate, 100% year interest
     CBigNum bnTarget;
     bnTarget.SetCompact(nBits);
     CBigNum bnTargetLimit = GetProofOfStakeLimit(0, nTime);
@@ -1552,7 +1552,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
                 else if (!check())
                 {
                     if (flags & STRICT_FLAGS)
-                {
+                    {
                         // Don't trigger DoS code in case of STRICT_FLAGS caused failure.
                         CScriptCheck check(txPrev, *this, i, flags & ~STRICT_FLAGS, 0);
                         if (check())
@@ -1572,25 +1572,25 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             }
         }
 
-        if (!IsCoinStake())
-//        {
-//            if (nTime >  Checkpoints::GetLastCheckpointTime())
-//            {
-//                unsigned int nTxSize = GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION);
+        if (IsCoinStake())
+        {
+            if (nTime >  Checkpoints::GetLastCheckpointTime())
+            {
+                unsigned int nTxSize = GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION);
 
-//                // coin stake tx earns reward instead of paying fee
-//                uint64_t nCoinAge;
-//                if (!GetCoinAge(txdb, nCoinAge))
-//                    return error("ConnectInputs() : %s unable to get coin age for coinstake", GetHash().ToString().substr(0,10).c_str());
+                // coin stake tx earns reward instead of paying fee
+                uint64_t nCoinAge;
+                if (!GetCoinAge(txdb, nCoinAge))
+                    return error("ConnectInputs() : %s unable to get coin age for coinstake", GetHash().ToString().substr(0,10).c_str());
 
-//                int64_t nReward = GetValueOut() - nValueIn;
-//                int64_t nCalculatedReward = GetProofOfStakeReward(nCoinAge, pindexBlock->nBits, nTime) - GetMinFee(1, GMF_BLOCK, nTxSize) + CENT;
+                int64_t nReward = GetValueOut() - nValueIn;
+                int64_t nCalculatedReward = GetProofOfStakeReward(nCoinAge, pindexBlock->nBits, nTime) - GetMinFee(1, GMF_BLOCK, nTxSize) + CENT;
 
-//                if (nReward > nCalculatedReward)
-//                    return DoS(100, error("ConnectInputs() : coinstake pays too much(actual=%" PRId64 " vs calculated=%" PRId64 ")", nReward, nCalculatedReward));
-//            }
-//        }
-//        else
+                if (nReward > nCalculatedReward)
+                    return DoS(100, error("ConnectInputs() : coinstake pays too much(actual=%" PRId64 " vs calculated=%" PRId64 ")", nReward, nCalculatedReward));
+            }
+        }
+        else
         {
             if (nValueIn < GetValueOut())
                 return DoS(100, error("ConnectInputs() : %s value in < value out", GetHash().ToString().substr(0,10).c_str()));
@@ -1683,25 +1683,25 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
         if (fEnforceBIP30)
         {
-        // Do not allow blocks that contain transactions which 'overwrite' older transactions,
-        // unless those are already completely spent.
-        // If such overwrites are allowed, coinbases and transactions depending upon those
-        // can be duplicated to remove the ability to spend the first instance -- even after
-        // being sent to another address.
-        // See BIP30 and http://r6.ca/blog/20120206T005236Z.html for more information.
-        // This logic is not necessary for memory pool transactions, as AcceptToMemoryPool
-        // already refuses previously-known transaction ids entirely.
-        // This rule was originally applied all blocks whose timestamp was after March 15, 2012, 0:00 UTC.
-        // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
-        // two in the chain that violate it. This prevents exploiting the issue against nodes in their
-        // initial block download.
+            // Do not allow blocks that contain transactions which 'overwrite' older transactions,
+            // unless those are already completely spent.
+            // If such overwrites are allowed, coinbases and transactions depending upon those
+            // can be duplicated to remove the ability to spend the first instance -- even after
+            // being sent to another address.
+            // See BIP30 and http://r6.ca/blog/20120206T005236Z.html for more information.
+            // This logic is not necessary for memory pool transactions, as AcceptToMemoryPool
+            // already refuses previously-known transaction ids entirely.
+            // This rule was originally applied all blocks whose timestamp was after March 15, 2012, 0:00 UTC.
+            // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
+            // two in the chain that violate it. This prevents exploiting the issue against nodes in their
+            // initial block download.
 
-        CTxIndex txindexOld;
-        if (txdb.ReadTxIndex(hashTx, txindexOld)) {
-            BOOST_FOREACH(CDiskTxPos &pos, txindexOld.vSpent)
-                if (pos.IsNull())
-                    return false;
-        }
+            CTxIndex txindexOld;
+            if (txdb.ReadTxIndex(hashTx, txindexOld)) {
+                BOOST_FOREACH(CDiskTxPos &pos, txindexOld.vSpent)
+                    if (pos.IsNull())
+                        return false;
+            }
         }
 
         nSigOps += tx.GetLegacySigOpCount();
@@ -2793,20 +2793,20 @@ bool LoadBlockIndex(bool fAllowNew)
 
     {
         CTxDB txdb("r+");
-    string strPubKey = "";
+        string strPubKey = "";
 
-    // if checkpoint master key changed must reset sync-checkpoint
-    if (!txdb.ReadCheckpointPubKey(strPubKey) || strPubKey != CSyncCheckpoint::strMasterPubKey)
-    {
-        // write checkpoint master key to db
-        txdb.TxnBegin();
-        if (!txdb.WriteCheckpointPubKey(CSyncCheckpoint::strMasterPubKey))
-            return error("LoadBlockIndex() : failed to write new checkpoint master key to db");
-        if (!txdb.TxnCommit())
-            return error("LoadBlockIndex() : failed to commit new checkpoint master key to db");
-        if ((!fTestNet) && !Checkpoints::ResetSyncCheckpoint())
-            return error("LoadBlockIndex() : failed to reset sync-checkpoint");
-    }
+        // if checkpoint master key changed must reset sync-checkpoint
+        if (!txdb.ReadCheckpointPubKey(strPubKey) || strPubKey != CSyncCheckpoint::strMasterPubKey)
+        {
+            // write checkpoint master key to db
+            txdb.TxnBegin();
+            if (!txdb.WriteCheckpointPubKey(CSyncCheckpoint::strMasterPubKey))
+                return error("LoadBlockIndex() : failed to write new checkpoint master key to db");
+            if (!txdb.TxnCommit())
+                return error("LoadBlockIndex() : failed to commit new checkpoint master key to db");
+            if ((!fTestNet) && !Checkpoints::ResetSyncCheckpoint())
+                return error("LoadBlockIndex() : failed to reset sync-checkpoint");
+        }
     }
 
     return true;

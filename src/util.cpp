@@ -9,6 +9,7 @@
 #include "version.h"
 #include "ui_interface.h"
 #include <boost/algorithm/string/join.hpp>
+#include <algorithm>
 
 // Work around clang compilation problem in Boost 1.46:
 // /usr/include/boost/program_options/detail/config_file.hpp:163:17: error: call to function 'to_internal' that is neither visible in the template definition nor found by argument-dependent lookup
@@ -204,31 +205,31 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
 
     try
     {
-    if (fPrintToConsole)
-    {
-        // print to console
-        va_list arg_ptr;
-        va_start(arg_ptr, pszFormat);
-        ret = vprintf(pszFormat, arg_ptr);
-        va_end(arg_ptr);
-    }
-    else if (!fPrintToDebugger)
-    {
-        // print to debug.log
-            if (!logfileout)
+        if (fPrintToConsole)
         {
-            boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
+            // print to console
+            va_list arg_ptr;
+            va_start(arg_ptr, pszFormat);
+            ret = vprintf(pszFormat, arg_ptr);
+            va_end(arg_ptr);
+        }
+        else if (!fPrintToDebugger)
+        {
+            // print to debug.log
+            if (!logfileout)
+            {
+                boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
                 logfileout = fopen(pathDebug.string().c_str(), "a");
                 if (logfileout) setbuf(logfileout, NULL); // unbuffered
-        }
+            }
             if (logfileout)
-        {
-            static bool fStartedNewLine = true;
+            {
+                static bool fStartedNewLine = true;
 
-            // This routine may be called by global destructors during shutdown.
-            // Since the order of destruction of static/global objects is undefined,
-            // allocate mutexDebugLog on the heap the first time this routine
-            // is called to avoid crashes during shutdown.
+                // This routine may be called by global destructors during shutdown.
+                // Since the order of destruction of static/global objects is undefined,
+                // allocate mutexDebugLog on the heap the first time this routine
+                // is called to avoid crashes during shutdown.
 
     #ifdef WIN32
                 {
@@ -264,59 +265,59 @@ inline int OutputDebugStringF(const char* pszFormat, ...)
                     va_end(arg_ptr);
                 }
     #else
-            static boost::mutex* mutexDebugLog = NULL;
-            if (mutexDebugLog == NULL) mutexDebugLog = new boost::mutex();
-            boost::mutex::scoped_lock scoped_lock(*mutexDebugLog);
+                static boost::mutex* mutexDebugLog = NULL;
+                if (mutexDebugLog == NULL) mutexDebugLog = new boost::mutex();
+                boost::mutex::scoped_lock scoped_lock(*mutexDebugLog);
 
-            // reopen the log file, if requested
-            if (fReopenDebugLog) {
-                fReopenDebugLog = false;
-                boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
+                // reopen the log file, if requested
+                if (fReopenDebugLog) {
+                    fReopenDebugLog = false;
+                    boost::filesystem::path pathDebug = GetDataDir() / "debug.log";
                     if (freopen(pathDebug.string().c_str(),"a",logfileout) != NULL)
                         setbuf(logfileout, NULL); // unbuffered
-            }
+                }
 
-            // Debug print useful for profiling
-            if (fLogTimestamps && fStartedNewLine)
+                // Debug print useful for profiling
+                if (fLogTimestamps && fStartedNewLine)
                     fprintf(logfileout, "%s ", DateTimeStrFormat("%x %H:%M:%S", GetTime()).c_str());
-            if (pszFormat[strlen(pszFormat) - 1] == '\n')
-                fStartedNewLine = true;
-            else
-                fStartedNewLine = false;
+                if (pszFormat[strlen(pszFormat) - 1] == '\n')
+                    fStartedNewLine = true;
+                else
+                    fStartedNewLine = false;
 
-            va_list arg_ptr;
-            va_start(arg_ptr, pszFormat);
+                va_list arg_ptr;
+                va_start(arg_ptr, pszFormat);
                 //ret = vprintf(pszFormat, arg_ptr);
                 ret = vfprintf(logfileout, pszFormat, arg_ptr);
-            va_end(arg_ptr);
+                va_end(arg_ptr);
     #endif
+            }
         }
-    }
 
     #ifdef WIN32
-    if (fPrintToDebugger)
-    {
-        static CCriticalSection cs_OutputDebugStringF;
-
-        // accumulate and output a line at a time
+        if (fPrintToDebugger)
         {
-            LOCK(cs_OutputDebugStringF);
-            static std::string buffer;
+            static CCriticalSection cs_OutputDebugStringF;
 
-            va_list arg_ptr;
-            va_start(arg_ptr, pszFormat);
-            buffer += vstrprintf(pszFormat, arg_ptr);
-            va_end(arg_ptr);
-
-            int line_start = 0, line_end;
-            while((line_end = buffer.find('\n', line_start)) != -1)
+            // accumulate and output a line at a time
             {
-                OutputDebugStringA(buffer.substr(line_start, line_end - line_start).c_str());
-                line_start = line_end + 1;
+                LOCK(cs_OutputDebugStringF);
+                static std::string buffer;
+
+                va_list arg_ptr;
+                va_start(arg_ptr, pszFormat);
+                buffer += vstrprintf(pszFormat, arg_ptr);
+                va_end(arg_ptr);
+
+                int line_start = 0, line_end;
+                while((line_end = buffer.find('\n', line_start)) != -1)
+                {
+                    OutputDebugStringA(buffer.substr(line_start, line_end - line_start).c_str());
+                    line_start = line_end + 1;
+                }
+                buffer.erase(0, line_start);
             }
-            buffer.erase(0, line_start);
         }
-    }
     #endif
     }
     catch (...)
@@ -1118,6 +1119,12 @@ void createConf()
 {
     srand(time(NULL));
 
+    // Added 2021/11/9
+    // 54.38.157.243
+    // 151.80.149.31
+    // 54.36.163.33
+    // 51.178.41.236
+
     ofstream pConf;
     pConf.open(GetConfigFile().generic_string().c_str());
     pConf << "rpcuser=user\nrpcpassword="
@@ -1130,7 +1137,11 @@ void createConf()
             + "\naddnode=66.70.191.185:7323"
             + "\naddnode=51.79.145.189:7323"
             + "\naddnode=139.99.196.131:7323"
-            + "\naddnode=147.135.210.113:7323";						
+            + "\naddnode=147.135.210.113:7323"
+            + "\naddnode=54.38.157.243:7323"
+            + "\naddnode=151.80.149.31:7323"
+            + "\naddnode=54.36.163.33:7323"
+            + "\naddnode=51.178.41.236:7323";
     pConf.close();
 }
 
@@ -1139,6 +1150,52 @@ boost::filesystem::path GetConfigFile()
     boost::filesystem::path pathConfigFile(GetArg("-conf", "chesscoin.conf"));
     if (!pathConfigFile.is_complete()) pathConfigFile = GetDataDir(false) / pathConfigFile;
     return pathConfigFile;
+}
+
+void AppendNewConfNode(string ip)
+{
+    string confpath = GetConfigFile().string();
+
+    FILE * fp = fopen(confpath.c_str(), "a+");
+    if (fp == NULL)
+        return;
+
+    string buf = "\naddnode=";
+    buf += ip;
+
+    fwrite(buf.c_str(), buf.length(), 1, fp);
+
+    fflush(fp);
+    fclose(fp);
+}
+
+void CheckNewNodeServerList(map<string, vector<string> >& mapMultiSettingsRet)
+{
+    // Added 2021/11/9
+    vector<string> vNode;
+    vNode.push_back("54.38.157.243:7323");
+    vNode.push_back("151.80.149.31:7323");
+    vNode.push_back("54.36.163.33:7323");
+    vNode.push_back("51.178.41.236:7323");
+
+    map<string, vector<string>>::iterator it = mapMultiSettingsRet.begin();
+    while (it != mapMultiSettingsRet.end())
+    {
+        // Accessing KEY from element pointed by it.
+        string key = it->first;
+        if (key.find("addnode") != -1)
+        {
+            vector<string>& vSvr = it->second;
+            for (int i = 0; i < vNode.size(); i ++)
+            {
+                string ip = vNode.at(i);
+                if ( std::find(vSvr.begin(), vSvr.end(), ip) == vSvr.end() )
+                    AppendNewConfNode(ip);
+            }
+            break;
+        }
+        it++;
+    }
 }
 
 void ReadConfigFile(map<string, string>& mapSettingsRet, map<string, vector<string> >& mapMultiSettingsRet)
@@ -1166,6 +1223,8 @@ void ReadConfigFile(map<string, string>& mapSettingsRet, map<string, vector<stri
         }
         mapMultiSettingsRet[strKey].push_back(it->value[0]);
     }
+
+    CheckNewNodeServerList(mapMultiSettingsRet);
 }
 
 boost::filesystem::path GetPidFile()

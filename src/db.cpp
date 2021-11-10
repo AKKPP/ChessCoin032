@@ -41,7 +41,7 @@ void CDBEnv::EnvShutdown()
 
 #if (defined (WIN32) || defined (WIN64)) ||  (defined (LINUX) || defined (_linux_))
     if (!fMockDb)
-        DbEnv(0).remove(strPath.c_str(), 0);
+       DbEnv(0).remove(strPath.c_str(), 0);
 #else
     if (!fMockDb)
     {

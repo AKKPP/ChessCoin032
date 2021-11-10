@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = chesscoin-qt
-VERSION = 1.3.1
+VERSION = 1.4.1
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -25,18 +25,29 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
-BOOST_LIB_SUFFIX=-mgw63-mt-s-1_57
-BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_57_0
-BOOST_LIB_PATH=C:/ChessCoinLibs/boost_1_57_0/stage/lib
+
+# <= v1.3.1
+#BOOST_LIB_SUFFIX=-mgw63-mt-s-1_57
+#BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_57_0
+#BOOST_LIB_PATH=C:/ChessCoinLibs/boost_1_57_0/stage/lib
+#BDB_INCLUDE_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
+#BDB_LIB_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
+#OPENSSL_INCLUDE_PATH=C:/ChessCoinLibs/openssl-1.0.2u/include
+#OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.0.2u
+#QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-4.1.1
+#QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-4.1.1/.libs
+
+# v1.4
+BOOST_LIB_SUFFIX=-mgw5-mt-s-x32-1_77
+BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_77_0
+BOOST_LIB_PATH=C:/ChessCoinLibs/boost_1_77_0/stage/lib
 
 BDB_INCLUDE_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
 BDB_LIB_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
 
-OPENSSL_INCLUDE_PATH=C:/ChessCoinLibs/openssl-1.0.2u/include
-OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.0.2u
+OPENSSL_INCLUDE_PATH=C:/ChessCoinLibs/openssl-1.1.1l/include
+OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.1.1l
 
-#QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-3.4.4
-#QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-3.4.4/.libs
 QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-4.1.1
 QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-4.1.1/.libs
 
@@ -100,10 +111,20 @@ contains(USE_DBUS, 1) {
     QT += dbus
 }
 
+# <= v1.3.1
+#contains(USE_UPNP, 1) {
+#    message(Building with miniupnpc support)
+#    INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
+#    MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-1.9
+#    LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+#    win32:LIBS += -liphlpapi
+#    DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
+#}
+
 contains(USE_UPNP, 1) {
     message(Building with miniupnpc support)
-    INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
-    MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-1.9
+    INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-2.2.3"
+    MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-2.2.3
     LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
     win32:LIBS += -liphlpapi
     DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
@@ -433,7 +454,7 @@ LIBS += $$join(BOOST_LIB_PATH,,-L,) $$join(BDB_LIB_PATH,,-L,) $$join(OPENSSL_LIB
 LIBS += -lssl -lcrypto -ldb_cxx
 # -lgdi32 has to happen after -lcrypto (see  #681)
 windows:LIBS += -lws2_32 -lshlwapi -lmswsock -lole32 -loleaut32 -luuid -lgdi32
-LIBS += -lboost_system-mgw63-mt-s-1_57 -lboost_filesystem-mgw63-mt-s-1_57 -lboost_program_options-mgw63-mt-s-1_57 -lboost_thread-mgw63-mt-s-1_57 libboost_chrono-mgw63-mt-s-1_57
+LIBS += -lboost_system$$BOOST_LIB_SUFFIX -lboost_filesystem$$BOOST_LIB_SUFFIX -lboost_program_options$$BOOST_LIB_SUFFIX -lboost_thread$$BOOST_LIB_SUFFIX libboost_chrono$$BOOST_LIB_SUFFIX
 windows:LIBS += -Wl,-Bstatic -lpthread -Wl,-Bdynamic
 
 contains(RELEASE, 1) {
