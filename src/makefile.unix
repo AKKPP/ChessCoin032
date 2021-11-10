@@ -21,8 +21,7 @@ OPENSSL_LIB_PATH=/usr/local/ssl/lib
 QRENCODE_INCLUDE_PATH=/usr/local/include
 QRENCODE_LIB_PATH=/usr/local/lib
 
-DEFS=-DBOOST_SPIRIT_THREADSAFE
-
+DEFS = -DBOOST_SPIRIT_THREADSAFE -DBUILD_DAEMON
 DEFS += $(addprefix -I,$(CURDIR) $(CURDIR)/obj $(BOOST_INCLUDE_PATH) $(BDB_INCLUDE_PATH) $(OPENSSL_INCLUDE_PATH))
 LIBS = $(addprefix -L,$(BOOST_LIB_PATH) $(BDB_LIB_PATH) $(OPENSSL_LIB_PATH))
 
@@ -151,8 +150,6 @@ OBJS= \
     obj/zerocoin/ZeroTest.o
 
 all: chesscoind
-
-DEFS += -DBUILD_DAEMON
 
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)

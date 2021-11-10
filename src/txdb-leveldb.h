@@ -81,14 +81,14 @@ protected:
                     return false;
 
                 leveldb::Status status = pdb->Get(leveldb::ReadOptions(), ssKey.str(), &strValue);
-            if (!status.ok()) {
-                if (status.IsNotFound())
+                if (!status.ok()) {
+                    if (status.IsNotFound())
+                        return false;
+                    // Some unexpected error.
+                    printf("LevelDB read failure: %s\n", status.ToString().c_str());
                     return false;
-                // Some unexpected error.
-                printf("LevelDB read failure: %s\n", status.ToString().c_str());
-                return false;
+                }
             }
-        }
             catch (...)
             {
                 printf("LevelDB read exception\n");

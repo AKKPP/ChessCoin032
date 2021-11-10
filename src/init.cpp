@@ -125,7 +125,7 @@ void HandleSIGHUP(int)
 //
 // Start
 //
-#if !defined(QT_GUI)
+#if !defined(QT_GUI) && defined(BUILD_DAEMON)
 bool AppInit(int argc, char* argv[])
 {
     bool fRet = false;
@@ -185,6 +185,8 @@ bool AppInit(int argc, char* argv[])
 extern void noui_connect();
 int main(int argc, char* argv[])
 {
+    printf("[*] Daemon Starting ...");
+
     bool fRet = false;
 
     // Connect bitcoind signal handlers
@@ -272,7 +274,9 @@ std::string HelpMessage()
         "  -server                " + _("Accept command line and JSON-RPC commands") + "\n" +
 #endif
 #if !defined(WIN32) && !defined(QT_GUI)
+#ifdef BUILD_DAEMON
         "  -daemon                " + _("Run in the background as a daemon and accept commands") + "\n" +
+#endif
 #endif
         "  -testnet               " + _("Use the test network") + "\n" +
         "  -debug                 " + _("Output extra debugging information. Implies all other -debug* options") + "\n" +
@@ -464,7 +468,7 @@ bool AppInit2()
     else
         fDebugNet = GetBoolArg("-debugnet");
 
-#if !defined(WIN32) && !defined(QT_GUI)
+#if !defined(WIN32) && !defined(QT_GUI) && defined(BUILD_DAEMON)
     fDaemon = GetBoolArg("-daemon");
 #else
     fDaemon = false;
@@ -476,9 +480,9 @@ bool AppInit2()
         fServer = GetBoolArg("-server");
 
     /* force fServer when running without GUI */
-#if !defined(QT_GUI)
-    fServer = true;
-#endif
+//#if !defined(QT_GUI) && defined(BUILD_DAEMON)
+//    fServer = true;
+//#endif
 
 #ifdef QT_NO_DEBUG
     fPrintToConsole = GetBoolArg("-printtoconsole");
@@ -535,25 +539,27 @@ bool AppInit2()
         return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  ChessCoin 0.32% is probably already running."), strDataDir.c_str()));
 
 #if !defined(WIN32) && !defined(QT_GUI)
-    if (fDaemon)
-    {
-        // Daemonize
-        pid_t pid = fork();
-        if (pid < 0)
+    #ifdef BUILD_DAEMON
+        if (fDaemon)
         {
-            fprintf(stderr, "Error: fork() returned %d errno %d\n", pid, errno);
-            return false;
-        }
-        if (pid > 0)
-        {
-            CreatePidFile(GetPidFile(), pid);
-            return true;
-        }
+            // Daemonize
+            pid_t pid = fork();
+            if (pid < 0)
+            {
+                fprintf(stderr, "Error: fork() returned %d errno %d\n", pid, errno);
+                return false;
+            }
+            if (pid > 0)
+            {
+                CreatePidFile(GetPidFile(), pid);
+                return true;
+            }
 
-        pid_t sid = setsid();
-        if (sid < 0)
-            fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
-    }
+            pid_t sid = setsid();
+            if (sid < 0)
+                fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
+        }
+    #endif
 #endif
 
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
@@ -567,9 +573,10 @@ bool AppInit2()
     printf("Used data directory %s\n", strDataDir.c_str());
     std::ostringstream strErrors;
 
+#ifdef BUILD_DAEMON
     if (fDaemon)
         printf("ChessCoin 0.32%% server starting\n");
-
+#endif
 
     if (nScriptCheckThreads) {
         printf("Using %u threads for script verification\n", nScriptCheckThreads);
@@ -726,6 +733,8 @@ bool AppInit2()
 
     // ********************************************************* Step 7: load blockchain
 
+    fReindex = GetBoolArg("-reindex", false);
+
     if (!bitdb.Open(GetDataDir()))
     {
         string msg = strprintf(_("Error initializing database environment %s!"
@@ -749,7 +758,7 @@ bool AppInit2()
         std::string strLoadError;
         uiInterface.InitMessage(_("Loading block index..."));
 
-    nStart = GetTimeMillis();
+        nStart = GetTimeMillis();
         do {
             try {
                 UnloadBlockIndex();
@@ -920,7 +929,8 @@ bool AppInit2()
     }
 
     filesystem::path pathBootstrap = GetDataDir() / "bootstrap.dat";
-    if (filesystem::exists(pathBootstrap)) {
+    if (filesystem::exists(pathBootstrap))
+    {
         uiInterface.InitMessage(_("Importing bootstrap blockchain data file."));
 
         FILE *file = fopen(pathBootstrap.string().c_str(), "rb");
@@ -955,7 +965,7 @@ bool AppInit2()
 
     //// debug print
     printf("mapBlockIndex.size() = %" PRIszu "\n",   mapBlockIndex.size());
-    printf("nBestHeight = %d\n",            nBestHeight);
+    printf("nBestHeight = %d\n",                     nBestHeight);
     printf("setKeyPool.size() = %" PRIszu "\n",      pwalletMain->setKeyPool.size());
     printf("mapWallet.size() = %" PRIszu "\n",       pwalletMain->mapWallet.size());
     printf("mapAddressBook.size() = %" PRIszu "\n",  pwalletMain->mapAddressBook.size());

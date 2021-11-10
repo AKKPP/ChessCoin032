@@ -305,3 +305,27 @@ Value getcheckpoint(const Array& params, bool fHelp)
 
     return result;
 }
+
+Value getblockchaininfo(const Array& params, bool fHelp)
+{
+    if (fHelp || params.size() != 0)
+        throw runtime_error(
+            "getblockchaininfo\n"
+            "Returns an object containing various state info regarding block chain processing.\n"
+            "\nResult:\n"
+            "{\n"
+            "  \"blocks\": xxxxxx,         (numeric) the current number of blocks processed in the server\n"
+            "  \"headers\": xxxxxx,        (numeric) the current number of headers we have validated\n"
+            "  \"bestblockhash\": \"...\", (string) the hash of the currently best block\n"
+            "  \"difficulty\": xxxxxx,     (numeric) the current difficulty\n"
+            "}\n");
+
+    LOCK(cs_main);
+
+    Object obj;
+    obj.push_back(Pair("blocks",               nBestHeight));
+    obj.push_back(Pair("headers",              pindexBest ? pindexBest->nHeight : -1));
+    obj.push_back(Pair("bestblockhash",        hashBestChain.GetHex()));
+    obj.push_back(Pair("difficulty",           (double)GetDifficulty()));
+    return obj;
+}

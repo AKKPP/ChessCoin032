@@ -44,8 +44,8 @@ namespace json_spirit
         Value_impl( const Array&       value );
         Value_impl( bool               value );
         Value_impl( int                value );
-        Value_impl( int64_t     value );
-        Value_impl( uint64_t    value );
+        Value_impl( int64_t     	   value );
+        Value_impl( uint64_t    	   value );
         Value_impl( double             value );
 
         Value_impl( const Value_impl& other );
@@ -64,8 +64,8 @@ namespace json_spirit
         const Array&       get_array()  const;
         bool               get_bool()   const;
         int                get_int()    const;
-        int64_t     get_int64()  const;
-        uint64_t    get_uint64() const;
+        int64_t            get_int64()  const;
+        uint64_t           get_uint64() const;
         double             get_real()   const;
 
         Object& get_obj();

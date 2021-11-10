@@ -1,0 +1,19 @@
+[Unit]
+Description=Chesscoin 0.32% daemon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=ubuntu
+
+Type=forking
+PIDFile=/var/lib/chesscoind/chesscoind.pid
+ExecStart=/usr/local/bin/chesscoind -daemon
+ExecStop=/usr/local/bin/chesscoind-cli stop
+
+KillMode=process
+Restart=on-failure
+TimeoutSec=120
+
+[Install]
+WantedBy=multi-user.target
