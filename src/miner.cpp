@@ -555,7 +555,8 @@ void StakeMiner(CWallet *pwallet)
             fTryToSync = false;
             if (vNodes.size() < 3 || nBestHeight < GetNumBlocksOfPeers())
             {
-                MilliSleep(60000);
+                MilliSleep(1000);
+                //MilliSleep(60000);
                 continue;
             }
         }

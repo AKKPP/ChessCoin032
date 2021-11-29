@@ -1930,7 +1930,9 @@ bool SignSignature(const CKeyStore &keystore, const CTransaction& txFrom, CTrans
 
 bool VerifySignature(const CTransaction& txFrom, const CTransaction& txTo, unsigned int nIn, int nHashType, unsigned int flags)
 {
-    assert(nIn < txTo.vin.size());
+     return CScriptCheck(txFrom, txTo, nIn, flags, nHashType)();
+
+ /*   assert(nIn < txTo.vin.size());
     const CTxIn& txin = txTo.vin[nIn];
     if (txin.prevout.n >= txFrom.vout.size())
         return false;
@@ -1939,7 +1941,7 @@ bool VerifySignature(const CTransaction& txFrom, const CTransaction& txTo, unsig
     if (txin.prevout.hash != txFrom.GetHash())
         return false;
 
-    return VerifyScript(txin.scriptSig, txout.scriptPubKey, txTo, nIn, nHashType, flags);
+    return VerifyScript(txin.scriptSig, txout.scriptPubKey, txTo, nIn, nHashType, flags); */
 }
 
 static CScript PushAll(const vector<valtype>& values)

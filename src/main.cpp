@@ -41,8 +41,6 @@ libzerocoin::Params* ZCParams;
 CBigNum bnProofOfWorkLimit(~uint256(0) >> 20); // "standard" scrypt target limit for proof of work, results with 0,000244140625 proof-of-work difficulty
 CBigNum bnProofOfStakeLimit(~uint256(0) >> 20);
 CBigNum bnProofOfWorkLimitTestNet(~uint256(0) >> 16);
-CBigNum bnProofOfStakeLegacyLimit(~uint256(0) >> 24); // proof of stake target limit from block #15000 and until 20 June 2013, results with 0,00390625 proof of stake difficulty
-CBigNum bnProofOfStakeHardLimit(~uint256(0) >> 30); // disabled temporarily, will be used in the future to fix minimal proof of stake difficulty at 0.25
 
 
 unsigned int nTargetSpacing = 1 * 60; // 1 minute
@@ -1006,21 +1004,6 @@ uint256 WantedByOrphan(const CBlock* pblockOrphan)
     return pblockOrphan->hashPrevBlock;
 }
 
-// select stake target limit according to hard-coded conditions
-CBigNum inline GetProofOfStakeLimit(int nHeight, unsigned int nTime)
-{
-    if(fTestNet) // separate proof of stake target limit for testnet
-        return bnProofOfStakeLimit;
-    if(nTime > TARGETS_SWITCH_TIME) // 27 bits since 20 July 2013
-        return bnProofOfStakeLimit;
-    if(nHeight + 1 > 15000) // 24 bits since block 15000
-        return bnProofOfStakeLegacyLimit;
-    if(nHeight + 1 > 14060) // 31 bits since block 14060 until 15000
-        return bnProofOfStakeHardLimit;
-
-    return bnProofOfWorkLimit; // return bnProofOfWorkLimit of none matched
-}
-
 // miner's coin base reward
 int64_t GetProofOfWorkReward(int64_t nFees)
 {
@@ -1059,68 +1042,6 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
         printf("GetProofOfStakeReward(): create=%s nCoinAge=%" PRId64 "\n", FormatMoney(nSubsidy).c_str(), nCoinAge);
 
     return nSubsidy + nFees;
-}
-
-int64_t GetProofOfStakeReward(int64_t nCoinAge, unsigned int nBits, int64_t nTime, bool bCoinYearOnly)
-{
-    int64_t nRewardCoinYear, nSubsidy, nSubsidyLimit = 10 * COIN;
-
-    // Stage 2 of emission process is mostly PoS-based.
-
-    CBigNum bnRewardCoinYearLimit = CBigNum(MAX_MINT_PROOF_OF_STAKE); // Base stake mint rate, 100% year interest
-    CBigNum bnTarget;
-    bnTarget.SetCompact(nBits);
-    CBigNum bnTargetLimit = GetProofOfStakeLimit(0, nTime);
-    bnTargetLimit.SetCompact(bnTargetLimit.GetCompact());
-
-    // A reasonably continuous curve is used to avoid shock to market
-
-    CBigNum bnLowerBound = 1 * CENT, // Lower interest bound is 1% per year
-        bnUpperBound = bnRewardCoinYearLimit, // Upper interest bound is 100% per year
-        bnMidPart, bnRewardPart;
-
-    while (bnLowerBound + CENT <= bnUpperBound)
-    {
-        CBigNum bnMidValue = (bnLowerBound + bnUpperBound) / 2;
-
-        //
-        // Reward for coin-year is cut in half every 8x multiply of PoS difficulty
-        //
-        // (nRewardCoinYearLimit / nRewardCoinYear) ** 3 == bnProofOfStakeLimit / bnTarget
-        //
-        // Human readable form: nRewardCoinYear = 1 / (posdiff ^ 1/3)
-        //
-
-        bnMidPart = bnMidValue * bnMidValue * bnMidValue;
-        bnRewardPart = bnRewardCoinYearLimit * bnRewardCoinYearLimit * bnRewardCoinYearLimit;
-
-        if (bnMidPart * bnTargetLimit > bnRewardPart * bnTarget)
-            bnUpperBound = bnMidValue;
-        else
-            bnLowerBound = bnMidValue;
-    }
-
-    nRewardCoinYear = bnUpperBound.getuint64();
-    nRewardCoinYear = min((nRewardCoinYear / CENT) * CENT, MAX_MINT_PROOF_OF_STAKE);
-
-    if(bCoinYearOnly)
-        return nRewardCoinYear;
-
-    nSubsidy = nCoinAge * nRewardCoinYear * 33 / (365 * 33 + 8);
-
-    // Set reasonable reward limit for large inputs
-    //
-    // This will stimulate large holders to use smaller inputs, that's good for the network protection
-
-    if (fDebug && GetBoolArg("-printcreation") && nSubsidyLimit < nSubsidy)
-        printf("GetProofOfStakeReward(): %s is greater than %s, coinstake reward will be truncated\n", FormatMoney(nSubsidy).c_str(), FormatMoney(nSubsidyLimit).c_str());
-
-    nSubsidy = min(nSubsidy, nSubsidyLimit);
-
-    if (fDebug && GetBoolArg("-printcreation"))
-        printf("GetProofOfStakeReward(): create=%s nCoinAge=%" PRId64 " nBits=%d\n", FormatMoney(nSubsidy).c_str(), nCoinAge, nBits);
-
-    return nSubsidy;
 }
 
 static const int64_t nTargetTimespan = 16 * 60;  // 16 mins
@@ -1561,6 +1482,17 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
                     return DoS(100,error("ConnectInputs() : %s VerifySignature failed", GetHash().ToString().substr(0,10).c_str()));
                 }
             }
+            else
+            {
+	            if (!(fBlock && (nBestHeight < Checkpoints::GetTotalBlocksEstimate())))
+	            {
+	                // Verify signature
+                    if (!VerifySignature(txPrev, *this, i, 0, 0))
+	                {
+	                    return DoS(100,error("ConnectInputs() : %s VerifySignature failed", GetHash().ToString().substr(0,10).c_str()));
+	                }
+	            }            	
+	        }
 
             // Mark outpoints as spent
             txindex.vSpent[prevout.n] = posThisTx;
@@ -1572,25 +1504,7 @@ bool CTransaction::ConnectInputs(CTxDB& txdb, MapPrevTx inputs, map<uint256, CTx
             }
         }
 
-        if (IsCoinStake())
-        {
-            if (nTime >  Checkpoints::GetLastCheckpointTime())
-            {
-                unsigned int nTxSize = GetSerializeSize(SER_NETWORK, PROTOCOL_VERSION);
-
-                // coin stake tx earns reward instead of paying fee
-                uint64_t nCoinAge;
-                if (!GetCoinAge(txdb, nCoinAge))
-                    return error("ConnectInputs() : %s unable to get coin age for coinstake", GetHash().ToString().substr(0,10).c_str());
-
-                int64_t nReward = GetValueOut() - nValueIn;
-                int64_t nCalculatedReward = GetProofOfStakeReward(nCoinAge, pindexBlock->nBits, nTime) - GetMinFee(1, GMF_BLOCK, nTxSize) + CENT;
-
-                if (nReward > nCalculatedReward)
-                    return DoS(100, error("ConnectInputs() : coinstake pays too much(actual=%" PRId64 " vs calculated=%" PRId64 ")", nReward, nCalculatedReward));
-            }
-        }
-        else
+        if (!IsCoinStake())
         {
             if (nValueIn < GetValueOut())
                 return DoS(100, error("ConnectInputs() : %s value in < value out", GetHash().ToString().substr(0,10).c_str()));
@@ -1656,6 +1570,18 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     if (!CheckBlock(!fJustCheck, !fJustCheck, false))
         return false;
 
+    // Do not allow blocks that contain transactions which 'overwrite' older transactions,
+    // unless those are already completely spent.
+    // If such overwrites are allowed, coinbases and transactions depending upon those
+    // can be duplicated to remove the ability to spend the first instance -- even after
+    // being sent to another address.
+    // See BIP30 and http://r6.ca/blog/20120206T005236Z.html for more information.
+    // This logic is not necessary for memory pool transactions, as AcceptToMemoryPool
+    // already refuses previously-known transaction ids entirely.
+    // This rule was originally applied all blocks whose timestamp was after March 15, 2012, 0:00 UTC.
+    // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
+    // two in the chain that violate it. This prevents exploiting the issue against nodes in their
+    // initial block download.
     bool fEnforceBIP30 = true;
     bool fScriptChecks = pindex->nHeight >= Checkpoints::GetTotalBlocksEstimate();
 
@@ -1683,19 +1609,6 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
 
         if (fEnforceBIP30)
         {
-            // Do not allow blocks that contain transactions which 'overwrite' older transactions,
-            // unless those are already completely spent.
-            // If such overwrites are allowed, coinbases and transactions depending upon those
-            // can be duplicated to remove the ability to spend the first instance -- even after
-            // being sent to another address.
-            // See BIP30 and http://r6.ca/blog/20120206T005236Z.html for more information.
-            // This logic is not necessary for memory pool transactions, as AcceptToMemoryPool
-            // already refuses previously-known transaction ids entirely.
-            // This rule was originally applied all blocks whose timestamp was after March 15, 2012, 0:00 UTC.
-            // Now that the whole chain is irreversibly beyond that time it is applied to all blocks except the
-            // two in the chain that violate it. This prevents exploiting the issue against nodes in their
-            // initial block download.
-
             CTxIndex txindexOld;
             if (txdb.ReadTxIndex(hashTx, txindexOld)) {
                 BOOST_FOREACH(CDiskTxPos &pos, txindexOld.vSpent)
@@ -2198,8 +2111,6 @@ bool CBlock::AddToBlockIndex(unsigned int nFile, unsigned int nBlockPos, const u
 }
 
 
-
-
 bool CBlock::CheckBlock(bool fCheckPOW, bool fCheckMerkleRoot, bool fCheckSig) const
 {
     // These are checks that are independent of context
@@ -2622,9 +2533,7 @@ FILE* OpenBlockFile(unsigned int nFile, unsigned int nBlockPos, const char* pszM
 {
     if ((nFile < 1) || (nFile == (unsigned int) -1))
         return NULL;
-
-    string filepath = BlockFilePath(nFile).string();
-    FILE* file = fopen(filepath.c_str(), pszMode);
+    FILE* file = fopen(BlockFilePath(nFile).string().c_str(), pszMode);
     if (!file)
         return NULL;
     if (nBlockPos != 0 && !strchr(pszMode, 'a') && !strchr(pszMode, 'w'))

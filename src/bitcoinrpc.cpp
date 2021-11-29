@@ -713,8 +713,6 @@ static void RPCListen(boost::shared_ptr< basic_socket_acceptor<Protocol, SocketA
                    const bool fUseSSL)
 {
     // Accept connection
-    //AcceptedConnectionImpl<Protocol>* conn = new AcceptedConnectionImpl<Protocol>(acceptor->get_io_service(), context, fUseSSL);
-
     AcceptedConnectionImpl<Protocol>* conn = new AcceptedConnectionImpl<Protocol>(GET_IO_SERVICE(*acceptor), context, fUseSSL);
 
     acceptor->async_accept(
@@ -1127,8 +1125,6 @@ Object CallRPC(const string& strMethod, const Array& params)
     asio::ssl::stream<asio::ip::tcp::socket> sslStream(io_service, context);
     SSLIOStreamDevice<asio::ip::tcp> d(sslStream, fUseSSL);
     iostreams::stream< SSLIOStreamDevice<asio::ip::tcp> > stream(d);
-    if (!d.connect(GetArg("-rpcconnect", "127.0.0.1"), GetArg("-rpcport", itostr(GetDefaultRPCPort()))))
-        throw runtime_error("couldn't connect to server");
 
     bool fWait = GetBoolArg("-rpcwait", false); // -rpcwait means try until server has started
     do {

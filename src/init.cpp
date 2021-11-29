@@ -488,8 +488,8 @@ bool AppInit2()
     fPrintToConsole = GetBoolArg("-printtoconsole");
     fPrintToDebugger = GetBoolArg("-printtodebugger");
 #else
-    fPrintToConsole = true;
-    fPrintToDebugger = true;
+    //fPrintToConsole = true;
+    //fPrintToDebugger = true;
 #endif
 
     fLogTimestamps = GetBoolArg("-logtimestamps");
@@ -608,7 +608,7 @@ bool AppInit2()
     if (filesystem::exists(GetDataDir() / strWalletFileName))
     {
         CDBEnv::VerifyResult r = bitdb.Verify(strWalletFileName, CWalletDB::Recover);
-        if (r == CDBEnv::RECOVER_OK)F
+        if (r == CDBEnv::RECOVER_OK)
         {
             string msg = strprintf(_("Warning: wallet.dat corrupt, data salvaged!"
                                      " Original wallet.dat saved as wallet.{timestamp}.bak in %s; if"
