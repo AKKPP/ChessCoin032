@@ -185,7 +185,7 @@ bool AppInit(int argc, char* argv[])
 extern void noui_connect();
 int main(int argc, char* argv[])
 {
-    printf("[*] Daemon Starting ...");
+    printf("[*] Daemon Starting ...\n");
 
     bool fRet = false;
 
@@ -451,15 +451,6 @@ bool AppInit2()
 
     // ********************************************************* Step 3: parameter-to-internal-flags
 
-    // -par=0 means autodetect, but nScriptCheckThreads==0 means no concurrency
-    nScriptCheckThreads = GetArg("-par", 0);
-    if (nScriptCheckThreads == 0)
-        nScriptCheckThreads = boost::thread::hardware_concurrency();
-    if (nScriptCheckThreads <= 1)
-        nScriptCheckThreads = 0;
-    else if (nScriptCheckThreads > MAX_SCRIPTCHECK_THREADS)
-        nScriptCheckThreads = MAX_SCRIPTCHECK_THREADS;
-
     fDebug = GetBoolArg("-debug");
 
     // -debug implies fDebug*
@@ -474,23 +465,17 @@ bool AppInit2()
     fDaemon = false;
 #endif
 
-    if (fDaemon)
-        fServer = true;
-    else
         fServer = GetBoolArg("-server");
 
     /* force fServer when running without GUI */
-//#if !defined(QT_GUI) && defined(BUILD_DAEMON)
-//    fServer = true;
-//#endif
+#if !defined(QT_GUI) && defined(BUILD_DAEMON)
+    SoftSetBoolArg("-server", true);
+#endif
 
-#ifdef QT_NO_DEBUG
     fPrintToConsole = GetBoolArg("-printtoconsole");
     fPrintToDebugger = GetBoolArg("-printtodebugger");
-#else
-    fPrintToConsole = true;
-    fPrintToDebugger = true;
-#endif
+    //fPrintToConsole = true;
+    //fPrintToDebugger = true;
 
     fLogTimestamps = GetBoolArg("-logtimestamps");
 
@@ -578,12 +563,6 @@ bool AppInit2()
         printf("ChessCoin 0.32%% server starting\n");
 #endif
 
-    if (nScriptCheckThreads) {
-        printf("Using %u threads for script verification\n", nScriptCheckThreads);
-        for (int i=0; i<nScriptCheckThreads-1; i++)
-            NewThread(ThreadScriptCheck, NULL);
-    }
-
     int64_t nStart;
 
     // ********************************************************* Step 5: verify database integrity
@@ -641,6 +620,13 @@ bool AppInit2()
                 SetLimited(net);
         }
     }
+
+#if defined(USE_IPV6)
+#if ! USE_IPV6
+else
+        SetLimited(NET_IPV6);
+#endif
+#endif
 
     CService addrProxy;
     bool fProxy = false;

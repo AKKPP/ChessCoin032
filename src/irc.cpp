@@ -363,6 +363,7 @@ void ThreadIRCSeed2(void* parg)
         }
 
         CloseSocket(hSocket);
+        hSocket = INVALID_SOCKET;
 
         if (GetTime() - nStart > 20 * 60)
         {

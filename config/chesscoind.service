@@ -9,7 +9,7 @@ Group=ubuntu
 Type=forking
 PIDFile=/var/lib/chesscoind/chesscoind.pid
 ExecStart=/usr/local/bin/chesscoind -daemon
-ExecStop=/usr/local/bin/chesscoind-cli stop
+ExecStop=/usr/local/bin/chesscoin-cli stop
 
 KillMode=process
 Restart=on-failure

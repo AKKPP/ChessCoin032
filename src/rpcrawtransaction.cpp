@@ -502,7 +502,7 @@ Value signrawtransaction(const Array& params, bool fHelp)
         {
             txin.scriptSig = CombineSignatures(prevPubKey, mergedTx, i, txin.scriptSig, txv.vin[i].scriptSig);
         }
-        if (!VerifyScript(txin.scriptSig, prevPubKey, mergedTx, i, 0, STRICT_FLAGS))
+        if (!VerifyScript(txin.scriptSig, prevPubKey, mergedTx, i, 0))
             fComplete = false;
     }
 
