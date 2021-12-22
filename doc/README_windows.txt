@@ -1,4 +1,4 @@
-ChessCoin 0.32% 1.2
+ChessCoin 0.32% 1.4.1
 
 Copyright (c) 2013 NovaCoin Developers
 Copyright (c) 2011-2013 PPCoin Developers

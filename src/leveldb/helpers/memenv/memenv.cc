@@ -168,7 +168,7 @@ class SequentialFileImpl : public SequentialFile {
     if (pos_ > file_->Size()) {
       return Status::IOError("pos_ > file_->Size()");
     }
-    const uint64_t available = file_->Size() - pos_;
+    const size_t available = file_->Size() - pos_;
     if (n > available) {
       n = available;
     }
@@ -178,7 +178,7 @@ class SequentialFileImpl : public SequentialFile {
 
  private:
   FileState* file_;
-  uint64_t pos_;
+  size_t pos_;
 };
 
 class RandomAccessFileImpl : public RandomAccessFile {
