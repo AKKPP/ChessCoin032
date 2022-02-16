@@ -34,6 +34,10 @@ ifdef STATIC
 	endif
 endif
 
+DIRS= obj obj/zerocoin
+
+$(shell mkdir -p $(DIRS))
+
 # for boost 1.37, add -mt to the boost libraries
 LIBS += \
  -Wl,-B$(LMODE) \
