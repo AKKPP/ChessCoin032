@@ -39,3 +39,9 @@ Important
 ===========================
 
 Always synchronize the blockchain first and then start the staking - Important
+
+
+How to build daemon on Unix
+===========================
+
+See : `doc/build-unix.txt`.
