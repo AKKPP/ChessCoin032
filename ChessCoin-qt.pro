@@ -39,17 +39,17 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
 # v1.4
 BOOST_LIB_SUFFIX=-mgw5-mt-s-x32-1_77
-BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_77_0
-BOOST_LIB_PATH=C:/ChessCoinLibs/boost_1_77_0/stage/lib
+BOOST_INCLUDE_PATH=D:/ChessCoinLibs/boost_1_77_0
+BOOST_LIB_PATH=D:/ChessCoinLibs/boost_1_77_0/stage/lib
 
-BDB_INCLUDE_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
-BDB_LIB_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
+BDB_INCLUDE_PATH=D:/ChessCoinLibs/db-6.0.20/build_windows
+BDB_LIB_PATH=D:/ChessCoinLibs/db-6.0.20/build_windows
 
-OPENSSL_INCLUDE_PATH=C:/ChessCoinLibs/openssl-1.1.1l/include
-OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.1.1l
+OPENSSL_INCLUDE_PATH=D:/ChessCoinLibs/openssl-1.1.1l/include
+OPENSSL_LIB_PATH=D:/ChessCoinLibs/openssl-1.1.1l
 
-QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-4.1.1
-QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-4.1.1/.libs
+QRENCODE_INCLUDE_PATH=D:/ChessCoinLibs/qrencode-4.1.1
+QRENCODE_LIB_PATH=D:/ChessCoinLibs/qrencode-4.1.1/.libs
 
 OBJECTS_DIR = build
 MOC_DIR = build
@@ -123,8 +123,8 @@ contains(USE_DBUS, 1) {
 
 contains(USE_UPNP, 1) {
     message(Building with miniupnpc support)
-    INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-2.2.3"
-    MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-2.2.3
+    INCLUDEPATHS += -I"D:/ChessCoinLibs/miniupnpc-2.2.3"
+    MINIUPNPC_LIB_PATH=D:/ChessCoinLibs/miniupnpc-2.2.3
     LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
     win32:LIBS += -liphlpapi
     DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
