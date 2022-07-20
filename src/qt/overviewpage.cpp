@@ -99,6 +99,8 @@ OverviewPage::OverviewPage(QWidget *parent) :
     txdelegate(new TxViewDelegate()),
     filter(0)
 {
+    setStyleSheet(QString("background-color: transparent;border: 0px;"));
+
     ui->setupUi(this);
 
     // Recent transactions
@@ -115,6 +117,9 @@ OverviewPage::OverviewPage(QWidget *parent) :
 
     // start with displaying the "out of sync" warnings
     showOutOfSyncWarning(true);
+
+    QString imgpath = QString(":/images/chesscoinweb");
+    imgLogo.load(imgpath);
 }
 
 void OverviewPage::handleTransactionClicked(const QModelIndex &index)
@@ -200,4 +205,11 @@ void OverviewPage::showOutOfSyncWarning(bool fShow)
 bool OverviewPage::getOutOfSyncWarning(void)
 {
     return this->is_out_of_sync;
+}
+
+void OverviewPage::paintEvent(QPaintEvent *event)
+{
+    QPainter painter(this);
+    QRect mainRect = this->geometry();
+    painter.drawImage(QRect(0, 0, mainRect.width(), mainRect.height()), imgLogo);
 }

@@ -6,9 +6,12 @@
 #include "walletmodel.h"
 #include "optionsmodel.h"
 #include "addresstablemodel.h"
+#include "qtcamera.h"
 
 #include <QApplication>
 #include <QClipboard>
+#include <QScreen>
+#include <QDesktopWidget>
 
 SendCoinsEntry::SendCoinsEntry(QWidget *parent) :
     QFrame(parent),
@@ -23,7 +26,7 @@ SendCoinsEntry::SendCoinsEntry(QWidget *parent) :
 #if QT_VERSION >= 0x040700
     /* Do not move this to the XML file, Qt before 4.7 will choke on it */
     ui->addAsLabel->setPlaceholderText(tr("Enter a label for this address to add it to your address book"));
-    ui->payTo->setPlaceholderText(tr("Enter a ChessCoin 0.32% address (e.g. B8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)"));
+    ui->payTo->setPlaceholderText(tr("Enter a ChessCoin 0.32% address (e.g. C8gZqgY4r2RoEdqYk3QsAqFckyf9pRHN6i)"));
 #endif
     setFocusPolicy(Qt::TabFocus);
     setFocusProxy(ui->payTo);
@@ -171,4 +174,12 @@ void SendCoinsEntry::updateDisplayUnit()
         // Update payAmount with the current unit
         ui->payAmount->setDisplayUnit(model->getOptionsModel()->getDisplayUnit());
     }
+}
+
+void SendCoinsEntry::on_camButton_clicked()
+{
+    qtCamera camera;
+    int result = camera.exec();
+    if (result == QDialog::Accepted)
+        ui->payTo->setText(camera.getQRCode());
 }

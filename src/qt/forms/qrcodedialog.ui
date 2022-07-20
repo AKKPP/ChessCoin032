@@ -171,6 +171,18 @@
         </item>
         <item>
          <widget class="QPushButton" name="btnSaveAs">
+          <property name="minimumSize">
+           <size>
+            <width>75</width>
+            <height>21</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>75</width>
+            <height>21</height>
+           </size>
+          </property>
           <property name="text">
            <string>&amp;Save As...</string>
           </property>
@@ -188,6 +200,7 @@
    <class>BitcoinAmountField</class>
    <extends>QSpinBox</extends>
    <header>bitcoinamountfield.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources/>

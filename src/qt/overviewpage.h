@@ -2,6 +2,7 @@
 #define OVERVIEWPAGE_H
 
 #include <QWidget>
+#include <QImage>
 
 QT_BEGIN_NAMESPACE
 class QModelIndex;
@@ -33,6 +34,9 @@ public slots:
 signals:
     void transactionClicked(const QModelIndex &index);
 
+protected:
+    void paintEvent(QPaintEvent *event)	override;
+
 private:
     Ui::OverviewPage *ui;
     WalletModel *model;
@@ -45,6 +49,8 @@ private:
     TransactionFilterProxy *filter;
 
     bool is_out_of_sync;
+
+    QImage imgLogo;
 
 private slots:
     void updateDisplayUnit();
