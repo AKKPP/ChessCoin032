@@ -185,11 +185,14 @@ void qtCamera::imageSaved(int id, const QString &fileName)
 
 void qtCamera::closeEvent(QCloseEvent *event)
 {
+    /*
     if (m_isCapturingImage) {
         setEnabled(false);
         m_applicationExiting = true;
         event->ignore();
-    } else {
+    }
+    else */
+    {
         scanTimer->stop();
         event->accept();
     }
