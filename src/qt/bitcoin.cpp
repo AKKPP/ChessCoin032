@@ -23,6 +23,8 @@
 #include <QSplashScreen>
 #include <QLibraryInfo>
 #include <QSettings>
+#include <QFile>
+#include <QTextStream>
 
 #if (defined (LINUX) || defined (_linux_))
 #include <boost/filesystem.hpp>
@@ -234,7 +236,16 @@ int main(int argc, char *argv[])
     else
         app.setApplicationName("ChessCoin-Qt");
 
-    app.setStyle("fusion");
+    QFile f(":qdarkstyle/dark/darkstyle.qss");
+
+    if (f.exists()) {
+        f.open(QFile::ReadOnly | QFile::Text);
+        QTextStream ts(&f);
+        qApp->setStyleSheet(ts.readAll());
+    }
+    else {
+        app.setStyle("fusion");
+    }
 
 //#if (defined (LINUX) || defined (_linux_))
 //    createDesktopFile();

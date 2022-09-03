@@ -58,9 +58,6 @@ static const int MAX_SCRIPTCHECK_THREADS = 16;
 static const int64_t COIN_YEAR_REWARD = 32 * CENT;
 static const int64_t COIN_YEAR_REWARDV2 = 0.32 * CENT;
 
-static const int64_t MAX_MINT_PROOF_OF_WORK = 100 * COIN;
-static const int64_t MAX_MINT_PROOF_OF_STAKE = 1 * COIN;
-
 static const uint256 hashGenesisBlock("0x0000048f94311e912681a9a25eb553e4a4d1703689c5f9a264c7b07245c7ff1f");
 static const uint256 hashGenesisBlockTestNet("0x0000048f94311e912681a9a25eb553e4a4d1703689c5f9a264c7b07245c7ff1f");
 
