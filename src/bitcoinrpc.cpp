@@ -552,6 +552,60 @@ void ErrorReply(std::ostream& stream, const Object& objError, const Value& id)
     stream << HTTPReply(nStatus, strReply, false) << std::flush;
 }
 
+bool CompareIPAddresses(string& peerAddress, string& allowAddress)
+{
+    unsigned char peeraddr[4];
+    char szPeer[32] = {0};
+    sprintf(szPeer, "%s", peerAddress.c_str());
+    sscanf(szPeer, "%d.%d.%d.%d", &peeraddr[0], &peeraddr[1], &peeraddr[2], &peeraddr[3]);
+
+    string ip = allowAddress;
+    string subnet = "255.255.255.255";
+
+    size_t slash = allowAddress.find_last_of('/');
+    if (slash != allowAddress.npos)
+    {
+        ip = allowAddress.substr(0, slash);
+        subnet = allowAddress.substr(slash + 1);
+    }
+
+    unsigned char subaddr[4] = {0};
+    char szSubnet[32] = {0};
+    sprintf(szSubnet, "%s", subnet.c_str());
+    sscanf(szSubnet, "%d.%d.%d.%d", &subaddr[0], &subaddr[1], &subaddr[2], &subaddr[3]);
+
+    unsigned char ipaddr[4] = {0};
+    char szIP[32] = {0};
+    sprintf(szIP, "%s", ip.c_str());
+    sscanf(szIP, "%d.%d.%d.%d", &ipaddr[0], &ipaddr[1], &ipaddr[2], &ipaddr[3]);
+
+    peeraddr[0] = peeraddr[0] & subaddr[0];
+    peeraddr[1] = peeraddr[1] & subaddr[1];
+    peeraddr[2] = peeraddr[2] & subaddr[2];
+    peeraddr[3] = peeraddr[3] & subaddr[3];
+
+    ipaddr[0] = ipaddr[0] & subaddr[0];
+    ipaddr[1] = ipaddr[1] & subaddr[1];
+    ipaddr[2] = ipaddr[2] & subaddr[2];
+    ipaddr[3] = ipaddr[3] & subaddr[3];
+
+    bool bAllowed = true;
+
+    for (int j = 0; j < 4; j ++)
+    {
+        if (ipaddr[j] == 0)
+            continue;
+
+        if (peeraddr[j] != ipaddr[j])
+        {
+            bAllowed = false;
+            break;;
+        }
+    }
+
+    return bAllowed;
+}
+
 bool ClientAllowed(const boost::asio::ip::address& address)
 {
     // Make sure that IPv4-compatible and IPv4-mapped IPv6 addresses are treated as IPv4 addresses
@@ -567,11 +621,16 @@ bool ClientAllowed(const boost::asio::ip::address& address)
       && (address.to_v4().to_ulong() & 0xff000000) == 0x7f000000))
         return true;
 
-    const string strAddress = address.to_string();
-    const vector<string>& vAllow = mapMultiArgs["-rpcallowip"];
+    string strAddress = address.to_string();
+    vector<string>& vAllow = mapMultiArgs["-rpcallowip"];
+
     BOOST_FOREACH(string strAllow, vAllow)
-        if (WildcardMatch(strAddress, strAllow))
+        if (CompareIPAddresses(strAddress, strAllow))
             return true;
+
+    //BOOST_FOREACH(string strAllow, vAllow)
+    //    if (WildcardMatch(strAddress, strAllow))
+    //        return true;
     return false;
 }
 
