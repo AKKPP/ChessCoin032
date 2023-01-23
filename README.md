@@ -1,4 +1,4 @@
-[![ChessCoin](https://i.ibb.co/vLmj7dY/256x256.png)](https://bitcointalk.org/index.php?topic=1510517.new;topicseen#new)
+[![ChessCoin](https://i.ibb.co/nRwWs6v/256x256.png)](https://bitcointalk.org/index.php?topic=1510517.new;topicseen#new)
 
 
 ChessCoin 0.32% development tree

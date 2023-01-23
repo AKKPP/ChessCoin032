@@ -1,0 +1,145 @@
+1. Check installed dependencies(3rd Party) libraries.
+	- boost library: 
+		It must be installed to "/usr/local/boost.1.77.0/"
+		
+	- berkeley library
+		It must be installed to "/usr/local/berkeleydb.6.0.20/"
+	
+	- openssl library
+		It must be installed to "/usr/local/ssl.1.1.1/"
+	
+	-  qrencode library
+		It must be installed to "/usr/local/"
+		
+2. Install dependencies(3rd Party)
+  If 3rd party library didn't install to pc, please install them one by one.
+
+  2.1 OpenSSL 1.1.1l 24 Aug 2021
+	Download Source: https://ftp.openssl.org/source/openssl-1.1.1l.tar.gz
+	
+	- You download a tar file from download source url and go to the download folder.
+	- You extract tar file and install openssl library
+	
+	ex:)
+		$ cd {openssl tar folder}
+		$ tar zxvf openssl-1.1.1l.tar.gz
+		$ cd openssl-1.1.1l
+		$ ./config --prefix=/usr/local/ssl.1.1.1 --openssldir=/usr/local/ssl.1.1.1 shared zlib
+		$ make
+		$ make install 
+
+  2.2 Berkeley DB
+	Download Source: http://download.oracle.com/berkeley-db/db-6.0.20.tar.gz
+	
+	- You download a tar file from download source url and go to the download folder.
+	- You extract tar file and install Berkeley library
+	
+	ex:)
+	$ cd {berkeley tar folder}
+	$ tar xvfz db-6.0.20.tar.gz 
+	$ cd db-6.0.20/build_unix
+	$../dist/configure  --prefix=/usr/local/berkeleydb.6.0.20 --enable-mingw --enable-cxx
+	or 
+	$../dist/configure  --prefix=/usr/local/berkeleydb.6.0.20 --enable-cxx --enable-dbm --enable-compat185
+	$make
+	
+  2.3 Boost
+	Download Source: https://boostorg.jfrog.io/artifactory/main/release/1.77.0/source/boost_1_77_0.tar.gz
+					 https://www.boost.org/users/history/version_1_77_0.html
+					 
+	- Download either the zip or the 7z archive, unpack Boost to {your 3rd-party path}:, rename, then bootstrap and compile.
+	
+	ex:)
+	$ cd {boost extracted folder}
+	$ ./bootstrap
+	$ b2 --with-chrono --with-filesystem --with-program_options --with-system --with-thread toolset=gcc cxxflags="-std=gnu++11" link=static threading=multi runtime-link=static stage
+	$ b2 install --prefix=/usr/local/boost.1.77.0
+
+  2.4 Miniupnpc
+	Download Source: http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.20150206.tar.gz 
+	
+    - Download from url and unpack it:
+	
+	ex:)
+	$ cd miniupnpc-1.9.20150206
+	$ make init upnpc-static
+	$ make install
+
+  2.5 libpng
+	Download Source: http://prdownloads.sourceforge.net/libpng/libpng-1.6.37.tar.xz?download
+	
+	- Download from url and install it:
+	
+	ex:)
+	$ cd {libpng tar folder}
+	$ tar xvfz libpng-1.6.37.tar.gz
+	$ cd libpng-1.6.37
+	$ ./configure --disable-shared
+	$ make
+	$ cp .libs/libpng16.a .libs/libpng.a
+
+  2.6 qrencode
+	Download Source: http://sources.buildroot.net/libqrencode/qrencode-4.1.1.tar.gz
+
+	- Download from url and install it:
+	
+	ex:)
+	$ cd {qrencode tar folder}
+	$ tar xvfz qrencode-4.1.1.tar.gz
+	$ cd qrencode-4.1.1
+	$ LIBS="../libpng-1.6.37/.libs/libpng.a {QT.Dir}/Tools/mingw530_32/i686-w64-mingw32/lib/libz.a" \
+	  png_CFLAGS="-I../libpng-1.6.37" \
+	  png_LIBS="-L../libpng-1.6.37/.libs" \
+	  configure
+	$ make
+
+3. Compile chesscoin-qt.exe with Qt 5.9.2
+
+  3.1 Qt 5.9.2 Install
+	Download Source: https://download.qt.io/archive/qt/5.9/5.9.2/qt-opensource-linux-x64-5.9.2.run
+	
+	- You download Qt versin and Install with defaults.	
+	
+  3.2 Compile daemon with Qt 5.9.2
+
+	- Edit chesscoin-qt.pro
+		With a text editor, edit INCLUDEPATHS, LIBPATHS, and LIBS in your prject .pro according to your dependency versions and locations:
+
+		...
+		
+		BOOST_LIB_SUFFIX=
+		BOOST_INCLUDE_PATH=/usr/local/boost.1.77.0/include
+		BOOST_LIB_PATH=/usr/local/boost.1.77.0/lib
+
+		BDB_INCLUDE_PATH=/usr/local/berkeleydb.6.0.20/include
+		BDB_LIB_PATH=/usr/local/berkeleydb.6.0.20/lib
+
+		OPENSSL_INCLUDE_PATH=/usr/local/ssl.1.1.1/include
+		OPENSSL_LIB_PATH=/usr/local/ssl.1.1.1/lib
+
+		QRENCODE_INCLUDE_PATH=/usr/local/include
+		QRENCODE_LIB_PATH=/usr/local/lib
+		
+		...
+
+		contains(USE_UPNP, 1) {
+			message(Building with miniupnpc support)
+			INCLUDEPATHS += -I"/usr/include/miniupnpc"
+			MINIUPNPC_LIB_PATH=/usr/lib
+			LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+			win32:LIBS += -liphlpapi
+			DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
+		}
+		
+		...
+	
+	- Compile leveldb	
+
+		$cd {project}/src/leveldb
+		$TARGET_OS=Linux make libleveldb.a libmemenv.a
+
+	- Compile chesscoind 
+
+		$ cd {Project}/src
+		$ make -f makefile.unix
+		$ strip chesscoind

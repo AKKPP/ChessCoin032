@@ -9,8 +9,16 @@ cryptographic software written by Eric Young (eay@cryptsoft.com).
 UNIX BUILD NOTES
 ================
 
+To Build
+--------
+
+cd src/
+make -f makefile.unix
+strip chesscoind
+
+
 Dependencies
-------------
+================
 
  Library     Purpose           Description                 Install Path
  -------     -------           -----------                 -------------
