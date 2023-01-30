@@ -35,13 +35,19 @@ Issues with no commits will be given a similar warning, and closed after
 labeled 'stale'.
 
 
-Important
-===========================
+How to build ChessCoin GUI application on Windows
+======================================================
 
-Always synchronize the blockchain first and then start the staking - Important
+See : `doc/build-window.txt`.
 
 
-How to build daemon on Unix
-===========================
+How to build ChessCoin GUI application on Mac
+======================================================
 
-See : `doc/build-unix.txt`.
+See : `doc/build-mac.txt`.
+
+
+How to build ChessCoin GUI application on Ubuntu
+======================================================
+
+See : `doc/build-ubuntu.txt`.

@@ -108,6 +108,7 @@ void qtCamera::initlayout()
     lblQRcode->setGeometry(20, 10, 500, 60);
     lblQRcode->setStyleSheet(QString("background-color: transparent;border: 0px;"));
     lblQRcode->setText("<font color=\"red\">Detected QR Code:</font>");
+    lblQRcode->hide();
 
     QFont font = GUIUtil::bitcoinAddressFont();
     font.setBold(true);
@@ -220,6 +221,7 @@ void qtCamera::imageCaptured(int id, const QImage &preview)
     QZXing zxing;
     QString decode = zxing.decodeImage(preview);
     if (!decode.isEmpty()) {
+        lblQRcode->show();
         QString text = "<font color=\"red\" font-size=\"12px\">Detected QR Code: ";
         text += decode;
         qrCode = decode;

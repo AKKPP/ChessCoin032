@@ -1162,3 +1162,4 @@ bool CloseSocket(SOCKET& hSocket)
     hSocket = INVALID_SOCKET;
     return ret != SOCKET_ERROR;
 }
+

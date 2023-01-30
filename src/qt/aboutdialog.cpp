@@ -10,8 +10,16 @@ AboutDialog::AboutDialog(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    setMinimumSize(600, 300);
-    setMaximumSize(600, 300);
+#if (defined (_WIN32) || defined (_WIN64))
+	setMinimumSize(600, 300);
+	setMaximumSize(600, 300);
+#elif (defined (LINUX) || defined (__linux__))
+    setMinimumSize(600, 360);
+    setMaximumSize(600, 360);
+#else
+    setMinimumSize(600, 390);
+    setMaximumSize(600, 390);
+#endif
 }
 
 void AboutDialog::setModel(ClientModel *model)

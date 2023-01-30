@@ -1,0 +1,183 @@
+Mac
+
+1. Prepare your build system
+
+1.1 Check build dependencies
+
+openssl version check
+$openssl version
+
+perl version check
+$perl -v
+
+Qt version Check
+$qmake --version
+
+boost version check
+$cat /usr/include/boost/version.hpp | grep "BOOST_LIB_VERSION"
+
+You can latest download versions from internet.
+Install with defaults.
+
+1.2 Install QT5.9.2
+
+https://download.qt.io/archive/qt/5.9/5.9.2/qt-opensource-mac-x64-5.9.2.dmg
+You download Qt versin and Install with defaults.
+
+2. Download, unpack and build required dependencies
+
+Project folder tree overview:
+
+./ChessCoin-qt
+  --ChessCoin-qt.pro
+  --src
+  -----leveldb
+  --3party
+  -----openssl1.0.2u (OpenSSL 1.0.2u 20 Dec 2019)
+  -----db-18.1.40
+  -----boost_1.57.0
+  -----libpng-1.6.37
+  -----qrencode-4.1.1
+  -----miniupnpc-1.9.20150206
+
+
+2.1 OpenSSL
+
+OpenSSL 1.1.1l 24 Aug 2021
+https://ftp.openssl.org/source/openssl-1.1.1l.tar.gz
+
+$cd /{your 3rd-party path}
+$tar zxvf openssl-1.1.1l.tar.gz
+$cd openssl-1.1.1l
+$./config --prefix=/usr/local/ssl --openssldir=/usr/local/ssl shared zlib
+$make
+$make install 
+
+2.2 Berkeley DB
+
+https://www.linuxfromscratch.org/blfs/view/7.5/server/db.html
+
+$cd /{your 3rd-party path}
+$tar xvfz db-18.1.40.tar.gz 
+./Configure darwin64-x86_64-cc
+../dist/configure LDFLAGS='-arch x86_64 -arch i386' CFLAGS='-arch x86_64 -arch i386' --prefix=/usr/local/berkeleydb.18.1.40/ --enable-cxx
+../dist/configure --prefix=/usr/local/berkeleydb.18.1.40/ --enable-cxx --enable-static
+$make
+
+2.3 Boost
+
+https://www.boost.org/users/history/version_1_57_0.html
+
+Download either the zip or the 7z archive, unpack Boost to {your 3rd-party path}:, rename, then bootstrap and compile from a Windows command prompt:
+
+$cd {your 3rd-party path}
+$bootstrap.bat
+$b2 --build-type=complete --with-chrono --with-filesystem --with-program_options --with-system --with-thread cxxflags="-std=gnu++11" link=static threading=multi runtime-link=static stage
+
+This will compile the required Boost libraries and put them into the stage folder ({your 3rd-party path}\boost_1_57_0\stage). 
+Note: make sure you don't use tarballs, as unix EOL markers can break batch files.
+
+$b2 install --prefix=/usr/local/boost.1.77.0
+
+2.4 Miniupnpc
+
+Download http://miniupnp.free.fr/files/download.php?file=miniupnpc-1.9.20150206.tar.gz  and unpack to {your 3rd-party path}:, then from a Windows command prompt:
+
+>cd miniupnpc-1.9.20150206
+>mingw32-make -f Makefile.mingw init upnpc-static
+
+rename miniupnpc-1.9.20150206 to miniupnpc
+
+or 
+cmake CMakeList.txt
+make upnpc-static
+make install
+
+
+2.5 libpng
+
+http://www.libpng.org/pub/png/libpng.html
+
+tar xvfz libpng-1.6.37.tar.gz
+cd libpng-1.6.37
+./configure --disable-shared
+make
+cp .libs/libpng16.a .libs/libpng.a
+
+2.6 qrencode-4.1.1
+
+tar xvfz qrencode-4.1.1.tar.gz
+cd qrencode-4.1.1
+LIBS="/usr/local/lib/libpng16.a -lz" \
+png_CFLAGS="-I/usr/local/include/libpng16" \
+png_LIBS="-L/usr/local/lib" \
+./configure --enable-static --disable-shared --prefix="/usr/local/qrencode-4.1.1"
+./configure --enable-static --disable-shared --target=x86_64-apple-darwin19.0.0 --prefix="/usr/local/qrencode-4.1.1"
+make
+make install
+
+cd qrencode-4.1.1
+LIBS="../libpng-1.6.37/.libs/libpng16.a -lz" \
+png_CFLAGS="-I../libpng-1.6.37" \
+png_LIBS="-L../libpng-1.6.37/.libs" \
+./configure --enable-static --disable-shared --prefix="/usr/local/qrencode-4.1.1"
+
+# in case of x86_64 link error
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local/qrencode-4.1.1 -DSTATIC_IN_RELEASE=static -DPNG_LIBRARIES=/usr/local/lib
+make
+make install
+
+
+3. Compile chesscoin-qt.exe with Qt 5.9.2
+
+3.1 Edit chesscoin-qt-mac.pro
+
+With a text editor, edit INCLUDEPATHS, LIBPATHS, and LIBS in your prject .pro according to your dependency versions and locations:
+
+# Dependency library locations can be customized with:
+#    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
+#    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
+
+BOOST_LIB_SUFFIX=
+BOOST_INCLUDE_PATH=/usr/local/boost.1.77.0/include
+BOOST_LIB_PATH=/usr/local/boost.1.77.0/lib
+
+BDB_INCLUDE_PATH=/usr/local/berkeleydb.18.1.40/include
+BDB_LIB_PATH=/usr/local/berkeleydb.18.1.40/lib
+
+OPENSSL_INCLUDE_PATH=/usr/local/ssl.1.1.1/include
+OPENSSL_LIB_PATH=/usr/local/ssl.1.1.1/lib
+
+QRENCODE_INCLUDE_PATH=/usr/local/qrencode-4.1.1/include
+QRENCODE_LIB_PATH=/usr/local/qrencode-4.1.1/lib
+
+and...
+
+contains(USE_UPNP, 1) {
+ message(Building with miniupnpc support)
+ INCLUDEPATHS += -I"/usr/include/miniupnpc"
+ MINIUPNPC_LIB_PATH=/usr/lib
+ LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
+ win32:LIBS += -liphlpapi
+ DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
+}
+
+Upnp support is disabled by default. If you want to compile with UPNP support set:
+	USE_UPNP:=1
+	
+3.2 Compile leveldb	
+
+$cd {project}/src/leveldb
+$TARGET_OS=Darwin make libleveldb.a libmemenv.a
+
+3.3 Compile with Qt IDE
+
+You open Qtcreator and build project from IDE.
+
+3.4 Mac Deploy
+
+cd {QTDir}/
+./macdeployqt {chesscoin binary path}/chesscoin-qt.app -always-overwrite -libpath=/usr/lib,/usr/local/boost.1.77.0/lib,/usr/local/berkeleydb.18.1.40/lib,/usr/local/ssl.1.1.1/lib,/usr/local/lib,/usr/local/qzxing/lib /usr/local/qrencode-4.1.1/lib -dmg
+
+./macdeployqt /Users/vanna/Documents/Workspace/BlockChain/Deploy/chesscoin-qt.app -always-overwrite -libpath=/usr/lib,/usr/local/boost.1.77.0/lib,/usr/local/berkeleydb.18.1.40/lib,/usr/local/ssl.1.1.1/lib,/usr/local/lib,/usr/local/qzxing/lib /usr/local/qrencode-4.1.1/lib -dmg
+                                

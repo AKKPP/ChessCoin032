@@ -113,6 +113,18 @@ Intro::Intro(QWidget *parent) :
 {
     ui->setupUi(this);
     ui->sizeWarningLabel->setText(ui->sizeWarningLabel->text().arg(BLOCK_CHAIN_SIZE/GB_BYTES));
+	
+#if (defined (WIN32) || defined (WIN64))
+    setMinimumSize(480, 306);
+    setMaximumSize(480, 306);
+#elif (defined (LINUX) || defined (_linux_))
+    setMinimumSize(480, 368);
+    setMaximumSize(480, 368);
+#else
+    setMinimumSize(480, 384);
+    setMaximumSize(480, 384);
+#endif
+
     startThread();
 }
 

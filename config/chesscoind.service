@@ -7,7 +7,7 @@ User=ubuntu
 Group=ubuntu
 
 Type=forking
-PIDFile=/var/lib/chesscoind/chesscoind.pid
+PIDFile=/home/ubuntu/chesscoin/chesscoind.pid
 ExecStart=/usr/local/bin/chesscoind -daemon
 ExecStop=/usr/local/bin/chesscoind-cli stop
 

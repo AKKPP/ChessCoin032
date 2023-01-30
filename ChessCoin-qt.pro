@@ -1,6 +1,6 @@
 TEMPLATE = app
 TARGET = chesscoin-qt
-VERSION = 1.4.3
+VERSION = 1.4.4
 INCLUDEPATH += src src/json src/qt
 DEFINES += QT_GUI BOOST_THREAD_USE_LIB BOOST_SPIRIT_THREADSAFE
 CONFIG += no_include_pwd
@@ -25,19 +25,11 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 #    BOOST_INCLUDE_PATH, BOOST_LIB_PATH, BDB_INCLUDE_PATH,
 #    BDB_LIB_PATH, OPENSSL_INCLUDE_PATH and OPENSSL_LIB_PATH respectively
 
+OBJECTS_DIR = build
+MOC_DIR = build
+UI_DIR = build
 
-# <= v1.3.1
-#BOOST_LIB_SUFFIX=-mgw63-mt-s-1_57
-#BOOST_INCLUDE_PATH=C:/ChessCoinLibs/boost_1_57_0
-#BOOST_LIB_PATH=C:/ChessCoinLibs/boost_1_57_0/stage/lib
-#BDB_INCLUDE_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
-#BDB_LIB_PATH=C:/ChessCoinLibs/db-6.0.20/build_windows
-#OPENSSL_INCLUDE_PATH=C:/ChessCoinLibs/openssl-1.0.2u/include
-#OPENSSL_LIB_PATH=C:/ChessCoinLibs/openssl-1.0.2u
-#QRENCODE_INCLUDE_PATH=C:/ChessCoinLibs/qrencode-4.1.1
-#QRENCODE_LIB_PATH=C:/ChessCoinLibs/qrencode-4.1.1/.libs
 
-# v1.4
 BOOST_LIB_SUFFIX=-mgw5-mt-s-x32-1_77
 BOOST_INCLUDE_PATH=D:/ChessCoinLibs/boost_1_77_0
 BOOST_LIB_PATH=D:/ChessCoinLibs/boost_1_77_0/stage/lib
@@ -54,14 +46,11 @@ QRENCODE_LIB_PATH=D:/ChessCoinLibs/qrencode-4.1.1/.libs
 QRDECODE_INCLUDE_PATH=D:/ChessCoinLibs/qzxing
 QRDECODE_LIB_PATH=D:/ChessCoinLibs/qzxing/lib
 
-OBJECTS_DIR = build
-MOC_DIR = build
-UI_DIR = build
 
 # use: qmake "RELEASE=1"
 contains(RELEASE, 1) {
     # Mac: compile for maximum compatibility (10.5, 32-bit)
-    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.5.sdk
+    macx:QMAKE_CXXFLAGS += -mmacosx-version-min=10.5 -arch x86_64 -isysroot /Developer/SDKs/MacOSX11.3.sdk
 
     !windows:!macx {
         # Linux: static link
@@ -104,7 +93,8 @@ QMAKE_LFLAGS_RELEASE -= -Wl,-s
 contains(USE_QRCODE, 1) {
     message(Building with QRCode support)
     DEFINES += USE_QRCODE
-    LIBS += -lqrencode
+    macx:LIBS += $$QRENCODE_LIB_PATH/libqrencode.a
+    else:LIBS += -lqrencode
 }
 
 # use: qmake "USE_DBUS=1"
@@ -114,15 +104,10 @@ contains(USE_DBUS, 1) {
     QT += dbus
 }
 
-# <= v1.3.1
-#contains(USE_UPNP, 1) {
-#    message(Building with miniupnpc support)
-#    INCLUDEPATHS += -I"C:/ChessCoinLibs/miniupnpc-1.9"
-#    MINIUPNPC_LIB_PATH=C:/ChessCoinLibs/miniupnpc-1.9
-#    LIBS += $$join(MINIUPNPC_LIB_PATH,,-L,) -lminiupnpc
-#    win32:LIBS += -liphlpapi
-#    DEFS += -DSTATICLIB -DUSE_UPNP=$(USE_UPNP)
-#}
+contains(BITCOIN_NEED_QT_PLUGINS, 1) {
+    DEFINES += BITCOIN_NEED_QT_PLUGINS
+    QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
+}
 
 contains(USE_UPNP, 1) {
     message(Building with miniupnpc support)
@@ -149,11 +134,6 @@ contains(USE_IPV6, -) {
         USE_IPV6=1
     }
     DEFINES += USE_IPV6=$$USE_IPV6
-}
-
-contains(BITCOIN_NEED_QT_PLUGINS, 1) {
-    DEFINES += BITCOIN_NEED_QT_PLUGINS
-    QTPLUGIN += qcncodecs qjpcodecs qtwcodecs qkrcodecs qtaccessiblewidgets
 }
 
 INCLUDEPATH += src/leveldb/include src/leveldb/helpers
@@ -205,7 +185,7 @@ contains(USE_O3, 1) {
     QMAKE_CFLAGS += -msse2
 }
 
-QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wno-unused-local-typedef -Wstack-protector -Wstack-protector -fexceptions
+QMAKE_CXXFLAGS_WARN_ON = -fdiagnostics-show-option -Wall -Wextra -Wno-ignored-qualifiers -Wformat -Wformat-security -Wno-unused-parameter -Wstack-protector -fexceptions
 
 # Input
 DEPENDPATH += src src/json src/qt
@@ -294,7 +274,6 @@ HEADERS += src/qt/bitcoingui.h \
     src/protocol.h \
     src/qt/notificator.h \
     src/qt/qtipcserver.h \
-    src/qt/qtcamera.h \
     src/allocators.h \
     src/ui_interface.h \
     src/qt/rpcconsole.h \
@@ -303,7 +282,8 @@ HEADERS += src/qt/bitcoingui.h \
     src/clientversion.h \
     src/threadsafety.h \
     src/checkqueue.h \
-    src/timestamps.h
+    src/timestamps.h \
+    src/qt/qtcamera.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/intro.cpp \

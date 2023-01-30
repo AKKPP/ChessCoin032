@@ -19,6 +19,10 @@
 #include <boost/algorithm/string/predicate.hpp>
 #include <openssl/crypto.h>
 
+#include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+
 #ifndef WIN32
 #include <signal.h>
 #endif
@@ -169,6 +173,37 @@ bool AppInit(int argc, char* argv[])
             int ret = CommandLineRPC(argc, argv);
             exit(ret);
         }
+
+#if !defined(WIN32) && !defined(QT_GUI) && defined(BUILD_DAEMON)
+        fDaemon = GetBoolArg("-daemon", false);
+
+        if (fDaemon)
+        {
+            fprintf(stdout, "ChessCoin 0.32%% server starting\n");
+            printf("ChessCoin 0.32%% server daemon starting\n");
+
+            // Daemonize
+            pid_t pid = fork();
+            if (pid < 0)
+            {
+                fprintf(stderr, "Error: fork() returned %d errno %d\n", pid, errno);
+                return false;
+            }
+            if (pid > 0)
+            {
+                CreatePidFile(GetPidFile(), pid);
+                return true;
+            }
+
+            pid_t sid = setsid();
+            if (sid < 0)
+                fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
+        }
+#else
+        fDaemon = false;
+#endif
+
+        SoftSetBoolArg("-server", true);
 
         fRet = AppInit2();
     }
@@ -364,6 +399,7 @@ bool AppInit2()
     PSETPROCDEPPOL setProcDEPPol = (PSETPROCDEPPOL)GetProcAddress(GetModuleHandleA("Kernel32.dll"), "SetProcessDEPPolicy");
     if (setProcDEPPol != NULL) setProcDEPPol(PROCESS_DEP_ENABLE);
 
+
     // Initialize Windows Sockets
     WSADATA wsadata;
     int ret = WSAStartup(MAKEWORD(2,2), &wsadata);
@@ -459,18 +495,12 @@ bool AppInit2()
     else
         fDebugNet = GetBoolArg("-debugnet");
 
-#if !defined(WIN32) && !defined(QT_GUI) && defined(BUILD_DAEMON)
-    fDaemon = GetBoolArg("-daemon");
-#else
-    fDaemon = false;
-#endif
-
     fServer = GetBoolArg("-server");
 
     /* force fServer when running without GUI */
-#if !defined(QT_GUI) && defined(BUILD_DAEMON)
-    SoftSetBoolArg("-server", true);
-#endif
+//#if !defined(QT_GUI) && defined(BUILD_DAEMON)
+//    fServer = true;
+//#endif
 
     fPrintToConsole = GetBoolArg("-printtoconsole");
     fPrintToDebugger = GetBoolArg("-printtodebugger");
@@ -523,30 +553,6 @@ bool AppInit2()
     if (!lock.try_lock())
         return InitError(strprintf(_("Cannot obtain a lock on data directory %s.  ChessCoin 0.32% is probably already running."), strDataDir.c_str()));
 
-#if !defined(WIN32) && !defined(QT_GUI)
-    #ifdef BUILD_DAEMON
-        if (fDaemon)
-        {
-            // Daemonize
-            pid_t pid = fork();
-            if (pid < 0)
-            {
-                fprintf(stderr, "Error: fork() returned %d errno %d\n", pid, errno);
-                return false;
-            }
-            if (pid > 0)
-            {
-                CreatePidFile(GetPidFile(), pid);
-                return true;
-            }
-
-            pid_t sid = setsid();
-            if (sid < 0)
-                fprintf(stderr, "Error: setsid() returned %d errno %d\n", sid, errno);
-        }
-    #endif
-#endif
-
     if (GetBoolArg("-shrinkdebugfile", !fDebug))
         ShrinkDebugFile();
     printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
@@ -558,10 +564,7 @@ bool AppInit2()
     printf("Used data directory %s\n", strDataDir.c_str());
     std::ostringstream strErrors;
 
-#ifdef BUILD_DAEMON
-    if (fDaemon)
-        printf("ChessCoin 0.32%% server starting\n");
-#endif
+
 
     int64_t nStart;
 
@@ -584,7 +587,7 @@ bool AppInit2()
             return false;
     }
 
-    if (filesystem::exists(GetDataDir() / strWalletFileName))
+    if (boost::filesystem::exists(GetDataDir() / strWalletFileName))
     {
         CDBEnv::VerifyResult r = bitdb.Verify(strWalletFileName, CWalletDB::Recover);
         if (r == CDBEnv::RECOVER_OK)
@@ -914,14 +917,14 @@ else
         StartShutdown();
     }
 
-    filesystem::path pathBootstrap = GetDataDir() / "bootstrap.dat";
-    if (filesystem::exists(pathBootstrap))
+    boost::filesystem::path pathBootstrap = GetDataDir() / "bootstrap.dat";
+    if (boost::filesystem::exists(pathBootstrap))
     {
         uiInterface.InitMessage(_("Importing bootstrap blockchain data file."));
 
         FILE *file = fopen(pathBootstrap.string().c_str(), "rb");
         if (file) {
-            filesystem::path pathBootstrapOld = GetDataDir() / "bootstrap.dat.old";
+            boost::filesystem::path pathBootstrapOld = GetDataDir() / "bootstrap.dat.old";
             LoadExternalBlockFile(file);
             RenameOver(pathBootstrap, pathBootstrapOld);
         }

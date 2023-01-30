@@ -3,21 +3,21 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 INCLUDEPATHS= \
- -I"C:\ChessCoinLibs\boost_1_57_0" \
- -I"C:\ChessCoinLibs\db-6.0.20\build_windows" \
- -I"C:\ChessCoinLibs\openssl-1.0.2u\include"
+ -I"D:\ChessCoinLibs\boost_1_57_0" \
+ -I"D:\ChessCoinLibs\db-6.0.20\build_windows" \
+ -I"D:\ChessCoinLibs\openssl-1.0.2u\include"
 
 LIBPATHS= \
- -L"C:\ChessCoinLibs\boost_1_57_0\stage/lib" \
- -L"C:\ChessCoinLibs\db-6.0.20\build_windows" \
- -L"C:\ChessCoinLibs\openssl-1.0.2u"
+ -L"D:\ChessCoinLibs\boost_1_57_0\stage/lib" \
+ -L"D:\ChessCoinLibs\db-6.0.20\build_windows" \
+ -L"D:\ChessCoinLibs\openssl-1.0.2u"
 
 LIBS= \
- -lboost_system-mgw63-mt-s-1_57 \
- -lboost_filesystem-mgw63-mt-s-1_57 \
- -lboost_program_options-mgw63-mt-s-1_57 \
- -lboost_thread-mgw63-mt-s-1_57 \
- -lboost_chrono-mgw63-mt-s-1_57 \
+ -lboost_system-mgw5-mt-s-x32-1_77 \
+ -lboost_filesystem-mgw5-mt-s-x32-1_77 \
+ -lboost_program_options-mgw5-mt-s-x32-1_77 \
+ -lboost_thread-mgw5-mt-s-x32-1_77 \
+ -lboost_chrono-mgw5-mt-s-x32-1_77 \
  -ldb_cxx \
  -lssl \
  -lcrypto
@@ -79,7 +79,7 @@ OBJS= \
     obj/zerocoin/SpendMetaData.o \
     obj/zerocoin/ZeroTest.o
 
-all: chesscoind.exe
+all: directories chesscoind.exe
 
 LIBS += $(CURDIR)/leveldb/libleveldb.a $(CURDIR)/leveldb/libmemenv.a -lshlwapi
 DEFS += $(addprefix -I,$(CURDIR)/leveldb/include)
@@ -101,6 +101,9 @@ obj/scrypt-x86.o: scrypt-x86.S
 obj/scrypt-x86_64.o: scrypt-x86_64.S
 	$(CXX) -c $(xCXXFLAGS) -MMD -o $@ $<
 
+directories:
+	-mkdir -p obj/zerocoin
+	
 chesscoind.exe: $(OBJS:obj/%=obj/%)
 	g++ $(CFLAGS) $(LDFLAGS) -o $@ $(LIBPATHS) $^ $(LIBS)
 

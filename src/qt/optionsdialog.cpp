@@ -26,6 +26,7 @@ OptionsDialog::OptionsDialog(QWidget *parent) :
 
     /* Network elements init */
     ui->proxyIp->setEnabled(false);
+    ui->proxyPort->setMinimumWidth(60);
     ui->proxyPort->setEnabled(false);
     ui->proxyPort->setValidator(new QIntValidator(1, 65535, this));
 

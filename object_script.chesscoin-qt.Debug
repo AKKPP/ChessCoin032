@@ -114,7 +114,7 @@ INPUT(
 ./build/moc_qvaluecombobox.o
 ./build/moc_askpassphrasedialog.o
 ./build/moc_notificator.o
-./build/moc_qtcamera.o
 ./build/moc_rpcconsole.o
+./build/moc_qtcamera.o
 ./build/moc_qrcodedialog.o
 );

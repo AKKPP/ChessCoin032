@@ -91,7 +91,11 @@ public:
     CBigNum(short n)            	{ bn = BN_new(); if (n >= 0) setulong(n); else setint64(n); }
     CBigNum(int n)              	{ bn = BN_new(); if (n >= 0) setulong(n); else setint64(n); }
     CBigNum(long n)             	{ bn = BN_new(); if (n >= 0) setulong(n); else setint64(n); }
+#if (defined (LINUX) || defined (__linux__))  
+	//CBigNum(int64_t n)            	{ bn = BN_new(); setint64(n); }  
+#else
     CBigNum(int64_t n)            	{ bn = BN_new(); setint64(n); }
+#endif
     CBigNum(unsigned char n)    	{ bn = BN_new(); setulong(n); }
     CBigNum(unsigned short n)   	{ bn = BN_new(); setulong(n); }
     CBigNum(unsigned int n)     	{ bn = BN_new(); setulong(n); }
